@@ -3,7 +3,7 @@
 }
 
 .jumbotron {
-    background-image: url("../ingredients.jpg");
+    background-image: url("../assets/img/ingredients.jpg");
     background-size: cover;
     color: white;
 }
