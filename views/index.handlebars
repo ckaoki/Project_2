@@ -1,17 +1,162 @@
 <div id="home">
-  <div class="container">
-    <div class="row">
+  <div
+        class="navbar-light warning-color lighten-5 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
+        <a class="logo my-0 mr-md-auto navbar-brand" href="#">
+            <img src="../public/Pantry.png" height="60" class="d-inline-block align-top" alt="pantryassembler">
+        </a>
+
+        <ul class="nav my-2 my-md-0 mr-md-3">
+            <li class="nav-item">
+                <a class="nav-link active" href="#">SAVED RECIPES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">SHOPPING LIST</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">SHARE!</a>
+            </li>
+            <button type="button" class="loginbtn btn btn-danger btn-sm">SIGN IN/SIGN UP</button>
+        </ul>
+    </div>
+    <div class="jumbotron jumbotron-fluid align-center align-items-center text-center">
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <h4>What's on your pantry today?</h4>
+                    <label for="formGroupExampleInput">Search by ingredients</label>
+                    <div class="row justify-content-md-center">
+                        <input type="text" class="w-50 form-control" id="formGroupExampleInput"
+                            placeholder="Ex. Spinach, pork, eggs">
+                        <br>
+                    </div>
+                    <br>
+                    <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+                    <button type="submit" class="btn btn-danger">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recipes of the month -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
+                        role="img" aria-label="Placeholder: Thumbnail">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+                            dy=".3em">Thumbnail</text>
+                    </svg>
+                    <div class="card-body">
+                        <h5 class="recipename card-title">Recipe name</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
+                        role="img" aria-label="Placeholder: Thumbnail">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+                            dy=".3em">Thumbnail</text>
+                    </svg>
+                    <div class="card-body">
+                        <h5 class="recipename card-title">Recipe name</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
+                        role="img" aria-label="Placeholder: Thumbnail">
+                        <title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+                            dy=".3em">Thumbnail</text>
+                    </svg>
+                    <div class="card-body">
+                        <h5 class="recipename card-title">Recipe name</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col py-3 px-lg-5 border bg-light">
+                    <div class="subtitles">Saved dishes!</div>
+                </div>
+
+                <div class="col py-3 px-lg-5 border bg-light">
+                    <div class="subtitles">Shopping list</div>
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col py-3 px-lg-5 border bg-light">
+                    <div class="subtitles">Add recipe</div>
+                    <hr>
+                    <form class="create-form">
+                        <div class="form-group">
+                            <label for="ca">Recipe name:</label>
+                            <input type="text" id="ca" name="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ca">Ingredients:</label>
+                            <input type="text" id="ca" name="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ca">Instructions:</label>
+                            <input type="text" id="ca" name="name">
+                        </div>
+
+                        <button class="btn btn-danger btn-sm" type="submit">Add now!</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {{!-- <div class="row">
       <div class="col-8 offset-2">
         <h1>{{msg}}</h1>
         <h2>This is our Home Page!</h2>
         <form class="clearfix mb-4" action="POST">
           <div class="form-group">
             <label for="example-text">Example Text</label>
-            <input type="text" id="example-text" class="form-control" aria-describedby="example-text" placeholder="Enter Example Text">
+            <input type="text" id="example-text" class="form-control" aria-describedby="example-text"
+              placeholder="Enter Example Text">
           </div>
           <div class="form-group">
             <label for="example-description">Example Description</label>
-            <textarea class="form-control" id="example-description" aria-describedby="example-description" placeholder="Enter Example Description"></textarea>
+            <textarea class="form-control" id="example-description" aria-describedby="example-description"
+              placeholder="Enter Example Description"></textarea>
           </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
@@ -25,7 +170,7 @@
           {{/each}}
         </ul>
       </div>
-    </div>
+    </div> --
   </div>
 </div>
 
