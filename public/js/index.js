@@ -2,6 +2,7 @@
 var $exampleText = $("#example-text");
 var $exampleDescription = $("#example-description");
 var $submitBtn = $("#submit");
+var $submitRecipeBtn = $(".addRecipe");
 var $exampleList = $("#example-list");
 
 // The API object contains methods for each kind of request we'll make
@@ -26,6 +27,16 @@ var API = {
     return $.ajax({
       url: "api/examples/" + id,
       type: "DELETE"
+    });
+  },
+  saveRecipe: function(recipe) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/addRecipe",
+      data: JSON.stringify(recipe)
     });
   }
 };
@@ -63,7 +74,7 @@ var refreshExamples = function() {
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
-
+  console.log('aaaaaaaaaa')
   var example = {
     text: $exampleText.val().trim(),
     description: $exampleDescription.val().trim()
@@ -94,6 +105,12 @@ var handleDeleteBtnClick = function() {
   });
 };
 
+var tempFunc = function(event) {
+  event.preventDefault();
+  console.log('aaaaaaaaaa')
+};
+
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
+// $submitRecipeBtn.on("click", tempFunc);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);

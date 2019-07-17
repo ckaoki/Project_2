@@ -24,11 +24,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     quantity: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     },
     unit: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     }
   });
 

@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "PantryDb",
+    "database": "dbPantryAssembler",
     "host": "localhost",
     "dialect": "mysql"
   },
