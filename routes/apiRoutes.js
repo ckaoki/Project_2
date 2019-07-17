@@ -1,6 +1,7 @@
 var db = require("../models");
 
 module.exports = function (app) {
+  // put these code into mjodule.exports function in apiRoutes.js
   // Create a user
   app.post("/api/users", function (req, res) {
     db.Users.create(req.body).then(function (dbUsers) {

@@ -1,3 +1,4 @@
+// put these code into index.js
 var $signUpName = $(".signUpName");
 var $signUpPassword = $(".signUpPassword");
 var $signUpPassword2 = $(".signUpPasswordAgain");
@@ -37,11 +38,7 @@ var submitToLogin = function (event) {
   event.preventDefault();
 
   var signInName = $signInName.val().trim();
-// console.log(signInName);
-  // if (!(user.user_name && user.password && user.email )) {
-  //   alert("You must enter an example text and description!");
-  //   return;
-  // }
+
 
   getApi.findOneUser(signInName).then(function (data) {
     console.log(data);
@@ -86,11 +83,12 @@ var signUpPassword2=$signUpPassword2.val().trim();
     alert("The password length must be between 6 and 12");
     return;
   };
-  var isExist="";
+  var isExist=[];
   getApi.findOneUser(user.user_name).then(function (data) {
-    isExist=data[0].id;
+    console.log(data)
+    isExist=data;
     
-    if(isExist!=""){
+    if(isExist.length!=0){
       alert("user name exist!");
       return;
     }
@@ -98,7 +96,7 @@ var signUpPassword2=$signUpPassword2.val().trim();
 
       getApi.saveUser(user).then(function () {
         console.log("you are signed up, go to log in");
-
+$("#sign_up_label").text("you are signed up, go to log in!");
         $signUpName.val("");
         $signUpPassword.val("");
         $signUpPassword2.val("");
