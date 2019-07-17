@@ -3,19 +3,19 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.Recipe.findAll({}).then(function(pantryAssemblerdb) {
       res.render("index", {
         msg: "Welcome!",
-        examples: dbExamples
+        examples: pantryAssemblerdb
       });
     });
   });
 
   // Load example page and pass in an example by id
   app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(dbExample) {
+    db.Recipe.findOne({ where: { id: req.params.id } }).then(function(pantryAssemblerdb) {
       res.render("example", {
-        example: dbExample
+        example: pantryAssemblerdb
       });
     });
   });
