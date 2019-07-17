@@ -1,5 +1,78 @@
 <div id="home">
-  <div
+
+<!-- sign up -->
+<div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="sign_up_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sign_up_label">Sign up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <form class="clearfix mb-4" action="POST">
+          <div class="form-group">
+            <label for="">User name</label>
+            <input type="text" id="" class="form-control signUpName" aria-describedby="example-text" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" id="" class="form-control signUpPassword" aria-describedby="example-text" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="">Confirm password</label>
+            <input type="password" id="" class="form-control signUpPasswordAgain" aria-describedby="example-text" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="">E-mail address</label>
+            <input type="text" id="" class="form-control signUpEmail" aria-describedby="example-text" placeholder="">
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary login_btn" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary signUpSubmit login_btn">Submit</button>
+      </div>
+    </div>
+  </div>
+</div><!-- sign up end-->
+
+<!-- sign in -->
+<div class="modal fade" id="sign_in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign in</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <form class="clearfix mb-4" action="POST">
+          <div class="form-group">
+            <label for="">User name</label>
+            <input type="text" id="" class="form-control signInName" aria-describedby="example-text" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" id="" class="form-control signInPassword" aria-describedby="example-text" placeholder="">
+          </div>
+         
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary login_btn" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary signInSubmit login_btn">Submit</button>
+      </div>
+    </div>
+  </div>
+</div><!-- sign in end-->
+
+
+    <div
         class="navbar-light warning-color lighten-5 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
         <a class="logo my-0 mr-md-auto navbar-brand" href="#">
             <img src="../assets/img/Pantry.png" height="60" class="d-inline-block align-top" alt="pantryassembler">
@@ -7,15 +80,18 @@
 
         <ul class="nav my-2 my-md-0 mr-md-3">
             <li class="nav-item">
-                <a class="nav-link active" href="#">SAVED RECIPES</a>
+                <a class="nav-link active" href="#savedshoppinglist">SAVED RECIPES</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">SHOPPING LIST</a>
+                <a class="nav-link" href="#savedshoppinglist">SHOPPING LIST</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">SHARE!</a>
+                <a class="nav-link" href="#share">SHARE!</a>
             </li>
-            <button type="button" class="loginbtn btn btn-danger btn-sm">SIGN IN/SIGN UP</button>
+            
+            <button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_up">SIGN UP</button>
+           
+            <button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_in">SIGN IN</button>
         </ul>
     </div>
     <div class="jumbotron jumbotron-fluid align-center align-items-center text-center">
@@ -105,20 +181,22 @@
                 </div>
             </div>
         </div>
+        <section id="savedshoppinglist">
+            <div class="container">
+                <div class="row">
+                    <div class="col py-3 px-lg-5 border bg-light">
+                        <div class="subtitles">Saved dishes!</div>
+                    </div>
 
-        <div class="container">
-            <div class="row">
-                <div class="col py-3 px-lg-5 border bg-light">
-                    <div class="subtitles">Saved dishes!</div>
+                    <div class="col py-3 px-lg-5 border bg-light">
+                        <div class="subtitles">Shopping list</div>
+                    </div>
                 </div>
+        </section>
 
-                <div class="col py-3 px-lg-5 border bg-light">
-                    <div class="subtitles">Shopping list</div>
-                </div>
-            </div>
+        <br>
+        <section id="share">
 
-            <br>
-                                   
             <div class="row">
                 <div class="col py-3 px-lg-5 border bg-light">
                     <div class="subtitles">Add recipe</div>
@@ -129,14 +207,10 @@
                             <input type="text" id="recipeName" name="name">
                         </div>
 
+
                         <div class="form-group">
                             <label for="description">Description:</label>
                             <input type="text" id="recipeDescription" name="name">
-                        </div>
-
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose Ingredients file. CSV formatted (qty, units, ingredient)</label>
                         </div>
 
                         {{!-- <div class="form-group">
@@ -147,13 +221,19 @@
                         <div class="form-group">
                             <label for="instructions">Instructions:</label>
                             <input type="text" id="recipeInstructions" name="name">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    id="inputGroupFileAddon04">Upload ingredients</button>
+                            </div>
                         </div>
-
+                        <br>
+                        </div>
                         <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
                     </form>
                 </div>
             </div>
-        </div>
+        </section>
+    </div>
     {{!-- <div class="row">
       <div class="col-8 offset-2">
         <h1>{{msg}}</h1>
@@ -186,5 +266,5 @@
 </div>
 --}}
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/index.js"></script>

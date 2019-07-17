@@ -1,6 +1,27 @@
 var db = require("../models");
 
 module.exports = function(app) {
+
+  // Creates a user
+  app.post("/api/users", function (req, res) {
+    db.Users.create(req.body).then(function (dbUsers) {
+      res.json(dbUsers);
+    });
+  });
+  // Get one user
+  app.get("/api/users/:username", function (req, res) {
+    var username = req.params.username;
+    // console.log(username);
+    db.Users.findAll({
+      where: {
+        user_name: username
+      }
+    }).then(function (user) {
+      res.json(user);
+      // console.log(user);
+    });
+  });
+
   // Get all examples
   app.get("/api/test", function(req, res) {
     db.Recipe.findAll({
