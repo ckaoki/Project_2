@@ -3,13 +3,13 @@ module.exports = function(sequelize, DataTypes) {
       item_name: DataTypes.STRING,
      
     });
-    // PantryItems.associate = function(models) {
-    //     Recipe.belongsToMany(models.Users, {
-    //       through: "recipeIngredients",
-    //       as: 'ingredients',
-    //       foreignKey: 'recipeId',
-    //       onDelete: "cascade"
-    //     });
-    //   };
+    PantryItems.associate = function(models) {
+        PantryItems.belongsToMany(models.Users, {
+          through: "UsersPantries",
+          as: 'owner',
+          foreignKey: 'itemId',
+          onDelete: "cascade"
+        });
+      };
     return PantryItems;
   };

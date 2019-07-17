@@ -5,5 +5,13 @@ module.exports = function(sequelize, DataTypes) {
     email: DataTypes.STRING,
     // description: DataTypes.TEXT
   });
+  Users.associate = function(models) {
+    Users.belongsToMany(models.PantryItems, {
+      through: "UsersPantries",
+      as: 'belongings',
+      foreignKey: 'userId',
+      onDelete: "cascade"
+    });
+  };
   return Users;
 };

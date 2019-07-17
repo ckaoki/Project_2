@@ -21,6 +21,15 @@ module.exports = function (app) {
       // console.log(user);
     });
   });
+  // Create a food
+  app.post("/api/foods", function (req, res) {
+    db.UsersPantries.create(req.body).then(function (dbfoods) {
+      res.json(dbfoods);
+    });
+
+    
+
+  });
 
 
   // Get all examples
