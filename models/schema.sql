@@ -5,5 +5,5 @@
 -- CREATE DATABASE testdb;
 
 
-DROP DATABASE IF EXISTS pantryAssemblerdb;
-CREATE DATABASE pantryAssemblerdb;
+DROP DATABASE IF EXISTS dbPantryAssembler;
+CREATE DATABASE dbPantryAssembler;

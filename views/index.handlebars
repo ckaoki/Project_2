@@ -2,7 +2,7 @@
   <div
         class="navbar-light warning-color lighten-5 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
         <a class="logo my-0 mr-md-auto navbar-brand" href="#">
-            <img src="../public/assets/img/Pantry.png" height="60" class="d-inline-block align-top" alt="pantryassembler">
+            <img src="../assets/img/Pantry.png" height="60" class="d-inline-block align-top" alt="pantryassembler">
         </a>
 
         <ul class="nav my-2 my-md-0 mr-md-3">
@@ -122,23 +122,28 @@
                 <div class="col py-3 px-lg-5 border bg-light">
                     <div class="subtitles">Add recipe</div>
                     <hr>
-                    <form class="create-form">
+                    <form class="create-form" id="newRecipe">
                         <div class="form-group">
-                            <label for="ca">Recipe name:</label>
-                            <input type="text" id="ca" name="name">
+                            <label for="name">Recipe name:</label>
+                            <input type="text" id="name" name="name">
                         </div>
 
                         <div class="form-group">
-                            <label for="ca">Ingredients:</label>
-                            <input type="text" id="ca" name="name">
+                            <label for="description">Description:</label>
+                            <input type="text" id="description" name="name">
                         </div>
 
                         <div class="form-group">
-                            <label for="ca">Instructions:</label>
-                            <input type="text" id="ca" name="name">
+                            <label for="ingredients">Ingredients:</label>
+                            <input type="text" id="ingredients" name="name">
                         </div>
 
-                        <button class="btn btn-danger btn-sm" type="submit">Add now!</button>
+                        <div class="form-group">
+                            <label for="instructions">Instructions:</label>
+                            <input type="text" id="instructions" name="name">
+                        </div>
+
+                        <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
                     </form>
                 </div>
             </div>
@@ -173,6 +178,7 @@
     </div> --
   </div>
 </div>
+--}}
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/index.js"></script>
