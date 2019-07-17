@@ -39,7 +39,15 @@
   text-transform: uppercase;
 }
 
-/* login */
+.login_btn{
+  color: white;
+  background-color:   rgb(162, 15, 4);
+  width: 100px;
+  }
+
+
+
+/* style for login page NOT IN USE */
 
 .subtitlelogin{
   letter-spacing: 4px;
@@ -102,11 +110,6 @@
   margin-right: 5px;
   }
   
-  .login_btn{
-  color: white;
-  background-color:   rgb(162, 15, 4);
-  width: 100px;
-  }
   
   .login_btn:hover{
   color: black;
