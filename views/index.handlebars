@@ -1,21 +1,87 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_up">
+  sign up
+</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_in">
+  sign in
+</button>
+
+<!-- sign up -->
+<div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">sign up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <form class="clearfix mb-4" action="POST">
+          <div class="form-group">
+            <label for="">user name</label>
+            <input type="text" id="" class="form-control signUpName" aria-describedby="example-text" placeholder="Enter user name">
+          </div>
+          <div class="form-group">
+            <label for="">password</label>
+            <input type="text" id="" class="form-control signUpPassword" aria-describedby="example-text" placeholder="length between 6 and 12">
+          </div>
+          <div class="form-group">
+            <label for="">password again</label>
+            <input type="text" id="" class="form-control signUpPasswordAgain" aria-describedby="example-text" placeholder="Enter password again">
+          </div>
+          <div class="form-group">
+            <label for="">email</label>
+            <input type="text" id="" class="form-control signUpEmail" aria-describedby="example-text" placeholder="Enter email ( not required)">
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary signUpSubmit">submit</button>
+      </div>
+    </div>
+  </div>
+</div><!-- sign up end-->
+
+<!-- sign in -->
+<div class="modal fade" id="sign_in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">sign in</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <form class="clearfix mb-4" action="POST">
+          <div class="form-group">
+            <label for="">user name</label>
+            <input type="text" id="" class="form-control signInName" aria-describedby="example-text" placeholder="Enter Example Text">
+          </div>
+          <div class="form-group">
+            <label for="">password</label>
+            <input type="text" id="" class="form-control signInPassword" aria-describedby="example-text" placeholder="Enter Example Text">
+          </div>
+         
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary signInSubmit">submit</button>
+      </div>
+    </div>
+  </div>
+</div><!-- sign in end-->
+
 <div id="home">
   <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
 
-<form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
- 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
 
 
