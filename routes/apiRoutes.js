@@ -22,14 +22,14 @@ module.exports = function(app) {
     });
   });
   // Create a food
-  app.post("/api/foods", function (req, res) {
-    db.UsersPantries.create(req.body).then(function (dbfoods) {
-      res.json(dbfoods);
-    });
+  // app.post("/api/foods", function (req, res) {
+  //   db.UsersPantries.create(req.body).then(function (dbfoods) {
+  //     res.json(dbfoods);
+  //   });
 
     
 
-  });
+  // });
 
 
   // Get all examples
