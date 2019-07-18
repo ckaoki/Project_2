@@ -1,8 +1,8 @@
 module.exports = function(sequelize, DataTypes) {
   var Recipe = sequelize.define("Recipe", {
     name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    instructions: DataTypes.STRING    
+    description: DataTypes.TEXT,
+    instructions: DataTypes.TEXT
   });
 
   Recipe.associate = function(models) {
@@ -13,6 +13,5 @@ module.exports = function(sequelize, DataTypes) {
       onDelete: "cascade"
     });
   };
-
   return Recipe;
 };
