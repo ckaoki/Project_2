@@ -44,27 +44,26 @@ var getApi = {
 
 };
 
-var logedInUserId="";
+var logedInUserId = "";
 var submitToLogin = function (event) {
   event.preventDefault();
 
   var signInName = $signInName.val().trim();
 
-
   getApi.findOneUser(signInName).then(function (data) {
     console.log(data);
-    if(data.length<1){
+    if (data.length < 1) {
       alert("user name not exist");
       return;
     }
-    
+
     if (data[0].password === $signInPassword.val().trim()) {
-      logedInUserId=data[0].id;
-      console.log("you are loged in, user id is: "+logedInUserId);
+      logedInUserId = data[0].id;
+      console.log("you are loged in, user id is: " + logedInUserId);
       $signInName.val("");
       $signInPassword.val("");
     }
-    else{
+    else {
       alert("password not correct");
     }
   });
@@ -81,33 +80,31 @@ var submitToSave = function (event) {
     password: $signUpPassword.val().trim(),
     email: $signUpEmail.val().trim()
   };
-var signUpPassword2=$signUpPassword2.val().trim();
+  var signUpPassword2 = $signUpPassword2.val().trim();
   if (!(user.user_name && user.password && signUpPassword2)) {
     alert("You must enter user name, password ");
     return;
   };
-  if(user.password!=signUpPassword2){
+  if (user.password != signUpPassword2) {
     alert("The passwords don't match");
     return;
   };
-  if(user.password.length<6||user.password.length>12){
+  if (user.password.length < 6 || user.password.length > 12) {
     alert("The password length must be between 6 and 12");
     return;
   };
-  var isExist=[];
+  var isExist = [];
   getApi.findOneUser(user.user_name).then(function (data) {
     console.log(data)
-    isExist=data;
-    
-    if(isExist.length!=0){
+    isExist = data;
+
+    if (isExist.length != 0) {
       alert("user name exist!");
       return;
-    }
-    else{
-
+    } else {
       getApi.saveUser(user).then(function () {
         console.log("you are signed up, go to log in");
-$("#sign_up_label").text("you are signed up, go to log in!");
+        $("#sign_up_label").text("you are signed up, go to log in!");
         $signUpName.val("");
         $signUpPassword.val("");
         $signUpPassword2.val("");
@@ -122,7 +119,7 @@ $signInSubmit.on("click", submitToLogin);
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  saveExample: function (example) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -132,19 +129,19 @@ var API = {
       data: JSON.stringify(example)
     });
   },
-  getExamples: function() {
+  getExamples: function () {
     return $.ajax({
       url: "api/examples",
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteExample: function (id) {
     return $.ajax({
       url: "api/examples/" + id,
       type: "DELETE"
     });
   },
-  saveRecipe: function(recipe) {
+  saveRecipe: function (recipe) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -157,9 +154,9 @@ var API = {
 };
 
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
+var refreshExamples = function () {
+  API.getExamples().then(function (data) {
+    var $examples = data.map(function (example) {
       var $a = $("<a>")
         .text(example.text)
         .attr("href", "/example/" + example.id);
@@ -187,7 +184,7 @@ var refreshExamples = function() {
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-var handleFormSubmit = function(event) {
+var handleFormSubmit = function (event) {
   event.preventDefault();
   var example = {
     text: $exampleText.val().trim(),
@@ -199,7 +196,7 @@ var handleFormSubmit = function(event) {
     return;
   }
 
-  API.saveExample(example).then(function() {
+  API.saveExample(example).then(function () {
     refreshExamples();
   });
 
@@ -209,12 +206,12 @@ var handleFormSubmit = function(event) {
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function() {
+var handleDeleteBtnClick = function () {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
 
-  API.deleteExample(idToDelete).then(function() {
+  API.deleteExample(idToDelete).then(function () {
     refreshExamples();
   });
 };
@@ -224,7 +221,7 @@ var handleDeleteBtnClick = function() {
 //   console.log('aaaaaaaaaa')
 // };
 // Save the new example to the db and refresh the list
-var addRecipe = function(event) {
+var addRecipe = function (event) {
   event.preventDefault();
   console.log($ingredientsFile);
   var recipe = {
@@ -238,7 +235,7 @@ var addRecipe = function(event) {
     return;
   }
 
-  API.saveRecipe(recipe).then(function() {
+  API.saveRecipe(recipe).then(function () {
     refreshExamples();
   });
 
@@ -253,10 +250,10 @@ $submitRecipeBtn.on("click", addRecipe);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
 
 
-$('#customFile').on('change',function(){
+$('#customFile').on('change', function () {
   //get the file name
   var fileName = $(this).val();
-  fs.readFile('demofile1.html', function(err, data) {
+  fs.readFile('demofile1.html', function (err, data) {
     console.log(data);
   });
   console.log(fileName);
@@ -264,4 +261,15 @@ $('#customFile').on('change',function(){
   $(this).next('.custom-file-label').html(fileName);
 })
 
+$("#ingredientAddButton").on("click", function() {
+  const name = $("#ingredientInput").val();
+  $.ajax({
+    headers: {
+      "Content-Type": "application/json"
+    },
+    type: "POST",
+    url: "api/ingredients/add",
+    data: JSON.stringify({name: name})
+  });
+});
 
