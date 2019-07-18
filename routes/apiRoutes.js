@@ -2,6 +2,11 @@ var db = require("../models");
 
 module.exports = function(app) {
 
+
+  // ----------------------------
+  //           USERS             
+  // ----------------------------
+
   // Creates a user
   app.post("/api/users", function (req, res) {
     db.Users.create(req.body).then(function (dbUsers) {
@@ -21,6 +26,22 @@ module.exports = function(app) {
       // console.log(user);
     });
   });
+
+  // ----------------------------
+  //          RECIPES            
+  // ----------------------------
+
+  // Create a new recipe
+    app.post("/api/addRecipe", function(req, res) {
+      console.log(req.body); //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
+      db.Recipe.create(req.body).then(function(dbPantryAssembler) {
+        res.json(dbPantryAssembler);
+      });
+    });
+
+  // ----------------------------
+  //           TESTS             
+  // ----------------------------
 
   // Get all examples
   app.get("/api/test", function(req, res) {
@@ -51,14 +72,6 @@ module.exports = function(app) {
 
   // Create a new example
   app.post("/api/examples", function(req, res) {
-    console.log(req.body); //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
-    db.Recipe.create(req.body).then(function(dbPantryAssembler) {
-      res.json(dbPantryAssembler);
-    });
-  });
-
-  // Create a new recipe
-  app.post("/api/addRecipe", function(req, res) {
     console.log(req.body); //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
     db.Recipe.create(req.body).then(function(dbPantryAssembler) {
       res.json(dbPantryAssembler);
