@@ -6,32 +6,11 @@ SELECT * FROM dbPantryAssembler.Recipes;
 
 USE dbPantryAssembler;
 
-INSERT INTO Recipes
-    (name, description, instructions, createdAt, updatedAt)
-VALUES
-    ('Baked Kale Chips', 'kale, olive oil, salt', 'Preheat oven to 350 degrees. Remove the leaves from the thick stems 
-and tear into bite size pieces. Drizzle kale with olive oil and sprinkle with seasoning salt. Bake until the edges are brown', now(), now());
 
 INSERT INTO Recipes
     (name, description, instructions, createdAt, updatedAt)
 VALUES
-    ('Extra Easy Hummus', 'garbanzo beans, garlic, cumin, salt, olive oil', 'In a blender 
-combine 1 can garbanzo beans, 1 clove garlic, 2 teaspoons ground cumin, 1/2 teaspoon salt, and 1 tablespoon olive oil. Blend on low 
-speed, gradually adding reserved bean liquid until desired consistency is achieved.', now(), now());
-
-INSERT INTO Recipes
-    (name, description, instructions, createdAt, updatedAt)
-VALUES
-    ('Yummy Pork Chops', 'soy sauce, pepper, pork', 'Mix 1/4 cup soy sauce,
-and 1/2 teaspoon pepper in a bowl. Place 4 boneless pork chops in a skillet over
-medium heat, and cover with the dressing mixture. Cover skillet and cook pork chops 
-25 minutes, turning occasionally. Remove cover, reduce heat to low, and continue
-cooking to desired doneness.', now(), now());
-
-INSERT INTO Recipes
-    (name, description, instructions, createdAt, updatedAt)
-VALUES
-    ('Parmesan Crusted Pork Chops', 'egg, parmesan cheese, seasoning, pork',
+    ('Parmesan Crusted Pork Chops', 'Unique variation to classic pork chops',
         'Preheat over to 350 degrees. Whisk egg in a shallow bowl. Mix 1/4 cup grated Parmesan 
 cheese and 1 teaspoon Cajun seasoning together on plate. Dip each pork chop into egg.
 Press until coated on both sides. Baked in preheated overn until golden for 35 to
@@ -40,7 +19,7 @@ Press until coated on both sides. Baked in preheated overn until golden for 35 t
 INSERT INTO Recipes
     (name, description, instructions, createdAt, updatedAt)
 VALUES
-    ('Melt-In-Your-Mouth Dark Chocolate', 'coconut oil, cocoa powder, honey, vanilla extract',
+    ('Melt-In-Your-Mouth Dark Chocolate', 'Quick and easy sweet treat',
         'Gently melt coconut oil in a saucepan over medium-low heat. Stir 1/2 cup cocoa powder, 3 tablespoons
 honey, and 1/2 teaspoon vanilla extract into melted oil until well blended. Pour mixture into a tray.
 Refrigerate until chilled', now(), now());
@@ -48,8 +27,7 @@ Refrigerate until chilled', now(), now());
 INSERT INTO Recipes
     (name, description, instructions, createdAt, updatedAt)
 VALUES
-    ('Kale and Quinoa Salad', 'water, quinoa, kale, olive oil, lemon juice, garlic, pepper, salt,
-feta cheese', 'Stir 1 cup quinoa into boiling water reduce heat to medium-low, place cover on saucepan, and 
+    ('Kale and Quinoa Salad', 'Stay healthy with this delicious salad', 'Stir 1 cup quinoa into boiling water reduce heat to medium-low, place cover on saucepan, and 
 cook until water absorbs into the quinoa, about 12 minutes. Remove saucepan from heat and let cool.
 Put kale in  mixing bowl. Whisk olive oil, lemon juice, Dijon mustard, garlic, pepper, and salt 
 together in a bowl until oil emulsifies and drizzle over mixture. Add quinoa and feta.', now(), now());
@@ -57,8 +35,7 @@ together in a bowl until oil emulsifies and drizzle over mixture. Add quinoa and
 INSERT INTO Recipes
     (name, description, instructions, createdAt, updatedAt)
 VALUES
-    ('Easy No Bake Chocolate Cookies', 'sugar, cocoa powder, milk, margarine, vanilla extract, salt,
-peanut butter, oats', 'In a saucepan over medium heat, combine 2 cups sugar, 1/4 cup unsweetened 
+    ('Easy No Bake Chocolate Cookies', 'Forget about the oven!', 'In a saucepan over medium heat, combine 2 cups sugar, 1/4 cup unsweetened 
 cocoa powder, 1/2 cup milk, and 1/2 cup margarine. Bring to a boil. Remove from heat and stir in 
 vanilla, salt, peanut butter, and oats. Drop by rounded spoonfuls onto waxed paper. Allow cookies
 to cool for at least 1 hour.', now(), now());
@@ -66,10 +43,10 @@ to cool for at least 1 hour.', now(), now());
 INSERT INTO Recipes
     (name, description, instructions, createdAt, updatedAt)
 VALUES
-    ('Garbanzo Bean Salad', 'garbanzo beans, celery, onion, apple, walnuts, mayonnaise, honey, mustard,
-lemon juice, lettuce', 'In a salad bowl, combine the chick peas, celery, onion, apple, and walnuts. 
+    ('Garbanzo Bean Salad', 'Refreshing salad, perfect for pic-nics!', 'In a salad bowl, combine the chick peas, celery, onion, apple, and walnuts. 
 Prepare the dressing by whisking together the mayonnaise, honey, mustard, and lemon juice. Combine the 
 salad mixture and dressing. Toss and serve on a bed of shredded lettuce.', now(), now());
+
 
 -------------------------------
 -- INGREDIENTS TABLE --
