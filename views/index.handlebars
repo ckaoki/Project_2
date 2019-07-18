@@ -14,19 +14,19 @@
      <form class="clearfix mb-4" action="POST">
           <div class="form-group">
             <label for="">User name</label>
-            <input type="text" id="" class="form-control signUpName" aria-describedby="example-text" placeholder="">
+            <input type="text" id="TsignUpName" class="form-control" aria-describedby="example-text" placeholder="">
           </div>
           <div class="form-group">
             <label for="">Password</label>
-            <input type="password" id="" class="form-control signUpPassword" aria-describedby="example-text" placeholder="">
+            <input type="password" id="signUpPassword" class="form-control" aria-describedby="example-text" placeholder="">
           </div>
           <div class="form-group">
             <label for="">Confirm password</label>
-            <input type="password" id="" class="form-control signUpPasswordAgain" aria-describedby="example-text" placeholder="">
+            <input type="password" id="signUpPasswordAgain" class="form-control" aria-describedby="example-text" placeholder="">
           </div>
           <div class="form-group">
             <label for="">E-mail address</label>
-            <input type="text" id="" class="form-control signUpEmail" aria-describedby="example-text" placeholder="">
+            <input type="text" id="signUpEmail" class="form-control" aria-describedby="example-text" placeholder="">
           </div>
           
         </form>
@@ -53,11 +53,11 @@
      <form class="clearfix mb-4" action="POST">
           <div class="form-group">
             <label for="">User name</label>
-            <input type="text" id="" class="form-control signInName" aria-describedby="example-text" placeholder="">
+            <input type="text" id="signInName" class="form-control" aria-describedby="example-text" placeholder="">
           </div>
           <div class="form-group">
             <label for="">Password</label>
-            <input type="password" id="" class="form-control signInPassword" aria-describedby="example-text" placeholder="">
+            <input type="password" id="signInPassword class="form-control" aria-describedby="example-text" placeholder="">
           </div>
          
           
@@ -101,13 +101,13 @@
                     <h4>What's on your pantry today?</h4>
                     <label for="formGroupExampleInput">Search by ingredients</label>
                     <div class="row justify-content-md-center">
-                        <input type="text" class="w-50 form-control" id="formGroupExampleInput"
+                        <input type="text" class="w-50 form-control" id="ingredientsInput"
                             placeholder="Ex. Spinach, pork, eggs">
                         <br>
                     </div>
                     <br>
                     <!-- <button type="submit" class="btn btn-default">Submit</button> -->
-                    <button type="submit" class="btn btn-danger">Submit</button>
+                    <button type="submit" class="btn btn-danger" id="ingredientsSubmitBtn">Submit</button>
                 </div>
             </form>
         </div>
@@ -227,7 +227,7 @@
                             </div>
                         </div>
                         <br>
-                        </div>
+                        {{!-- </div> --}}
                         <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
                     </form>
                 </div>
