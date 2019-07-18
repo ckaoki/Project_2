@@ -1,5 +1,6 @@
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var recipeIngredients = sequelize.define("recipeIngredients", {
+
     recipeId: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -9,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
       references: {
         model: 'Recipe',
         key: 'id'
-      }
+      },
     },
     ingredientId: {
       type: DataTypes.TEXT,
@@ -32,6 +33,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-
   return recipeIngredients;
 };
+
+
