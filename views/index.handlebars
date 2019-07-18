@@ -1,4 +1,3 @@
-
 {{!-- put these code into index.handlebars --}}
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_up">
@@ -19,24 +18,28 @@
         </button>
       </div>
       <div class="modal-body">
-     <form class="clearfix mb-4" action="POST">
+        <form class="clearfix mb-4" action="POST">
           <div class="form-group">
             <label for="">user name</label>
-            <input type="text" id="" class="form-control signUpName" aria-describedby="example-text" placeholder="Enter user name">
+            <input type="text" id="" class="form-control signUpName" aria-describedby="example-text"
+              placeholder="Enter user name">
           </div>
           <div class="form-group">
             <label for="">password</label>
-            <input type="text" id="" class="form-control signUpPassword" aria-describedby="example-text" placeholder="length between 6 and 12">
+            <input type="text" id="" class="form-control signUpPassword" aria-describedby="example-text"
+              placeholder="length between 6 and 12">
           </div>
           <div class="form-group">
             <label for="">password again</label>
-            <input type="text" id="" class="form-control signUpPasswordAgain" aria-describedby="example-text" placeholder="Enter password again">
+            <input type="text" id="" class="form-control signUpPasswordAgain" aria-describedby="example-text"
+              placeholder="Enter password again">
           </div>
           <div class="form-group">
             <label for="">email</label>
-            <input type="text" id="" class="form-control signUpEmail" aria-describedby="example-text" placeholder="Enter email ( not required)">
+            <input type="text" id="" class="form-control signUpEmail" aria-describedby="example-text"
+              placeholder="Enter email ( not required)">
           </div>
-          
+
         </form>
       </div>
       <div class="modal-footer">
@@ -58,17 +61,19 @@
         </button>
       </div>
       <div class="modal-body">
-     <form class="clearfix mb-4" action="POST">
+        <form class="clearfix mb-4" action="POST">
           <div class="form-group">
             <label for="">user name</label>
-            <input type="text" id="" class="form-control signInName" aria-describedby="example-text" placeholder="Enter Example Text">
+            <input type="text" id="" class="form-control signInName" aria-describedby="example-text"
+              placeholder="Enter Example Text">
           </div>
           <div class="form-group">
             <label for="">password</label>
-            <input type="text" id="" class="form-control signInPassword" aria-describedby="example-text" placeholder="Enter Example Text">
+            <input type="text" id="" class="form-control signInPassword" aria-describedby="example-text"
+              placeholder="Enter Example Text">
           </div>
-         
-          
+
+
         </form>
       </div>
       <div class="modal-footer">
@@ -80,187 +85,277 @@
 </div><!-- sign in end-->
 
 <div id="home">
-  <div
-        class="navbar-light warning-color lighten-5 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
-        <a class="logo my-0 mr-md-auto navbar-brand" href="#">
-            <img src="../assets/img/Pantry.png" height="60" class="d-inline-block align-top" alt="pantryassembler">
-        </a>
 
-        <ul class="nav my-2 my-md-0 mr-md-3">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">SAVED RECIPES</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">SHOPPING LIST</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">SHARE!</a>
-            </li>
-            <button type="button" class="loginbtn btn btn-danger btn-sm">SIGN IN/SIGN UP</button>
-        </ul>
-    </div>
-    <div class="jumbotron jumbotron-fluid align-center align-items-center text-center">
-        <div class="container">
-            <form>
-                <div class="form-group">
-                    <h4>What's on your pantry today?</h4>
-                    <label for="formGroupExampleInput">Search by ingredients</label>
-                    <div class="row justify-content-md-center">
-                        <input type="text" class="w-50 form-control" id="formGroupExampleInput"
-                            placeholder="Ex. Spinach, pork, eggs">
-                        <br>
-                    </div>
-                    <br>
-                    <!-- <button type="submit" class="btn btn-default">Submit</button> -->
-                    <button type="submit" class="btn btn-danger">Submit</button>
-                </div>
-            </form>
+  <!-- sign up -->
+  <div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="sign_up_label" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="sign_up_label">Sign up</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-    </div>
+        <div class="modal-body">
+          <form class="clearfix mb-4" action="POST">
+            <div class="form-group">
+              <label for="">User name</label>
+              <input type="text" id="" class="form-control signUpName" aria-describedby="example-text" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="">Password</label>
+              <input type="password" id="" class="form-control signUpPassword" aria-describedby="example-text"
+                placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="">Confirm password</label>
+              <input type="password" id="" class="form-control signUpPasswordAgain" aria-describedby="example-text"
+                placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="">E-mail address</label>
+              <input type="text" id="" class="form-control signUpEmail" aria-describedby="example-text" placeholder="">
+            </div>
 
-    <!-- Recipes of the month -->
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary login_btn" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary signUpSubmit login_btn">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- sign up end-->
+
+  <!-- sign in -->
+  <div class="modal fade" id="sign_in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Sign in</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="clearfix mb-4" action="POST">
+            <div class="form-group">
+              <label for="">User name</label>
+              <input type="text" id="" class="form-control signInName" aria-describedby="example-text" placeholder="">
+            </div>
+            <div class="form-group">
+              <label for="">Password</label>
+              <input type="password" id="" class="form-control signInPassword" aria-describedby="example-text"
+                placeholder="">
+            </div>
+
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary login_btn" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary signInSubmit login_btn">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div><!-- sign in end-->
+
+
+  <div class="navbar-light warning-color lighten-5 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
+    <a class="logo my-0 mr-md-auto navbar-brand" href="#">
+      <img src="../assets/img/Pantry.png" height="60" class="d-inline-block align-top" alt="pantryassembler">
+    </a>
+
+    <ul class="nav my-2 my-md-0 mr-md-3">
+      <li class="nav-item">
+        <a class="nav-link active" href="#savedshoppinglist">SAVED RECIPES</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#savedshoppinglist">SHOPPING LIST</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#share">SHARE!</a>
+      </li>
+
+      <button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_up">SIGN
+        UP</button>
+
+      <button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_in">SIGN
+        IN</button>
+    </ul>
+  </div>
+  <div class="jumbotron jumbotron-fluid align-center align-items-center text-center">
     <div class="container">
-
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                        role="img" aria-label="Placeholder: Thumbnail">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                            dy=".3em">Thumbnail</text>
-                    </svg>
-                    <div class="card-body">
-                        <h5 class="recipename card-title">Recipe name</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                        role="img" aria-label="Placeholder: Thumbnail">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                            dy=".3em">Thumbnail</text>
-                    </svg>
-                    <div class="card-body">
-                        <h5 class="recipename card-title">Recipe name</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
-                        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
-                        role="img" aria-label="Placeholder: Thumbnail">
-                        <title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
-                            dy=".3em">Thumbnail</text>
-                    </svg>
-                    <div class="card-body">
-                        <h5 class="recipename card-title">Recipe name</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col py-3 px-lg-5 border bg-light">
-                    <div class="subtitles">Saved dishes!</div>
-                </div>
-
-                <div class="col py-3 px-lg-5 border bg-light">
-                    <div class="subtitles">Shopping list</div>
-                </div>
-            </div>
-
+      <form>
+        <div class="form-group">
+          <h4>What's on your pantry today?</h4>
+          <label for="formGroupExampleInput">Search by ingredients</label>
+          <div class="row justify-content-md-center">
+            <input type="text" class="w-50 form-control" id="formGroupExampleInput"
+              placeholder="Ex. Spinach, pork, eggs">
             <br>
-            <div class="row">
-                <div class="col py-3 px-lg-5 border bg-light">
-                    <div class="subtitles">Add recipe</div>
-                    <hr>
-                    <form class="create-form" id="newRecipe">
-                        <div class="form-group">
-                            <label for="name">Recipe name:</label>
-                            <input type="text" id="name" name="name">
-                        </div>
+          </div>
+          <br>
+          <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+          <button type="submit" class="btn btn-danger">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
-                        <div class="form-group">
-                            <label for="description">Description:</label>
-                            <input type="text" id="description" name="name">
-                        </div>
+  <!-- Recipes of the month -->
+  <div class="container">
 
-                        <div class="form-group">
-                            <label for="ingredients">Ingredients:</label>
-                            <input type="text" id="ingredients" name="name">
-                        </div>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+              dy=".3em">Thumbnail</text>
+          </svg>
+          <div class="card-body">
+            <h5 class="recipename card-title">Recipe name</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+              additional content. This content is a little bit longer.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+              dy=".3em">Thumbnail</text>
+          </svg>
+          <div class="card-body">
+            <h5 class="recipename card-title">Recipe name</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+              additional content. This content is a little bit longer.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+            <title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
+              dy=".3em">Thumbnail</text>
+          </svg>
+          <div class="card-body">
+            <h5 class="recipename card-title">Recipe name</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+              additional content. This content is a little bit longer.</p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger btn-sm">Save recipe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section id="savedshoppinglist">
+      <div class="container">
+        <div class="row">
+          <div class="col py-3 px-lg-5 border bg-light">
+            <div class="subtitles">Saved dishes!</div>
+          </div>
 
-                        <div class="form-group">
-                            <label for="instructions">Instructions:</label>
-                            <input type="text" id="instructions" name="name">
-                        </div>
+          <div class="col py-3 px-lg-5 border bg-light">
+            <div class="subtitles">Shopping list</div>
+          </div>
+        </div>
+    </section>
 
-                        <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
-                    </form>
-                </div>
+    <br>
+    <section id="share">
+
+      <div class="row">
+        <div class="col py-3 px-lg-5 border bg-light">
+          <div class="subtitles">Add recipe</div>
+          <hr>
+          <form class="create-form" id="newRecipe">
+            <div class="form-group">
+              <label for="name">Recipe name:</label>
+              <input type="text" id="recipeName" name="name">
             </div>
 
 
-             <div class="row">
-                <div class="col py-3 px-lg-5 border bg-light">
-                    <div class="subtitles">Add food</div>
-                    <hr>
-                    <form class="create-form" id="newRecipe">
-                        <div class="form-group">
-                            <label for="name">food:</label>
-                            <input type="text" id="item_name" name="name">
-                        </div>
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <input type="text" id="recipeDescription" name="name">
+            </div>
 
-                        <div class="form-group">
-                            <label for="description">quantity:</label>
-                            <input type="text" id="item_quantity" name="name">
-                        </div>
-{{!-- 
-                        <div class="form-group">
+            {{!-- <div class="form-group">
                             <label for="ingredients">Ingredients:</label>
-                            <input type="text" id="ingredients" name="name">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="instructions">Instructions:</label>
-                            <input type="text" id="instructions" name="name">
+                            <input type="text" id="recipeIngredients" name="name">
                         </div> --}}
 
-                        <button class="btn btn-danger btn-sm" type="submit" id="addFood">Add now!</button>
-                    </form>
-                </div>
+            <div class="form-group">
+              <label for="instructions">Instructions:</label>
+              <input type="text" id="recipeInstructions" name="name">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Upload
+                  ingredients</button>
+              </div>
             </div>
+            <br>
         </div>
-    {{!-- <div class="row">
+        <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
+        </form>
+      </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col py-3 px-lg-5 border bg-light">
+      <div class="subtitles">Add food</div>
+      <hr>
+      <form class="create-form" id="newRecipe">
+        <div class="form-group">
+          <label for="name">food:</label>
+          <input type="text" id="item_name" name="name">
+        </div>
+
+        <div class="form-group">
+          <label for="description">quantity:</label>
+          <input type="text" id="item_quantity" name="name">
+        </div>
+
+        <div class="form-group">
+          <label for="ingredients">Ingredients:</label>
+          <input type="text" id="ingredients" name="name">
+        </div>
+
+        <div class="form-group">
+          <label for="instructions">Instructions:</label>
+          <input type="text" id="instructions" name="name">
+        </div>
+
+        <button class="btn btn-danger btn-sm" type="submit" id="addFood">Add now!</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</section>
+</div>
+{{!-- <div class="row">
       <div class="col-8 offset-2">
 
 
