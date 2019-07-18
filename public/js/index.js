@@ -8,6 +8,9 @@ var $submitRecipeBtn = $("#addRecipe");
 var $exampleList = $("#example-list");
 var $customFile = $("#customFile");
 
+var $ingredientsInput = $("#ingredientsInput");
+var $ingredientsSubmitBtn = $("#ingredientsSubmitBtn");
+
 
 
 var $signUpName = $(".signUpName");
@@ -119,6 +122,13 @@ $signInSubmit.on("click", submitToLogin);
 
 // The API object contains methods for each kind of request we'll make
 var API = {
+
+  getRecipesByIngredients: function(ingredients) {
+    return $.ajax({
+      type: "GET",
+      url: "api/RecipesByIngredients/" + ingredients,
+    });
+  },
   saveExample: function (example) {
     return $.ajax({
       headers: {
@@ -216,10 +226,7 @@ var handleDeleteBtnClick = function () {
   });
 };
 
-// var tempFunc = function(event) {
-//   event.preventDefault();
-//   console.log('aaaaaaaaaa')
-// };
+
 // Save the new example to the db and refresh the list
 var addRecipe = function (event) {
   event.preventDefault();
@@ -244,10 +251,24 @@ var addRecipe = function (event) {
   $recipeInstructions.val("");
   //TODO: may need to clear the ingredients and instructions text inputs after they are inserted into the Ingredients database table.
 };
+
+// Save the new example to the db and refresh the list
+var getRecipesByIngredients = function(event) {
+  event.preventDefault();
+  console.log($ingredientsInput.val());
+  API.getRecipesByIngredients($ingredientsInput.val()).then(function(data) {
+    console.log("returned: ", data);
+    alert(JSON.stringify(data));
+  });  
+};
+
 // Add event listeners to the submit and delete buttons
 // $submitBtn.on("click", handleFormSubmit);
 $submitRecipeBtn.on("click", addRecipe);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
+
+// Listener for searching recipes by ingredients
+$ingredientsSubmitBtn.on("click", getRecipesByIngredients);
 
 
 $('#customFile').on('change', function () {

@@ -1,5 +1,41 @@
 <div id="home">
 
+
+<!-- sign up -->
+<div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="sign_up_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="sign_up_label">Sign up</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <form class="clearfix mb-4" action="POST">
+          <div class="form-group">
+            <label for="">User name</label>
+            <input type="text" id="TsignUpName" class="form-control" aria-describedby="example-text" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" id="signUpPassword" class="form-control" aria-describedby="example-text" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="">Confirm password</label>
+            <input type="password" id="signUpPasswordAgain" class="form-control" aria-describedby="example-text" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="">E-mail address</label>
+            <input type="text" id="signUpEmail" class="form-control" aria-describedby="example-text" placeholder="">
+          </div>
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary login_btn" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary signUpSubmit login_btn">Submit</button>
+
   <!-- sign up -->
   <div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="sign_up_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -37,9 +73,39 @@
           <button type="button" class="btn btn-secondary login_btn" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary signUpSubmit login_btn">Submit</button>
         </div>
+
       </div>
     </div>
   </div><!-- sign up end-->
+
+
+<!-- sign in -->
+<div class="modal fade" id="sign_in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign in</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+     <form class="clearfix mb-4" action="POST">
+          <div class="form-group">
+            <label for="">User name</label>
+            <input type="text" id="signInName" class="form-control" aria-describedby="example-text" placeholder="">
+          </div>
+          <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" id="signInPassword class="form-control" aria-describedby="example-text" placeholder="">
+          </div>
+         
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary login_btn" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary signInSubmit login_btn">Submit</button>
 
   <!-- sign in -->
   <div class="modal fade" id="sign_in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -71,6 +137,7 @@
           <button type="button" class="btn btn-secondary login_btn" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary signInSubmit login_btn">Submit</button>
         </div>
+
       </div>
     </div>
   </div><!-- sign in end-->
@@ -80,6 +147,40 @@
     <a class="logo my-0 mr-md-auto navbar-brand" href="#">
       <img src="../assets/img/Pantry.png" height="60" class="d-inline-block align-top" alt="pantryassembler">
     </a>
+
+
+        <ul class="nav my-2 my-md-0 mr-md-3">
+            <li class="nav-item">
+                <a class="nav-link active" href="#savedshoppinglist">SAVED RECIPES</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#savedshoppinglist">SHOPPING LIST</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#share">SHARE!</a>
+            </li>
+            
+            <button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_up">SIGN UP</button>
+           
+            <button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_in">SIGN IN</button>
+        </ul>
+    </div>
+    <div class="jumbotron jumbotron-fluid align-center align-items-center text-center">
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <h4>What's on your pantry today?</h4>
+                    <label for="formGroupExampleInput">Search by ingredients</label>
+                    <div class="row justify-content-md-center">
+                        <input type="text" class="w-50 form-control" id="ingredientsInput"
+                            placeholder="Ex. Spinach, pork, eggs">
+                        <br>
+                    </div>
+                    <br>
+                    <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+                    <button type="submit" class="btn btn-danger" id="ingredientsSubmitBtn">Submit</button>
+                </div>
+            </form>
 
     <ul class="nav my-2 my-md-0 mr-md-3">
       <li class="nav-item">
@@ -113,6 +214,7 @@
           <br>
           <!-- <button type="submit" class="btn btn-default">Submit</button> -->
           <button type="submit" class="btn btn-danger">Submit</button>
+
         </div>
       </form>
     </div>
@@ -220,9 +322,25 @@
                             <input type="text" id="recipeIngredients" name="name">
                         </div> --}}
 
+
+                        <div class="form-group">
+                            <label for="instructions">Instructions:</label>
+                            <input type="text" id="recipeInstructions" name="name">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button"
+                                    id="inputGroupFileAddon04">Upload ingredients</button>
+                            </div>
+                        </div>
+                        <br>
+                        {{!-- </div> --}}
+                        <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
+                    </form>
+                </div>
+
             <div class="form-group">
               <label for="instructions">Instructions:</label>
               <input type="text" id="recipeInstructions" name="name">
+
             </div>
 
             <div class="form-group">

@@ -6,6 +6,7 @@ module.exports = function (app) {
   //           USERS             
   // ----------------------------
 
+
   // Creates a user
   app.post("/api/users", function (req, res) {
     db.Users.create(req.body).then(function (dbUsers) {
@@ -26,6 +27,57 @@ module.exports = function (app) {
       // console.log(user);
     });
   });
+  
+  // Find recipes containing the given ingredients ***************************************************
+  app.get("/api/RecipesByIngredients/:ingredients", function(req, res) {
+    // Change string of ingredients to array
+    var searchIngredients = req.params.ingredients.split(',');
+    for (var i = 0; i < searchIngredients.length; i++) {
+      searchIngredients[i] = searchIngredients[i].trim();
+    };
+  
+    db.Recipe.findAll({
+      include:[{
+        model: db.Ingredient,
+        as: 'ingredients',
+        attributes: ['id', 'name'],
+        through: {model: db.recipeIngredients},
+        where: {name: searchIngredients}          
+        }]
+      }).then(function(foundRecipes) {
+        // need to query matching recipes again because recipes returned in first query
+        // will not show ingredients not searched for.
+        var recipeNames = [];
+        foundRecipes.forEach(recipe => {
+          recipeNames.push(recipe.name);
+        });
+  
+        if(recipeNames.length>0){
+          db.Recipe.findAll({
+            where: {name: recipeNames},
+            include:[{
+              model: db.Ingredient,
+              as: 'ingredients',
+              attributes: ['id', 'name'],
+              through: {model: db.recipeIngredients}                
+              }]
+            }).then(function(recipes) {
+              res.json(recipes);
+            });
+          }
+          else{
+            res.json([]);
+          }            
+      });
+    }); 
+
+
+
+
+//************ Example and Test routes below this line **********/
+
+  // Test
+  app.get("/api/test", function(req, res) {
 
   // ----------------------------
   //          RECIPES            
@@ -188,17 +240,30 @@ module.exports = function (app) {
 
   // Get all examples
   app.get("/api/test", function (req, res) {
+
     db.Recipe.findAll({
       include: [{
         model: db.Ingredient,
         as: 'ingredients',
         attributes: ['id', 'name'],
-        through: { model: db.recipeIngredients }
+
+        through: {model: db.recipeIngredients}
+
       }]
     }).then(function (dbPantryAssembler) {
       res.json(dbPantryAssembler);
     });
   });
+
+   app.get("/api/test2", function(req, res) {
+    db.Ingredient.findAll({
+      include:[{
+        model: db.Recipe,
+        as: 'recipes',
+        attributes: ['id', 'name'],
+        through: {model: db.recipeIngredients}
+      }]
+    }).then(function(dbPantryAssembler) {
 
   app.get("/api/test2", function (req, res) {
     db.Ingredient.findAll({}).then(function (dbPantryAssembler) {
@@ -208,6 +273,7 @@ module.exports = function (app) {
 
   app.get("/api/examples", function (req, res) {
     db.recipeIngredients.findAll({}).then(function (dbPantryAssembler) {
+
       res.json(dbPantryAssembler);
     });
   });
