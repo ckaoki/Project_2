@@ -100,7 +100,7 @@
     <div class="container">
       <form>
         <div class="form-group">
-          <h4>What's on your pantry today?</h4>
+          <h4>What's in your pantry today?</h4>
           <label for="formGroupExampleInput">Search by ingredients</label>
           <div class="row justify-content-md-center">
             <input type="text" class="w-50 form-control" id="ingredientsInput" placeholder="Ex. Spinach, pork, eggs">
@@ -113,7 +113,9 @@
       </form>
     </div>
   </div>
-  <!-- RANDOM RECIPES & SEARCH RESULTS-->
+
+  <!-- RECIPES BY INGREDIENT-->
+
   <div class="container" id="recipesByIngredients">
     <div class="row">
       <div class="col-12 text-center" id="foundRecipesHeader">
@@ -131,28 +133,35 @@
     <div class="row" id="foundRandomRecipes">
     </div>
   </div>
+  
   {{!-- SHOPPING LIST AND SAVED DISHES --}}
   <section id="savedshoppinglist">
     <div class="container">
-      <div class="row">
-        <div class="col py-3 px-lg-5 border bg-light">
-          <div class="subtitles">Saved dishes!</div>
+
+    {{!-- SHOPPING LIST AND SAVED DISHES --}}
+    <section id="savedshoppinglist">
+      <div class="container">
+        <div class="row">
+          <div class="col py-3 px-lg-5 border bg-light">
+            <div class="subtitles">Saved dishes!</div>
+          </div>
+          <div class="col py-3 px-lg-5 border bg-light">
+            <div class="subtitles">Shopping list</div>
+            <br>
+            <ul class="list-group item-list">
+              <li class="list-group-item new-item">
+                <form id="item-form">
+                    <input class="new-item form-control" placeholder="Item name" type="text" />
+                    <button type="submit" class="btn btn-danger btn-sm">Add to list</button>
+                </form>
+              </li>
+              <span class="item-container"></span>
+            </ul>
+          </div>
         </div>
-        <div class="col py-3 px-lg-5 border bg-light">
-          <div class="subtitles">Shopping list</div>
-          <br>
-          <ul class="list-group item-list">
-            <li class="list-group-item new-item">
-              <form id="item-form">
-                <input class="new-item form-control" placeholder="Item name" type="text" />
-                <button type="submit" class="btn btn-danger btn-sm">Add to list</button>
-              </form>
-            </li>
-            <span class="item-container"></span>
-          </ul>
-        </div>
-      </div>
-  </section>
+    </section>
+    
+
   {{!-- SHARE YOUR RECIPE --}}
   <br>
   <section id="share">

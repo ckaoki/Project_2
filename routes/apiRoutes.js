@@ -157,66 +157,6 @@ app.put("/api/items", function(req, res) {
     });
   });
 
-  // Create a new recipe
-  //
-  // Request:
-  //        {
-  //            name: string
-  //            description: string
-  //            instructions: string
-  //            ingredients: [IngredientId1, IngredientId2, IngredientId3]
-  //        }
-  // Response:
-  //       [ {
-  //            id: integer
-  //            name: string
-  //            description: string
-  //            instructions: string
-  //        } ]
-  // app.post("/api/recipes/add", function (req, res) {
-  //   //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
-  //   console.log(req.body); 
-  //   db.Recipe.create(req.body).then(function (dbPantryAssembler) {
-  //     res.json(dbPantryAssembler);
-  //   });
-  // });
-
-  // Get all recipes
-  //
-  // Request:
-  //         empty
-  // Response:
-  //       [ {
-  //            name: string
-  //            description: string
-  //            instructions: string
-  //        } ]
-  //
-  // app.get("/api/recipes/all", function (req, res) {
-  //   res.json([
-  //     {
-  //       name: 'Test 1',
-  //       description: 'Description 1',
-  //       instructions: 'Instructions 1'
-  //     },
-  //     {
-  //       name: 'Test 2',
-  //       description: 'Description 2',
-  //       instructions: 'Instructions 2'
-  //     },
-  //   ]);
-  //   db.Recipe.findAll({
-  //     include: [{
-  //       model: db.Ingredient,
-  //       as: 'ingredients',
-  //       attributes: ['id', 'name'],
-  //       through: { model: db.recipeIngredients }
-  //     }]
-  //   }).then(function (dbPantryAssembler) {
-  //     res.json(dbPantryAssembler);
-  //   });
-  // });
-
 
   // ----------------------------
   //         INGREDIENTS          
@@ -271,3 +211,8 @@ app.put("/api/items", function(req, res) {
 //   });
 
 };
+=======
+    });
+  }
+
+
