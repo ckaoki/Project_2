@@ -1,6 +1,12 @@
 var db = require("../models");
+var Sequelize = require("sequelize");
 
-module.exports = function(app) {
+module.exports = function (app) {
+
+  // ----------------------------
+  //           USERS             
+  // ----------------------------
+
 
   // Creates a user
   app.post("/api/users", function (req, res) {
@@ -8,6 +14,7 @@ module.exports = function(app) {
       res.json(dbUsers);
     });
   });
+
   // Get one user
   app.get("/api/users/:username", function (req, res) {
     var username = req.params.username;
@@ -21,54 +28,66 @@ module.exports = function(app) {
       // console.log(user);
     });
   });
-
-  // Get all examples
-  app.get("/api/test", function(req, res) {
+  
+  // Find recipes containing the given ingredients ***************************************************
+  app.get("/api/RecipesByIngredients/:ingredients", function(req, res) {
+    // Change string of ingredients to array
+    var searchIngredients = req.params.ingredients.split(',');
+    for (var i = 0; i < searchIngredients.length; i++) {
+      searchIngredients[i] = searchIngredients[i].trim();
+    };
+  
     db.Recipe.findAll({
       include:[{
         model: db.Ingredient,
         as: 'ingredients',
         attributes: ['id', 'name'],
-        through: {model: db.recipeIngredients}
-
-      }]
-    }).then(function(dbPantryAssembler) {
-      res.json(dbPantryAssembler);
+        through: {model: db.recipeIngredients},
+        where: {name: searchIngredients}          
+        }]
+      }).then(function(foundRecipes) {
+        // need to query matching recipes again because recipes returned in first query
+        // will not show ingredients not searched for.
+        var recipeNames = [];
+        foundRecipes.forEach(recipe => {
+          recipeNames.push(recipe.name);
+        });
+  
+        if(recipeNames.length>0){
+          db.Recipe.findAll({
+            where: {name: recipeNames},
+            include:[{
+              model: db.Ingredient,
+              as: 'ingredients',
+              attributes: ['id', 'name'],
+              through: {model: db.recipeIngredients}
+              }]
+            }).then(function(recipes) {
+              res.json(recipes);
+            });
+          }
+          else{
+            res.json([]);
+          }            
+      });
+    }); 
+  
+    //Get three random recipes
+    app.get("/api/sampleRecipes", function (req,res){
+      db.Recipe.findAll({ 
+        order: Sequelize.literal('rand()'),
+        limit: 3,
+        include:[{
+          model: db.Ingredient,
+          as: 'ingredients',
+          attributes: ['id', 'name'],
+          through: {model: db.recipeIngredients} 
+        }] 
+      }).then(function(recipes){
+        res.json(recipes);
+      })
     });
-  });
+  }
 
-  app.get("/api/test2", function(req, res) {
-    db.Ingredient.findAll({}).then(function(dbPantryAssembler) {
-      res.json(dbPantryAssembler);
-    });
-  });
 
-  app.get("/api/examples", function(req, res) {
-    db.recipeIngredients.findAll({}).then(function(dbPantryAssembler) {
-      res.json(dbPantryAssembler);
-    });
-  });
 
-  // Create a new example
-  app.post("/api/examples", function(req, res) {
-    console.log(req.body); //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
-    db.Recipe.create(req.body).then(function(dbPantryAssembler) {
-      res.json(dbPantryAssembler);
-    });
-  });
-
-  // Create a new recipe
-  app.post("/api/addRecipe", function(req, res) {
-    console.log(req.body); //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
-    db.Recipe.create(req.body).then(function(dbPantryAssembler) {
-      res.json(dbPantryAssembler);
-    });
-  });
-
-  // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Recipe.destroy({ where: { id: req.params.id } }).then(function(dbPantryAssembler) {
-      res.json(dbPantryAssembler);
-    });
-  });
-};
