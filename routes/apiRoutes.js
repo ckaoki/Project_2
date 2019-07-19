@@ -96,6 +96,51 @@ module.exports = function (app) {
   // app.get("/api/test", function(req, res) {
 
   // ----------------------------
+  //        SHOPPING LIST           
+  // ----------------------------
+  
+app.get("/api/items", function(req, res) {
+  db.Item.findAll({}).then(function(dbItem) {
+    res.json(dbItem);
+  });
+});
+
+app.post("/api/items", function(req, res) {
+  db.Item.create({
+    text: req.body.text,
+    complete: req.body.complete
+  }).then(function(dbItem) {
+    res.json(dbItem);
+  });
+});
+
+
+app.delete("/api/items/:id", function(req, res) {
+  db.Item.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(function(dbItem) {
+    res.json(dbItem);
+  });
+
+});
+
+app.put("/api/items", function(req, res) {
+  db.Item.update({
+    text: req.body.text,
+    complete: req.body.complete
+  }, {
+    where: {
+      id: req.body.id
+    }
+  }).then(function(dbItem) {
+    res.json(dbItem);
+  });
+});
+
+
+  // ----------------------------
   //          RECIPES            
   // ----------------------------
 
@@ -199,7 +244,22 @@ module.exports = function (app) {
   // Get sample recipes.
   // 
   // Searches for the top 3 most used recipes.
-  //
+
+  // Encounter.findAll({ order: 'rand()', limit: 3 }).then((encounter) => {
+  //   include: [{
+  //     model: db.Recipes,
+  //     as: 'recipes',
+  //     attributes: ['name', 'description', 'instructions'],
+  //     through: { model: db.Recipes }
+  //   }]
+  // });
+
+  // app.post("/api/samplerecipes", function (req, res) {
+  //   db.Recipes.create(req.body).then(function (dbPantryAssembler) {
+  //     res.json(dbPantryAssembler);
+  //   });
+  // });
+
   // Request:
   //         empty
   // Response:
@@ -234,14 +294,14 @@ module.exports = function (app) {
   // ----------------------------
 
   // Add ingredient
-  // app.post("/api/ingredients/add", function (req, res) {
-  //   console.log("Logging request");
-  //   console.log(req.body);
-    // res.json({name: "responsebodysomething"});
-  //   db.Ingredient.create(req.body).then(function (dbPantryAssembler) {
-  //     res.json(dbPantryAssembler);
-  //   });
-  // });
+  app.post("/api/ingredients/add", function (req, res) {
+    console.log("Logging request");
+    console.log(req.body);
+    res.json({ name: "responsebodysomething" });
+    db.Ingredient.create(req.body).then(function (dbPantryAssembler) {
+      res.json(dbPantryAssembler);
+    });
+  });
 
   // Get all ingredients
   // app.get("/api/ingredients/all", function (req, res) {
