@@ -1,6 +1,6 @@
 <div id="home">
 
-  <!-- sign up -->
+  <!-- SIGN UP -->
   <div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="sign_up_label" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -14,21 +14,23 @@
           <form class="clearfix mb-4" action="POST">
             <div class="form-group">
               <label for="">User name</label>
-              <input type="text" id="" class="form-control signUpName" aria-describedby="example-text" placeholder="">
+              <input type="text" id="signUpName" class="form-control signUpName" aria-describedby="example-text"
+                placeholder="">
             </div>
             <div class="form-group">
               <label for="">Password</label>
-              <input type="password" id="" class="form-control signUpPassword" aria-describedby="example-text"
-                placeholder="">
+              <input type="password" id="signUpPassword" class="form-control signUpPassword"
+                aria-describedby="example-text" placeholder="">
             </div>
             <div class="form-group">
               <label for="">Confirm password</label>
-              <input type="password" id="" class="form-control signUpPasswordAgain" aria-describedby="example-text"
-                placeholder="">
+              <input type="password" id="signUpPasswordAgain" class="form-control signUpPasswordAgain"
+                aria-describedby="example-text" placeholder="">
             </div>
             <div class="form-group">
               <label for="">E-mail address</label>
-              <input type="text" id="" class="form-control signUpEmail" aria-describedby="example-text" placeholder="">
+              <input type="text" id="signUpEmail" class="form-control signUpEmail" aria-describedby="example-text"
+                placeholder="">
             </div>
 
           </form>
@@ -39,9 +41,10 @@
         </div>
       </div>
     </div>
-  </div><!-- sign up end-->
+  </div>
+  <!-- sign up end-->
 
-  <!-- sign in -->
+  <!-- SIGN IN -->
   <div class="modal fade" id="sign_in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -56,12 +59,13 @@
           <form class="clearfix mb-4" action="POST">
             <div class="form-group">
               <label for="">User name</label>
-              <input type="text" id="" class="form-control signInName" aria-describedby="example-text" placeholder="">
+              <input type="text" id="signInName" class="form-control signInName" aria-describedby="example-text"
+                placeholder="">
             </div>
             <div class="form-group">
               <label for="">Password</label>
-              <input type="password" id="" class="form-control signInPassword" aria-describedby="example-text"
-                placeholder="">
+              <input type="password" id="signInPassword" class="form-control signInPassword"
+                aria-describedby="example-text" placeholder="">
             </div>
 
 
@@ -73,9 +77,10 @@
         </div>
       </div>
     </div>
-  </div><!-- sign in end-->
+  </div>
+  <!-- sign in end-->
 
-
+  {{!-- NAVBAR --}}
   <div class="navbar-light warning-color lighten-5 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
     <a class="logo my-0 mr-md-auto navbar-brand" href="#">
       <img src="../assets/img/Pantry.png" height="60" class="d-inline-block align-top" alt="pantryassembler">
@@ -99,6 +104,8 @@
         IN</button>
     </ul>
   </div>
+
+  {{!-- SEARCH BY INGREDIENT --}}
   <div class="jumbotron jumbotron-fluid align-center align-items-center text-center">
     <div class="container">
       <form>
@@ -118,21 +125,26 @@
     </div>
   </div>
 
-  <!-- Recipes of the month -->
+  <!-- RANDOM RECIPES -->
   <div class="container">
-
     <div class="row">
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+          <svg id="recipeImg" class="bd-placeholder-img card-img-top" width="100%" height="225"
+            xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
+            aria-label="Placeholder: Thumbnail">
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
               dy=".3em">Thumbnail</text>
           </svg>
           <div class="card-body">
-            <h5 class="recipename card-title">Recipe name</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+            <h5 id="recipeName" class="recipename card-title">Recipe name</h5>
+            <ul>
+              <li id="recipeIngredients"></li>
+            </ul>
+            <p id="recipeDescription"></p>
+            <p id="recipeInstructions" class="card-text">This is a wider card with supporting text below as a natural
+              lead-in to
               additional content. This content is a little bit longer.</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
@@ -144,15 +156,21 @@
       </div>
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+          <svg id="recipeImg" class="bd-placeholder-img card-img-top" width="100%" height="225"
+            xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
+            aria-label="Placeholder: Thumbnail">
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
               dy=".3em">Thumbnail</text>
           </svg>
           <div class="card-body">
-            <h5 class="recipename card-title">Recipe name</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+            <h5 id="recipeName" class="recipename card-title">Recipe name</h5>
+            <ul>
+              <li id="recipeIngredients"></li>
+            </ul>
+            <p id="recipeDescription"></p>
+            <p id="recipeInstructions" class="card-text">This is a wider card with supporting text below as a natural
+              lead-in to
               additional content. This content is a little bit longer.</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
@@ -164,15 +182,21 @@
       </div>
       <div class="col-md-4">
         <div class="card mb-4 shadow-sm">
-          <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
-            preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
+          <svg id="recipeImg" class="bd-placeholder-img card-img-top" width="100%" height="225"
+            xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"
+            aria-label="Placeholder: Thumbnail">
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"
               dy=".3em">Thumbnail</text>
           </svg>
           <div class="card-body">
-            <h5 class="recipename card-title">Recipe name</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+            <h5 id="recipeName" class="recipename card-title">Recipe name</h5>
+            <ul>
+              <li id="recipeIngredients"></li>
+            </ul>
+            <p id="recipeDescription"></p>
+            <p id="recipeInstructions" class="card-text">This is a wider card with supporting text below as a natural
+              lead-in to
               additional content. This content is a little bit longer.</p>
             <div class="d-flex justify-content-between align-items-center">
               <div class="btn-group">
@@ -183,6 +207,9 @@
         </div>
       </div>
     </div>
+    
+{{!-- TODO: ATTACH SHOPPING LIST AND SAVED DISHES TO USER ID --}}
+    {{!-- SHOPPING LIST AND SAVED DISHES --}}
     <section id="savedshoppinglist">
       <div class="container">
         <div class="row">
@@ -192,13 +219,23 @@
 
           <div class="col py-3 px-lg-5 border bg-light">
             <div class="subtitles">Shopping list</div>
+            <br>
+            <ul class="list-group item-list">
+              <li class="list-group-item new-item">
+                <form id="item-form">
+                    <input class="new-item form-control" placeholder="Item name" type="text" />
+                    <button type="submit" class="btn btn-danger btn-sm">Add to list</button>
+                </form>
+              </li>
+              <span class="item-container"></span>
+            </ul>
           </div>
         </div>
     </section>
 
+    {{!-- SHARE YOUR RECIPE --}}
     <br>
     <section id="share">
-
       <div class="row">
         <div class="col py-3 px-lg-5 border bg-light">
           <div class="subtitles">Add recipe</div>
@@ -234,12 +271,12 @@
             </div>
             <br>
             <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
-        </div>
-        </form>
-      </div>
-  </div>
-  </section>
-</div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/index.js"></script>
