@@ -86,7 +86,8 @@ module.exports = function (app) {
       }).then(function(recipes){
         res.json(recipes);
       })
-    })
+    });
+  }
 
 
 
