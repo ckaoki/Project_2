@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
     instructions: DataTypes.TEXT,
-    img: DataTypes.TEXT
+    img: DataTypes.TEXT,
   });
 
   Recipe.associate = function(models) {

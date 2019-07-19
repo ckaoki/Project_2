@@ -124,6 +124,7 @@
   margin-left: 4px;
   }
 
+
   .cardInfo{
     height:200px;
     overflow:auto;
@@ -131,3 +132,25 @@
   .card-img-top{
     max-height: 200px;
   }
+
+/* SHOPPING LIST */
+
+.todo-list {
+  margin: 0 auto;
+}
+
+input.new-item:focus {
+  outline: none;
+}
+
+.list-group-item > button.delete,
+.list-group-item > button.complete {
+  float: right;
+  height: 25px;
+  margin-left: 5px;
+}
+
+.edit {
+  width: 100%;
+}
+

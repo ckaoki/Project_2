@@ -141,24 +141,15 @@
           </div>
           <div class="col py-3 px-lg-5 border bg-light">
             <div class="subtitles">Shopping list</div>
-            <ul class="list-group todo-list">
+            <br>
+            <ul class="list-group item-list">
               <li class="list-group-item new-item">
-                <form id="todo-form">
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-10">
-                        <input class="new-item form-control" placeholder="Item name" type="text" />
-                        <input class="new-item form-control" placeholder="Expiration date" type="text" />
-                      </div>
-                      <div class="col-2">
-                        <button type="submit" class="btn btn-success">Add food to your pantry</button>
-                      </div>
-                    </div>
-                  </div>
+                <form id="item-form">
+                    <input class="new-item form-control" placeholder="Item name" type="text" />
+                    <button type="submit" class="btn btn-danger btn-sm">Add to list</button>
                 </form>
               </li>
-              <span class="todo-container">
-              </span>
+              <span class="item-container"></span>
             </ul>
           </div>
         </div>
