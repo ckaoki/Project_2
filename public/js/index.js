@@ -10,6 +10,7 @@ var $customFile = $("#customFile");
 
 var $ingredientsInput = $("#ingredientsInput");
 var $ingredientsSubmitBtn = $("#ingredientsSubmitBtn");
+var $recipesByIngredient = $("#recipesByIngredient");
 
 
 
@@ -23,6 +24,26 @@ var $signInSubmit = $(".signInSubmit");
 var $signInName = $(".signInName");
 var $signInPassword = $(".signInPassword");
 
+// Bootstrap card html
+var card =  '<div class="col-md-4">';
+    card += ' <div class="card mb-4 shadow-sm">';
+    card += '  <img src="..." class="card-img-top" alt="...">';
+    card += '   <div class="card-body">';
+    card += '     <h5 class="recipeName card-title">Recipe name</h5>';
+    card += '     <div class="cardInfo">';
+    card += '       <p class="recipeDescription"></p>';
+    card += '       <ul class="recipeIngredients">';
+    card += '       </ul>';
+    card += '       <p class="recipeInstructions" class="card-text"></p>';
+    card += '     </div>';
+    card += '       <div class="d-flex justify-content-between align-items-center">';
+    card += '         <div class="btn-group">';
+    card += '            <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
+    card += '         </div>';
+    card += '       </div>';
+    card += '   </div>';
+    card += '  </div>';
+    card += '</div>';
 
 
 
@@ -129,28 +150,6 @@ var API = {
       url: "api/RecipesByIngredients/" + ingredients,
     });
   },
-  saveExample: function (example) {
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
-    });
-  },
-  getExamples: function () {
-    return $.ajax({
-      url: "api/examples",
-      type: "GET"
-    });
-  },
-  deleteExample: function (id) {
-    return $.ajax({
-      url: "api/examples/" + id,
-      type: "DELETE"
-    });
-  },
   saveRecipe: function (recipe) {
     return $.ajax({
       headers: {
@@ -163,71 +162,7 @@ var API = {
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function () {
-  API.getExamples().then(function (data) {
-    var $examples = data.map(function (example) {
-      var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
-
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": example.id
-        })
-        .append($a);
-
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
-
-      $li.append($button);
-
-      return $li;
-    });
-
-    $exampleList.empty();
-    $exampleList.append($examples);
-  });
-};
-
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
-var handleFormSubmit = function (event) {
-  event.preventDefault();
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
-  };
-
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
-    return;
-  }
-
-  API.saveExample(example).then(function () {
-    refreshExamples();
-  });
-
-  $exampleText.val("");
-  $exampleDescription.val("");
-};
-
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function () {
-  var idToDelete = $(this)
-    .parent()
-    .attr("data-id");
-
-  API.deleteExample(idToDelete).then(function () {
-    refreshExamples();
-  });
-};
-
-
-// Save the new example to the db and refresh the list
+// Add recipe
 var addRecipe = function (event) {
   event.preventDefault();
   console.log($ingredientsFile);
@@ -252,35 +187,42 @@ var addRecipe = function (event) {
   //TODO: may need to clear the ingredients and instructions text inputs after they are inserted into the Ingredients database table.
 };
 
-// Save the new example to the db and refresh the list
+// Search for recipes by ingredients
 var getRecipesByIngredients = function(event) {
   event.preventDefault();
   console.log($ingredientsInput.val());
-  API.getRecipesByIngredients($ingredientsInput.val()).then(function(data) {
-    console.log("returned: ", data);
-    alert(JSON.stringify(data));
+  API.getRecipesByIngredients($ingredientsInput.val())
+  .then(function(data) {
+    $("#foundRecipesHeader").empty();
+    $("#foundRecipes").empty();
+    $("#foundRecipesHeader").prepend("<h3>Found Recipes</h3>");   // Add Found Recipes Heading
+    $("#foundRecipesHeader").append("<hr>");
+    $ingredientsInput.val("");    
+
+    // Add new recipe card
+    for(var i=0; i<data.length; i++){ 
+      $("#foundRecipes").append(card);
+      $(".card-img-top:eq("+i+")").attr("src", data[i].img);
+      $(".recipeName:eq("+i+")").text(data[i].name);
+      $(".recipeDescription:eq("+i+")").text(data[i].description);
+      $(".recipeInstructions:eq("+i+")").text(data[i].instructions);
+      
+      for(var j=0; j<data[i].ingredients.length; j++){
+        var li = '<li class="ingr">'+ data[i].ingredients[j].recipeIngredients.quantity +  " " ;
+        li +=  data[i].ingredients[j].recipeIngredients.unit + " " +data[i].ingredients[j].name + '</li>';
+        $(".recipeIngredients:eq("+i+")").append(li);
+      }
+    };
   });  
 };
 
 // Add event listeners to the submit and delete buttons
 // $submitBtn.on("click", handleFormSubmit);
 $submitRecipeBtn.on("click", addRecipe);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+
 
 // Listener for searching recipes by ingredients
 $ingredientsSubmitBtn.on("click", getRecipesByIngredients);
-
-
-$('#customFile').on('change', function () {
-  //get the file name
-  var fileName = $(this).val();
-  fs.readFile('demofile1.html', function (err, data) {
-    console.log(data);
-  });
-  console.log(fileName);
-  //replace the "Choose a file" label
-  $(this).next('.custom-file-label').html(fileName);
-})
 
 $("#ingredientAddButton").on("click", function() {
   const name = $("#ingredientInput").val();
@@ -293,4 +235,5 @@ $("#ingredientAddButton").on("click", function() {
     data: JSON.stringify({name: name})
   });
 });
+
 

@@ -2,7 +2,8 @@ module.exports = function(sequelize, DataTypes) {
   var Recipe = sequelize.define("Recipe", {
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-    instructions: DataTypes.TEXT
+    instructions: DataTypes.TEXT,
+    img: DataTypes.TEXT
   });
 
   Recipe.associate = function(models) {

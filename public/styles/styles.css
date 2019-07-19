@@ -123,3 +123,11 @@
   .links a{
   margin-left: 4px;
   }
+
+  .cardInfo{
+    height:200px;
+    overflow:auto;
+  }
+  .card-img-top{
+    max-height: 200px;
+  }
