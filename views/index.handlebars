@@ -114,53 +114,53 @@
     </div>
   </div>
 
-  <!-- RECIPES BY INGREDIENT-->
+  <!-- RESULTS RECIPES BY INGREDIENT-->
 
   <div class="container" id="recipesByIngredients">
     <div class="row">
-      <div class="col-12 text-center" id="foundRecipesHeader">
+      <div class="col-12 text-center subtitles" id="foundRecipesHeader">
+      </div>
+      <div class="col-12 text-center subtitles" id="noRecipesFound">
+        <br>
+        <br>
       </div>
     </div>
     <div class="row" id="foundRecipes">
     </div>
   </div>
 
-    <div class="container" id="randomRecipes">
+  <div class="container" id="randomRecipes">
     <div class="row">
-      <div class="col-12 text-center" id="foundRandomRecipesHeader">
+      <div class="col-12 text-center subtitles" id="foundRandomRecipesHeader">
       </div>
     </div>
     <div class="row" id="foundRandomRecipes">
     </div>
   </div>
-  
-  {{!-- SHOPPING LIST AND SAVED DISHES --}}
+
   <section id="savedshoppinglist">
     <div class="container">
-
-    {{!-- SHOPPING LIST AND SAVED DISHES --}}
-    <section id="savedshoppinglist">
-      <div class="container">
-        <div class="row">
-          <div class="col py-3 px-lg-5 border bg-light">
-            <div class="subtitles">Saved dishes!</div>
-          </div>
-          <div class="col py-3 px-lg-5 border bg-light">
-            <div class="subtitles">Shopping list</div>
-            <br>
-            <ul class="list-group item-list">
-              <li class="list-group-item new-item">
-                <form id="item-form">
-                    <input class="new-item form-control" placeholder="Item name" type="text" />
-                    <button type="submit" class="btn btn-danger btn-sm">Add to list</button>
-                </form>
-              </li>
-              <span class="item-container"></span>
-            </ul>
-          </div>
+      <div class="row">
+        <div class="col py-3 px-lg-5 border bg-light">
+          <div class="subtitles">Saved dishes!</div>
         </div>
-    </section>
-    
+        <div class="col py-3 px-lg-5 border bg-light">
+          <div class="subtitles">Shopping list</div>
+          <br>
+          <ul class="list-group item-list">
+            <li class="list-group-item new-item">
+              <form id="item-form">
+                <input class="new-item form-control" placeholder="Item name" type="text" />
+                <button type="submit" class="btn btn-danger btn-sm">Add to list</button>
+              </form>
+            </li>
+            <span class="item-container"></span>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   {{!-- SHARE YOUR RECIPE --}}
   <br>
