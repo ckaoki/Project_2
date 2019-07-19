@@ -8,6 +8,9 @@
     color: white;
 }
 
+/* #add_food{
+  display:none;
+} */
 .nav-link{
   color: rgb(227, 18, 3);
   letter-spacing: 4px;
