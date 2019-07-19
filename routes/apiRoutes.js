@@ -29,6 +29,10 @@ module.exports = function (app) {
     });
   });
   
+  // ----------------------------
+  //        RECIPE SEARCH             
+  // ----------------------------
+
   // Find recipes containing the given ingredients ***************************************************
   app.get("/api/RecipesByIngredients/:ingredients", function(req, res) {
     // Change string of ingredients to array
@@ -87,13 +91,7 @@ module.exports = function (app) {
         res.json(recipes);
       })
     })
-  
 
-
-//************ Example and Test routes below this line **********/
-
-  // Test
-  // app.get("/api/test", function(req, res) {
 
   // ----------------------------
   //        SHOPPING LIST           
@@ -141,8 +139,23 @@ app.put("/api/items", function(req, res) {
 
 
   // ----------------------------
-  //          RECIPES            
+  //        CREATE RECIPES            
   // ----------------------------
+
+  app.post("/api/new", function(req, res) {
+    var addIngredients = req.params.ingredients.split(',');
+    for (var i = 0; i < addIngredients.length; i++) {
+      addIngredients[i] = addIngredients[i].trim();
+    };
+    db.Recipe.create({
+      name: req.body.name,
+      description: req.body.description,
+      instructions: req.body.instructions,
+      img: req.body.img
+    }).then(function(recipes){
+      res.json(recipes);
+    });
+  });
 
   // Create a new recipe
   //
@@ -204,90 +217,6 @@ app.put("/api/items", function(req, res) {
   //   });
   // });
 
-  // Search recipes by ingredients
-  //
-  // Request:
-  //         ["water", "sugar", "bananas", "butter"]
-  // Response:
-  //       [ {
-  //            name: string
-  //            description: string
-  //            instructions: string
-  //        } ]
-  //
-  // app.get("/api/ingredients/:ingredient", function (req, res) {
-  //   db.recipeIngredients.findAll
-  //   ({ 
-  //     where: {ingredient: req.params.body 
-  //     }}.then(
-  //     function (pantryAssemblerDb) {
-  //       res.json(pantryAssemblerDb);
-  //     }
-  //   ));
-  // });
-
-  // app.get("/api/recipes/search", function (req, res) {
-  //   res.json([
-  //     {
-  //       name: 'Matched Recipe 1',
-  //       description: 'Description 1',
-  //       instructions: 'Instructions 1'
-  //     },
-  //     {
-  //       name: 'Matched Recipe 2',
-  //       description: 'Description 2',
-  //       instructions: 'Instructions 2'
-  //     },
-  //   ]);
-  // });
-
-  // Get sample recipes.
-  // 
-  // Searches for the top 3 most used recipes.
-
-  // Encounter.findAll({ order: 'rand()', limit: 3 }).then((encounter) => {
-  //   include: [{
-  //     model: db.Recipes,
-  //     as: 'recipes',
-  //     attributes: ['name', 'description', 'instructions'],
-  //     through: { model: db.Recipes }
-  //   }]
-  // });
-
-  // app.post("/api/samplerecipes", function (req, res) {
-  //   db.Recipes.create(req.body).then(function (dbPantryAssembler) {
-  //     res.json(dbPantryAssembler);
-  //   });
-  // });
-
-  // Request:
-  //         empty
-  // Response:
-  //       [ {
-  //            name: string
-  //            description: string
-  //            instructions: string
-  //        } ]
-  //
-  // app.get("/api/recipes/sample", function (req, res) {
-  //   res.json([
-  //     {
-  //       name: 'Sample Recipe 1',
-  //       description: 'Description 1',
-  //       instructions: 'Instructions 1'
-  //     },
-  //     {
-  //       name: 'Sample Recipe 2',
-  //       description: 'Description 2',
-  //       instructions: 'Instructions 2'
-  //     },
-  //     {
-  //       name: 'Sample Recipe 3',
-  //       description: 'Description 3',
-  //       instructions: 'Instructions 3'
-  //     },
-  //   ]);
-  // });
 
   // ----------------------------
   //         INGREDIENTS          
@@ -303,12 +232,6 @@ app.put("/api/items", function(req, res) {
     });
   });
 
-  // Get all ingredients
-  // app.get("/api/ingredients/all", function (req, res) {
-  //   db.Ingredients.findAll(req.body).then(function (dbPantryAssembler) {
-  //     res.json(dbPantryAssembler);
-  //   });
-  // });
 
   // ----------------------------
   //           TESTS             
@@ -347,26 +270,4 @@ app.put("/api/items", function(req, res) {
 //     });
 //   });
 
-//   app.get("/api/examples", function (req, res) {
-//     db.recipeIngredients.findAll({}).then(function (dbPantryAssembler) {
-
-//       res.json(dbPantryAssembler);
-//     });
-//   });
-
-//   // Create a new example
-//   app.post("/api/examples", function (req, res) {
-//     console.log(req.body); //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
-//     db.Recipe.create(req.body).then(function (dbPantryAssembler) {
-//       res.json(dbPantryAssembler);
-//     });
-//   });
-
-//   // Delete an example by id
-//   app.delete("/api/examples/:id", function (req, res) {
-//     db.Recipe.destroy({ where: { id: req.params.id } }).then(function (dbPantryAssembler) {
-//       res.json(dbPantryAssembler);
-//     });
-//   });
-// };
 };

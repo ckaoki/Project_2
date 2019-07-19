@@ -7,24 +7,39 @@ var $submitBtn = $("#submit");
 var $submitRecipeBtn = $("#addRecipe");
 var $exampleList = $("#example-list");
 var $customFile = $("#customFile");
-
 var $ingredientsInput = $("#ingredientsInput");
 var $ingredientsSubmitBtn = $("#ingredientsSubmitBtn");
-
-
-
 var $signUpName = $(".signUpName");
 var $signUpPassword = $(".signUpPassword");
 var $signUpPassword2 = $(".signUpPasswordAgain");
 var $signUpEmail = $(".signUpEmail");
 var $signUpSubmit = $(".signUpSubmit");
-
 var $signInSubmit = $(".signInSubmit");
 var $signInName = $(".signInName");
 var $signInPassword = $(".signInPassword");
-
-
-
+var card =  '<div class="col-md-4">';
+    card += ' <div class="card mb-4 shadow-sm">';
+    card += '   <svg id="recipeImg" class="bd-placeholder-img card-img-top" width="100%" height="225"';
+    card += '     xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img"';
+    card += '     aria-label="Placeholder: Thumbnail">';
+    card += '     <title>Placeholder</title>'
+    card += '     <rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef"';
+    card += '     dy=".3em">Thumbnail</text>';
+    card += '   </svg>';
+    card += '   <div class="card-body">';
+    card += '     <h5 class="recipeName card-title">Recipe name</h5>';
+    card += '       <p class="recipeDescription"></p>';
+    card += '       <ul class="recipeIngredients">';
+    card += '       </ul>';
+    card += '       <p class="recipeInstructions" class="card-text"></p>';
+    card += '       <div class="d-flex justify-content-between align-items-center">';
+    card += '         <div class="btn-group">';
+    card += '            <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
+    card += '         </div>';
+    card += '       </div>';
+    card += '   </div>';
+    card += '  </div>';
+    card += '</div>';
 
 var getApi = {
   saveUser: function (user) {
@@ -413,3 +428,29 @@ var $newItemInput = $("input.new-item");
     $newItemInput.val("");
   }
 });
+
+
+// ----- GETS RECIPES BY INGREDIENTS -----
+
+var getRecipesByIngredients = function(event) {
+  event.preventDefault();
+  console.log($ingredientsInput.val());
+  API.getRecipesByIngredients($ingredientsInput.val())
+  .then(function(data) {
+    console.log("returned: ", data);
+    alert(JSON.stringify(data));
+    for(var i=0; i<data.length; i++){      
+      $("#recipesByIngredients").append(card);
+      $(".recipeName:eq("+i+")").text(data[i].name);
+      $(".recipeDescription:eq("+i+")").text(data[i].description);
+      $(".recipeInstructions:eq("+i+")").text(data[i].instructions);
+      for(var j=0; j<data[i].ingredients.length; j++){
+        // $(".recipeIngredients:eq("+j+")").append('<li>"+data[i].ingredients[j].name+"</li>');
+        console.log(j);
+        $(".recipeIngredients:eq("+i+")").append(data[i].ingredients[j].name + ', ');
+      }
+    };
+  });  
+};
+
+
