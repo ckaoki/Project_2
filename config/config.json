@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "123123123",
+    "password": "password",
     "database": "dbPantryAssembler",
     "host": "localhost",
     "dialect": "mysql"
