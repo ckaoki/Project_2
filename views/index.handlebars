@@ -1,4 +1,11 @@
-<div id="home">
+{{!-- put these code into index.handlebars --}}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_up">
+  sign up
+</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_in">
+  sign in
+</button>
 
   <!-- sign up -->
   <div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="sign_up_label" aria-hidden="true">
@@ -74,6 +81,7 @@
     </div>
   </div><!-- sign in end-->
 
+<div id="home">
 
   <div class="navbar-light warning-color lighten-5 d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3">
     <a class="logo my-0 mr-md-auto navbar-brand" href="#">
@@ -329,6 +337,13 @@
 
   {{!-- <div class="row">
       <div class="col-8 offset-2">
+
+
+
+
+
+
+
         <h1>{{msg}}</h1>
         <h2>This is our Home Page!</h2>
         <form class="clearfix mb-4" action="POST">
