@@ -7,19 +7,16 @@ var $submitBtn = $("#submit");
 var $submitRecipeBtn = $("#addRecipe");
 var $exampleList = $("#example-list");
 var $customFile = $("#customFile");
-
 var $ingredientsInput = $("#ingredientsInput");
 var $ingredientsSubmitBtn = $("#ingredientsSubmitBtn");
+
 var $recipesByIngredient = $("#recipesByIngredient");
-
-
 
 var $signUpName = $(".signUpName");
 var $signUpPassword = $(".signUpPassword");
 var $signUpPassword2 = $(".signUpPasswordAgain");
 var $signUpEmail = $(".signUpEmail");
 var $signUpSubmit = $(".signUpSubmit");
-
 var $signInSubmit = $(".signInSubmit");
 var $signInName = $(".signInName");
 var $signInPassword = $(".signInPassword");
@@ -44,8 +41,6 @@ var card =  '<div class="col-md-4">';
     card += '   </div>';
     card += '  </div>';
     card += '</div>';
-
-
 
 var getApi = {
   saveUser: function (user) {
@@ -235,5 +230,148 @@ $("#ingredientAddButton").on("click", function() {
     data: JSON.stringify({name: name})
   });
 });
+
+
+// ------------SHOPPING LIST--------------
+
+$(document).ready(function() {
+var $newItemInput = $("input.new-item");
+  var $itemContainer = $(".item-container");
+  $(document).on("click", "button.delete", deleteItem);
+  $(document).on("click", "button.complete", toggleComplete);
+  $(document).on("click", ".item-item", editItem);
+  $(document).on("keyup", ".item-item", finishEdit);
+  $(document).on("blur", ".item-item", cancelEdit);
+  $(document).on("submit", "#item-form", insertItem);
+
+  var items = [];
+
+  getItems();
+
+  function initializeRows() {
+    $itemContainer.empty();
+    var rowsToAdd = [];
+    for (var i = 0; i < items.length; i++) {
+      rowsToAdd.push(createNewRow(items[i]));
+    }
+    $itemContainer.prepend(rowsToAdd);
+  }
+
+  function getItems() {
+    $.get("/api/items", function(data) {
+      items = data;
+      initializeRows();
+    });
+  }
+
+  function deleteItem(event) {
+    event.stopPropagation();
+    var id = $(this).data("id");
+    $.ajax({
+      method: "DELETE",
+      url: "/api/items/" + id
+    }).then(getItems);
+  }
+
+  function editItem() {
+    var currentItem = $(this).data("item");
+    $(this).children().hide();
+    $(this).children("input.edit").val(currentItem.text);
+    $(this).children("input.edit").show();
+    $(this).children("input.edit").focus();
+  }
+
+  function toggleComplete(event) {
+    event.stopPropagation();
+    var item = $(this).parent().data("item");
+    item.complete = !item.complete;
+    updateItem(item);
+  }
+
+  function finishEdit(event) {
+    var updatedItem = $(this).data("item");
+    if (event.which === 13) {
+      updatedItem.text = $(this).children("input").val().trim();
+      $(this).blur();
+      updateItem(updatedItem);
+    }
+  }
+
+  function updateItem(item) {
+    $.ajax({
+      method: "PUT",
+      url: "/api/items",
+      data: item
+    }).then(getItems);
+  }
+
+  function cancelEdit() {
+    var currentItem = $(this).data("item");
+    if (currentItem) {
+      $(this).children().hide();
+      $(this).children("input.edit").val(currentItem.text);
+      $(this).children("span").show();
+      $(this).children("button").show();
+    }
+  }
+
+  function createNewRow(item) {
+    var $newInputRow = $(
+      [
+        "<li class='list-group-item item-item'>",
+        "<span>",
+        item.text,
+        "</span>",
+        "<input type='text' class='edit' style='display: none;'>",
+        "<button class='delete btn btn-danger'>x</button>",
+        "<button class='complete btn btn-primary'>✓</button>",
+        "</li>"
+      ].join("")
+    );
+
+    $newInputRow.find("button.delete").data("id", item.id);
+    $newInputRow.find("input.edit").css("display", "none");
+    $newInputRow.data("item", item);
+    if (item.complete) {
+      $newInputRow.find("span").css("text-decoration", "line-through");
+    }
+    return $newInputRow;
+  }
+
+  function insertItem(event) {
+    event.preventDefault();
+    var item = {
+      text: $newItemInput.val().trim(),
+      complete: false
+    };
+
+    $.post("/api/items", item, getItems);
+    $newItemInput.val("");
+  }
+});
+
+
+// ----- GETS RECIPES BY INGREDIENTS -----
+
+var getRecipesByIngredients = function(event) {
+  event.preventDefault();
+  console.log($ingredientsInput.val());
+  API.getRecipesByIngredients($ingredientsInput.val())
+  .then(function(data) {
+    console.log("returned: ", data);
+    alert(JSON.stringify(data));
+    for(var i=0; i<data.length; i++){      
+      $("#recipesByIngredients").append(card);
+      $(".recipeName:eq("+i+")").text(data[i].name);
+      $(".recipeDescription:eq("+i+")").text(data[i].description);
+      $(".recipeInstructions:eq("+i+")").text(data[i].instructions);
+      for(var j=0; j<data[i].ingredients.length; j++){
+        // $(".recipeIngredients:eq("+j+")").append('<li>"+data[i].ingredients[j].name+"</li>');
+        console.log(j);
+        $(".recipeIngredients:eq("+i+")").append(data[i].ingredients[j].name + ', ');
+      }
+    };
+  });  
+};
 
 
