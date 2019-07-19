@@ -7,7 +7,3 @@
 
 DROP DATABASE IF EXISTS dbPantryAssembler;
 CREATE DATABASE dbPantryAssembler;
-
-
-DROP DATABASE IF EXISTS itemlist;
-CREATE DATABASE itemlist;
