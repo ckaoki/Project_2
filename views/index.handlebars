@@ -103,8 +103,7 @@
           <h4>What's in your pantry today?</h4>
           <label for="formGroupExampleInput">Search by ingredients</label>
           <div class="row justify-content-md-center">
-            <input type="text" class="w-50 form-control" id="ingredientsInput"
-              placeholder="Ex. Spinach, pork, eggs">
+            <input type="text" class="w-50 form-control" id="ingredientsInput" placeholder="Ex. Spinach, pork, eggs">
             <br>
           </div>
           <br>
@@ -114,7 +113,9 @@
       </form>
     </div>
   </div>
+
   <!-- RECIPES BY INGREDIENT-->
+
   <div class="container" id="recipesByIngredients">
     <div class="row">
       <div class="col-12 text-center" id="foundRecipesHeader">
@@ -123,15 +124,20 @@
     <div class="row" id="foundRecipes">
     </div>
   </div>
-  <!-- RANDOM RECIPES -->
+
     <div class="container" id="randomRecipes">
     <div class="row">
-      <div class="col-12 text-center" id="randomRecipesHeader">
+      <div class="col-12 text-center" id="foundRandomRecipesHeader">
       </div>
     </div>
-    <div class="row" id="randomRecipeCards">
+    <div class="row" id="foundRandomRecipes">
     </div>
   </div>
+  
+  {{!-- SHOPPING LIST AND SAVED DISHES --}}
+  <section id="savedshoppinglist">
+    <div class="container">
+
     {{!-- SHOPPING LIST AND SAVED DISHES --}}
     <section id="savedshoppinglist">
       <div class="container">
@@ -154,43 +160,42 @@
           </div>
         </div>
     </section>
-    {{!-- SHARE YOUR RECIPE --}}
-    <br>
-    <section id="share">
-      <div class="row">
-        <div class="col py-3 px-lg-5 border bg-light">
-          <div class="subtitles">Add recipe</div>
-          <hr>
-          <form class="create-form" id="newRecipe">
-            <div class="form-group">
-              <label for="name">Recipe name:</label>
-              <input type="text" id="recipeName" name="name">
-            </div>
-            <div class="form-group">
-              <label for="description">Description:</label>
-              <input type="text" id="recipeDescription" name="name">
-            </div>
-            {{!-- <div class="form-group">
-                            <label for="ingredients">Ingredients:</label>
-                            <input type="text" id="recipeIngredients" name="name">
-                        </div> --}}
-            <div class="form-group">
-              <label for="instructions">Instructions:</label>
-              <input type="text" id="recipeInstructions" name="name">
-            </div>
-            <div class="form-group">
-              <label for="ingredient">Ingredients:</label>
-              <input type="text" id="ingredientInput" name="name">
-              <div class="input-group-append">
-                <button class="btn btn-outline-secondary" type="button" id="ingredientAddButton">Add Ingredient</button>
-              </div>
-            </div>
-            <br>
-            <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
-          </form>
-        </div>
+    
+
+  {{!-- SHARE YOUR RECIPE --}}
+  <br>
+  <section id="share">
+    <div class="row">
+      <div class="col py-3 px-lg-5 border bg-light">
+        <div class="subtitles">Add recipe</div>
+        <hr>
+        <form class="create-form" id="newRecipe">
+          <div class="form-group">
+            <label for="name">Recipe name:</label>
+            <input type="text" id="recipeName" name="name">
+          </div>
+          <div class="form-group">
+            <label for="description">Description:</label>
+            <input type="text" id="recipeDescription" name="name">
+          </div>
+          <div class="form-group">
+            <label for="instructions">Instructions:</label>
+            <input type="text" id="recipeInstructions" name="name">
+          </div>
+          <div class="form-group">
+            <label for="ingredient">Link to the recipe image:</label>
+            <input type="text" id="imgInput" name="name">
+          </div>
+          <div class="form-group">
+            <label for="ingredient">Ingredients:</label>
+            <input type="text" id="ingredientInput" placeholder="Ex. Spinach, pork, eggs" name="name">
+          </div>
+          <br>
+          <button class="btn btn-danger btn-sm" type="submit" id="addRecipe">Add now!</button>
+        </form>
       </div>
-    </section>
-  </div>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/js/index.js"></script>
+    </div>
+  </section>
+</div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
