@@ -51,6 +51,8 @@ salad mixture and dressing. Toss and serve on a bed of shredded lettuce.', now()
 -------------------------------
 -- INGREDIENTS TABLE --
 -------------------------------
+
+USE dbPantryAssembler;
 INSERT INTO Ingredients
     (name, createdAt, updatedAt)
 VALUES

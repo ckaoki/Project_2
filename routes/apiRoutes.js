@@ -1,4 +1,5 @@
 var db = require("../models");
+var Sequelize = require("sequelize");
 
 module.exports = function (app) {
 
@@ -59,7 +60,7 @@ module.exports = function (app) {
               model: db.Ingredient,
               as: 'ingredients',
               attributes: ['id', 'name'],
-              through: {model: db.recipeIngredients}                
+              through: {model: db.recipeIngredients}
               }]
             }).then(function(recipes) {
               res.json(recipes);
@@ -70,8 +71,23 @@ module.exports = function (app) {
           }            
       });
     }); 
-
-  };
+  
+    //Get three random recipes
+    app.get("/api/sampleRecipes", function (req,res){
+      db.Recipe.findAll({ 
+        order: Sequelize.literal('rand()'),
+        limit: 3,
+        include:[{
+          model: db.Ingredient,
+          as: 'ingredients',
+          attributes: ['id', 'name'],
+          through: {model: db.recipeIngredients} 
+        }] 
+      }).then(function(recipes){
+        res.json(recipes);
+      })
+    })
+  
 
 
 //************ Example and Test routes below this line **********/
@@ -293,3 +309,4 @@ module.exports = function (app) {
 //     });
 //   });
 // };
+};
