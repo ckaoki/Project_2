@@ -6,51 +6,68 @@ SELECT * FROM dbPantryAssembler.Recipes;
 
 USE dbPantryAssembler;
 
+INSERT INTO Recipes
+    (name, description, instructions, img, createdAt, updatedAt)
+VALUES
+    ('Extra Easy Hummus', 'Favorite with kids, only takes minutes!', 'In a blender 
+combine 1 can garbanzo beans, 1 clove garlic, 2 teaspoons ground cumin, 1/2 teaspoon salt, and 1 tablespoon olive oil. Blend on low 
+speed, gradually adding reserved bean liquid until desired consistency is achieved.','https://hips.hearstapps.com/hmg-prod/images/hummus-horizontal-jpg-1525126330.jpg', now(), now());
 
 INSERT INTO Recipes
-    (name, description, instructions, createdAt, updatedAt)
+    (name, description, instructions, img, createdAt, updatedAt)
+VALUES
+    ('Pork Chops', 'Delicious flavor, yummy!', 'Mix 1/4 cup soy sauce,
+and 1/2 teaspoon pepper in a bowl. Place 4 boneless pork chops in a skillet over
+medium heat, and cover with the dressing mixture. Cover skillet and cook pork chops 
+25 minutes, turning occasionally. Remove cover, reduce heat to low, and continue
+cooking to desired doneness.','https://www.primaverakitchen.com/wp-content/uploads/2018/10/Garlic-Butter-Baked-Pork-Chops-Primavera-Kitchen-3.jpg', now(), now());
+
+INSERT INTO Recipes
+    (name, description, instructions, img, createdAt, updatedAt)
 VALUES
     ('Parmesan Crusted Pork Chops', 'Unique variation to classic pork chops',
         'Preheat over to 350 degrees. Whisk egg in a shallow bowl. Mix 1/4 cup grated Parmesan 
 cheese and 1 teaspoon Cajun seasoning together on plate. Dip each pork chop into egg.
 Press until coated on both sides. Baked in preheated overn until golden for 35 to
-40 minutes.', now(), now());
+40 minutes.', 'https://images.media-allrecipes.com/userphotos/560x315/3875421.jpg', now(), now());
 
 INSERT INTO Recipes
-    (name, description, instructions, createdAt, updatedAt)
+    (name, description, instructions, img, createdAt, updatedAt)
 VALUES
     ('Melt-In-Your-Mouth Dark Chocolate', 'Quick and easy sweet treat',
         'Gently melt coconut oil in a saucepan over medium-low heat. Stir 1/2 cup cocoa powder, 3 tablespoons
 honey, and 1/2 teaspoon vanilla extract into melted oil until well blended. Pour mixture into a tray.
-Refrigerate until chilled', now(), now());
+Refrigerate until chilled', 'https://cdn.renewingallthings.com/wp-content/uploads/homemade-dark-chocolate.jpg', now(), now());
 
 INSERT INTO Recipes
-    (name, description, instructions, createdAt, updatedAt)
+    (name, description, instructions, img, createdAt, updatedAt)
 VALUES
     ('Kale and Quinoa Salad', 'Stay healthy with this delicious salad', 'Stir 1 cup quinoa into boiling water reduce heat to medium-low, place cover on saucepan, and 
 cook until water absorbs into the quinoa, about 12 minutes. Remove saucepan from heat and let cool.
 Put kale in  mixing bowl. Whisk olive oil, lemon juice, Dijon mustard, garlic, pepper, and salt 
-together in a bowl until oil emulsifies and drizzle over mixture. Add quinoa and feta.', now(), now());
+together in a bowl until oil emulsifies and drizzle over mixture. Add quinoa and feta.','https://blog.katescarlata.com/wp-content/uploads/2017/02/Quinoa-kale-spoon.jpg', now(), now());
 
 INSERT INTO Recipes
-    (name, description, instructions, createdAt, updatedAt)
+    (name, description, instructions, img, createdAt, updatedAt)
 VALUES
     ('Easy No Bake Chocolate Cookies', 'Forget about the oven!', 'In a saucepan over medium heat, combine 2 cups sugar, 1/4 cup unsweetened 
 cocoa powder, 1/2 cup milk, and 1/2 cup margarine. Bring to a boil. Remove from heat and stir in 
 vanilla, salt, peanut butter, and oats. Drop by rounded spoonfuls onto waxed paper. Allow cookies
-to cool for at least 1 hour.', now(), now());
+to cool for at least 1 hour.','https://shewearsmanyhats.com/wp-content/uploads/2014/12/no-bake-oatmeal-chocolate-coconut-cookies-1-copy.jpg', now(), now());
 
 INSERT INTO Recipes
-    (name, description, instructions, createdAt, updatedAt)
+    (name, description, instructions, img, createdAt, updatedAt)
 VALUES
     ('Garbanzo Bean Salad', 'Refreshing salad, perfect for pic-nics!', 'In a salad bowl, combine the chick peas, celery, onion, apple, and walnuts. 
 Prepare the dressing by whisking together the mayonnaise, honey, mustard, and lemon juice. Combine the 
-salad mixture and dressing. Toss and serve on a bed of shredded lettuce.', now(), now());
+salad mixture and dressing. Toss and serve on a bed of shredded lettuce.','https://images-gmi-pmc.edge-generalmills.com/1daacf40-49ce-4fe8-9f1e-67eb9a534144.jpg', now(), now());
 
 
 -------------------------------
 -- INGREDIENTS TABLE --
 -------------------------------
+
+USE dbPantryAssembler;
 INSERT INTO Ingredients
     (name, createdAt, updatedAt)
 VALUES
