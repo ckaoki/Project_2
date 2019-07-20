@@ -33,6 +33,8 @@ var syncOptions = { force: false };
 if (process.env.NODE_ENV === "test") {
   syncOptions.force = true;
 }
+const UserId=db.PantryItems.belongsTo(db.Users,{ as: 'User' });
+
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {

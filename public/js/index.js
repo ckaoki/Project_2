@@ -1,8 +1,10 @@
+
+
 // Get references to page elements
 var $recipeName = $("#recipeName");
 var $recipeDescription = $("#recipeDescription");
 var $recipeInstructions = $("#recipeInstructions");
-var $ingredientsFile = $("#ingredientsFile");
+var $ingredientsFile = $("#ingredientsFile");   
 var $submitBtn = $("#submit");
 var $submitRecipeBtn = $("#addRecipe");
 var $exampleList = $("#example-list");
@@ -21,6 +23,119 @@ var $signInSubmit = $(".signInSubmit");
 var $signInName = $(".signInName");
 var $signInPassword = $(".signInPassword");
 
+// add food
+var $addIngredient = $("#add_ingredient");
+var $ingredientQuantity = $("#ingredient_quantity");
+var $ingredientUnit = $("#ingredient_unit");
+var $ingredientExpireDate = $("#ingredient_expireDate");
+var $addFoodBtn = $("#add_food");
+
+var $signUpBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_up">').text("sign up")
+var $signInBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_in">').text("sign in")
+
+var $signOutBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" onclick="signOut();" >').text("sign out")
+var $profileBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" onclick="profile();" data-toggle="modal" data-target="#profile">')
+
+$("#log_area").append($signUpBtn);
+$("#log_area").append($signInBtn);
+
+var logedInUserId = "-1";
+var logedInUserName = "no one"
+
+
+function generatePassword() {
+  var length = 8,
+    charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+    retVal = "";
+  for (var i = 0, n = charset.length; i < length; ++i) {
+    retVal += charset.charAt(Math.floor(Math.random() * n));
+  }
+  return retVal;
+}
+
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+  var user = {
+    user_name: profile.getEmail(),
+    password: generatePassword(),
+    email: getEmail(),
+  }
+  getApi.findOneUser(userName).then(function (data) {
+    if (data.length != 0) {
+      console.log("welcome come back")
+      logedInUserId = data[0].id;
+      logedInUserName = data[0].user_name;
+    } else {
+      getApi.saveUser(user).then(function (data) {
+        logedInUserId = data[0].id;
+        logedInUserName = data[0].user_name;
+      })
+    }
+  });
+  refreshfoods();
+  $("#log_area").empty();
+  $("#add_food_div").css("display","unset");
+  $("#log_area").append($signOutBtn);
+  $("#log_area").append($profileBtn.text("user id:" + logedInUserId));
+}; //onSignIn funtion end
+
+//google sign out
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+
+  });
+}
+//user sign out
+function userSignOut() {
+  $("#log_area").empty();
+  $("#food-thead").empty();
+  $("#foodInfo").empty();
+  $("#log_area").append($signUpBtn);
+  $("#log_area").append($signInBtn);
+  $("#add_food_div").css("display","none");
+  
+  logedInUserId = "-1"
+};
+$signOutBtn.click(userSignOut);
+
+
+var $userNameProfile = $("#user_name_profile");
+var $userEmailProfile = $("#user_email_profile");
+var $userPasswordProfile = $("#user_password_profile");
+var $changePasswordProfile = $(".change_password");
+var $changePasswordBtn = $(".changePassword_btn");
+
+var creatNewPassword = function (newPassword, username) {
+  console.log(newPassword)
+  getApi.changePassword(newPassword, username).then(function (data) {
+    alert("password changed")
+  })
+};
+//profile
+function profile() {
+  getApi.findOneUser(logedInUserName).then(function (data) {
+    $userNameProfile.text(data[0].user_name);
+    $userEmailProfile.text(data[0].email);
+    $userPasswordProfile.text(data[0].password);
+  });
+  $changePasswordBtn.on("click", function () {
+    var newPassword = $changePasswordProfile.val().trim();
+    if (newPassword.length < 6 || newPassword.length > 12) {
+      alert("The password length must be between 6 and 12");
+      return;
+    };
+    creatNewPassword(newPassword, logedInUserName)
+  });
+}
+
+
 // Bootstrap card html
 var card = '<div class="col-md-4">';
 card += ' <div class="card mb-4 shadow-sm">';
@@ -28,16 +143,19 @@ card += '  <img src="..." class="card-img-top" alt="...">';
 card += '   <div class="card-body">';
 card += '     <h5 class="recipeName card-title">Recipe name</h5>';
 card += '     <div class="cardInfo">';
+card += '       <b>Description:</b>'
 card += '       <p class="recipeDescription"></p>';
+card += '       <b>Ingredients:</b>'
 card += '       <ul class="recipeIngredients">';
 card += '       </ul>';
+card += '       <b>Instructions:</b>';
 card += '       <p class="recipeInstructions" class="card-text"></p>';
 card += '     </div>';
-card += '       <div class="d-flex justify-content-between align-items-center">';
-card += '         <div class="btn-group">';
-card += '            <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
-card += '         </div>';
+card += '     <div class="d-flex justify-content-between align-items-center">';
+card += '       <div class="btn-group">';
+card += '          <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
 card += '       </div>';
+card += '     </div>';
 card += '   </div>';
 card += '  </div>';
 card += '</div>';
@@ -53,6 +171,12 @@ var getApi = {
       data: JSON.stringify(user)
     });
   },
+  changePassword: function (password, user) {
+    return $.ajax({
+      url: "/api/password/" + password + "/" + user,
+      type: "PUT"
+    });
+  },
   findOneUser: function (user_name) {
     // console.log(user_name);
     return $.ajax({
@@ -60,37 +184,68 @@ var getApi = {
       type: "GET"
     });
   },
+  saveFood: function (food) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/foods",
+      data: JSON.stringify(food)
+    });
+  },
+  getAllFoods: function (UserId) {
+    return $.ajax({
+      url: "api/allfoods/" + UserId,
+      type: "GET"
+    });
+  },
+  userPage: function () {
+    console.log("userpage ajax")
+    return $.ajax({
+      url: "userpage",
+      type: "GET"
+    });
+  },
 
 };
 
-var logedInUserId = "";
 var submitToLogin = function (event) {
   event.preventDefault();
 
   var signInName = $signInName.val().trim();
+  if (!signInName) {
+    alert("please input user name");
+    return;
+  }
 
   getApi.findOneUser(signInName).then(function (data) {
-    console.log(data);
-    if (data.length < 1) {
+    // console.log(data);
+    if (!data) {
       alert("user name not exist");
       return;
     }
 
     if (data[0].password === $signInPassword.val().trim()) {
       logedInUserId = data[0].id;
+      logedInUserName = data[0].user_name;
       console.log("you are loged in, user id is: " + logedInUserId);
       $signInName.val("");
       $signInPassword.val("");
-    }
-    else {
+      $("#add_food_div").css("display","unset");
+      $("#log_area").empty();
+      $("#log_area").append($signOutBtn);
+      $("#log_area").append($profileBtn.text("profile"));
+      refreshfoods();
+
+    } else {
       alert("password not correct");
     }
   });
+}; //submitToLogin end
 
 
-
-};
-
+//save user
 var submitToSave = function (event) {
   event.preventDefault();
 
@@ -131,10 +286,74 @@ var submitToSave = function (event) {
       });
     }
   });
+}; //save user submitToSave function end
+
+//save food
+var submitToSaveFood = function (event) {
+  event.preventDefault();
+
+
+  var food = {
+    UserId: logedInUserId,
+    item_name: $addIngredient.val().trim(),
+    quantity: $ingredientQuantity.val().trim(),
+    unit: $ingredientUnit.val().trim(),
+    expireDate: $ingredientExpireDate.val().trim(),
+  };
+  if(!food.item_name){
+    alert("please input food name!")
+    return;
+  }
+  else if(isNaN(food.quantity))
+  {alert("quantity should be a number")}
+  getApi.saveFood(food).then(function (data) {
+    console.log(data)
+    $addIngredient.val("");
+    $ingredientQuantity.val("");
+    $ingredientUnit.val("");
+    $ingredientExpireDate.val("");
+    refreshfoods();
+  });
+}; //save food end
+
+// get user's all food
+var refreshfoods = function () {
+  var UserId = logedInUserId;
+  getApi.getAllFoods(UserId).then(function (data) {
+    // console.log(data)
+
+    var newTbody = $("#foodInfo");
+
+    var newTr = $("<tr>");
+    newTr.append(
+      $('<th scope="col">').text("#"),
+      $('<th scope="col">').text("food name"),
+      $('<th scope="col">').text("quantity"),
+      $('<th scope="col">').text("unit"),
+      $('<th scope="col">').text("expire date"),
+    );
+    $("#food-thead").empty();
+
+    $("#food-thead").append(newTr);
+    newTbody.empty();
+    for (var i = 0; i < data.length; i++) {
+      // var $button = $("<button>").addClass("btn btn-danger float-right delete").text("ｘ");
+      var newTbodyTr = $("<tr>").append(
+        $("<td>").text(i + 1),
+        $("<td>").text(data[i].item_name),
+        $("<td>").text(data[i].quantity),
+        $("<td>").text(data[i].unit),
+        $("<td>").text(data[i].expireDate),
+        // $button,
+      );
+      newTbody.append(newTbodyTr);
+    }
+  });
 };
 
 $signUpSubmit.on("click", submitToSave);
 $signInSubmit.on("click", submitToLogin);
+$addFoodBtn.on("click", submitToSaveFood)
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -192,32 +411,40 @@ var addRecipe = function (event) {
 // Search for recipes by ingredients
 var getRecipesByIngredients = function (event) {
   event.preventDefault();
-  console.log($ingredientsInput.val());
-  API.getRecipesByIngredients($ingredientsInput.val())
-    .then(function (data) {
-      $("#foundRecipesHeader").empty();
-      $("#foundRecipes").empty();
-      $("#noRecipesFound").prepend("No recipes found :(");
-      $("#foundRecipesHeader").prepend("Found Recipes");   // Add Found Recipes Heading
-      $("#foundRecipesHeader").append("<hr>");
-      $ingredientsInput.val("");
+  if($ingredientsInput.val().trim().length>0){
+    API.getRecipesByIngredients($ingredientsInput.val())
+      .then(function (data) {
+        $("#foundRecipesHeader").empty();
+        $("#foundRecipes").empty();
+        $("#foundRecipesHeader").prepend("Found Recipes");   // Add Found Recipes Heading
+        $("#foundRecipesHeader").append("<hr>");
+        $ingredientsInput.val("");
+        if(data.length>0){
+          // Add new recipe card
+          for (var i = 0; i < data.length; i++) {
+            $("#foundRecipes").append(card);
+            $(".card-img-top:eq(" + i + ")").attr("src", data[i].img);
+            $(".recipeName:eq(" + i + ")").text(data[i].name);
+            $(".recipeDescription:eq(" + i + ")").text(data[i].description);
+            $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
+            $("#noRecipesFound").empty();
 
-      // Add new recipe card
-      for (var i = 0; i < data.length; i++) {
-        $("#foundRecipes").append(card);
-        $(".card-img-top:eq(" + i + ")").attr("src", data[i].img);
-        $(".recipeName:eq(" + i + ")").text(data[i].name);
-        $(".recipeDescription:eq(" + i + ")").text(data[i].description);
-        $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
-        $("#noRecipesFound").empty();
-
-        for (var j = 0; j < data[i].ingredients.length; j++) {
-          var li = '<li class="ingr">' + data[i].ingredients[j].recipeIngredients.quantity + " ";
-          li += data[i].ingredients[j].recipeIngredients.unit + " " + data[i].ingredients[j].name + '</li>';
-          $(".recipeIngredients:eq(" + i + ")").append(li);
+            for (var j = 0; j < data[i].ingredients.length; j++) {
+              var li = '<li class="ingr">' + data[i].ingredients[j].recipeIngredients.quantity + " ";
+              li += data[i].ingredients[j].recipeIngredients.unit + " " + data[i].ingredients[j].name + '</li>';
+              $(".recipeIngredients:eq(" + i + ")").append(li);
+            }
+          };
         }
-      };
-    });
+        else{
+          $("#noRecipesFound").prepend("No recipes found :(");
+          $("#noRecipesFound").append("<hr>");
+        }
+      });
+    }
+    else{
+      console.log('No ingredients entered');
+    }
 };
 
 //SHOW RANDOM RECIPES
@@ -227,7 +454,7 @@ var getRecipesRandom = function () {
     .then(function (data) {
       console.log(data);
       $("#foundRandomRecipes").empty();
-      $("#foundRandomRecipesHeader").prepend("Our favorite");   // Add Found Recipes Heading
+      $("#foundRandomRecipesHeader").prepend("Our favorites");   // Add Found Recipes Heading
       $("#foundRandomRecipesHeader").append("<hr>");
       $ingredientsInput.val("");
 

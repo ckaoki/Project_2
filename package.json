@@ -1,5 +1,5 @@
 {
-  "name": "node-handlebars-boilerplate",
+  "name": "handlebars-boilerplate",
   "version": "1.0.0",
   "description": "Project 2 Starter",
   "main": "server.js",
@@ -19,5 +19,14 @@
   "devDependencies": {
     "cross-env": "^5.2.0",
     "prettier": "^1.17.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckaoki/Project_2.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/ckaoki/Project_2/issues"
+  },
+  "homepage": "https://github.com/ckaoki/Project_2#readme"
 }
