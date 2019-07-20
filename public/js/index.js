@@ -22,25 +22,25 @@ var $signInName = $(".signInName");
 var $signInPassword = $(".signInPassword");
 
 // Bootstrap card html
-var card =  '<div class="col-md-4">';
-    card += ' <div class="card mb-4 shadow-sm">';
-    card += '  <img src="..." class="card-img-top" alt="...">';
-    card += '   <div class="card-body">';
-    card += '     <h5 class="recipeName card-title">Recipe name</h5>';
-    card += '     <div class="cardInfo">';
-    card += '       <p class="recipeDescription"></p>';
-    card += '       <ul class="recipeIngredients">';
-    card += '       </ul>';
-    card += '       <p class="recipeInstructions" class="card-text"></p>';
-    card += '     </div>';
-    card += '       <div class="d-flex justify-content-between align-items-center">';
-    card += '         <div class="btn-group">';
-    card += '            <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
-    card += '         </div>';
-    card += '       </div>';
-    card += '   </div>';
-    card += '  </div>';
-    card += '</div>';
+var card = '<div class="col-md-4">';
+card += ' <div class="card mb-4 shadow-sm">';
+card += '  <img src="..." class="card-img-top" alt="...">';
+card += '   <div class="card-body">';
+card += '     <h5 class="recipeName card-title">Recipe name</h5>';
+card += '     <div class="cardInfo">';
+card += '       <p class="recipeDescription"></p>';
+card += '       <ul class="recipeIngredients">';
+card += '       </ul>';
+card += '       <p class="recipeInstructions" class="card-text"></p>';
+card += '     </div>';
+card += '       <div class="d-flex justify-content-between align-items-center">';
+card += '         <div class="btn-group">';
+card += '            <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
+card += '         </div>';
+card += '       </div>';
+card += '   </div>';
+card += '  </div>';
+card += '</div>';
 
 var getApi = {
   saveUser: function (user) {
@@ -139,7 +139,14 @@ $signInSubmit.on("click", submitToLogin);
 // The API object contains methods for each kind of request we'll make
 var API = {
 
-  getRecipesByIngredients: function(ingredients) {
+  getRecipesRandom: function (recipe) {
+    return $.ajax({
+      type: "GET",
+      url: "/api/sampleRecipes",
+    })
+  },
+
+  getRecipesByIngredients: function (ingredients) {
     return $.ajax({
       type: "GET",
       url: "api/RecipesByIngredients/" + ingredients,
@@ -183,33 +190,65 @@ var addRecipe = function (event) {
 };
 
 // Search for recipes by ingredients
-var getRecipesByIngredients = function(event) {
+var getRecipesByIngredients = function (event) {
   event.preventDefault();
   console.log($ingredientsInput.val());
   API.getRecipesByIngredients($ingredientsInput.val())
-  .then(function(data) {
-    $("#foundRecipesHeader").empty();
-    $("#foundRecipes").empty();
-    $("#foundRecipesHeader").prepend("<h3>Found Recipes</h3>");   // Add Found Recipes Heading
-    $("#foundRecipesHeader").append("<hr>");
-    $ingredientsInput.val("");    
+    .then(function (data) {
+      $("#foundRecipesHeader").empty();
+      $("#foundRecipes").empty();
+      $("#noRecipesFound").prepend("No recipes found :(");
+      $("#foundRecipesHeader").prepend("Found Recipes");   // Add Found Recipes Heading
+      $("#foundRecipesHeader").append("<hr>");
+      $ingredientsInput.val("");
 
-    // Add new recipe card
-    for(var i=0; i<data.length; i++){ 
-      $("#foundRecipes").append(card);
-      $(".card-img-top:eq("+i+")").attr("src", data[i].img);
-      $(".recipeName:eq("+i+")").text(data[i].name);
-      $(".recipeDescription:eq("+i+")").text(data[i].description);
-      $(".recipeInstructions:eq("+i+")").text(data[i].instructions);
-      
-      for(var j=0; j<data[i].ingredients.length; j++){
-        var li = '<li class="ingr">'+ data[i].ingredients[j].recipeIngredients.quantity +  " " ;
-        li +=  data[i].ingredients[j].recipeIngredients.unit + " " +data[i].ingredients[j].name + '</li>';
-        $(".recipeIngredients:eq("+i+")").append(li);
-      }
-    };
-  });  
+      // Add new recipe card
+      for (var i = 0; i < data.length; i++) {
+        $("#foundRecipes").append(card);
+        $(".card-img-top:eq(" + i + ")").attr("src", data[i].img);
+        $(".recipeName:eq(" + i + ")").text(data[i].name);
+        $(".recipeDescription:eq(" + i + ")").text(data[i].description);
+        $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
+        $("#noRecipesFound").empty();
+
+        for (var j = 0; j < data[i].ingredients.length; j++) {
+          var li = '<li class="ingr">' + data[i].ingredients[j].recipeIngredients.quantity + " ";
+          li += data[i].ingredients[j].recipeIngredients.unit + " " + data[i].ingredients[j].name + '</li>';
+          $(".recipeIngredients:eq(" + i + ")").append(li);
+        }
+      };
+    });
 };
+
+//SHOW RANDOM RECIPES
+var getRecipesRandom = function () {
+  console.log($ingredientsInput.val());
+  API.getRecipesRandom()
+    .then(function (data) {
+      console.log(data);
+      $("#foundRandomRecipes").empty();
+      $("#foundRandomRecipesHeader").prepend("Our favorite");   // Add Found Recipes Heading
+      $("#foundRandomRecipesHeader").append("<hr>");
+      $ingredientsInput.val("");
+
+      // Add new recipe card
+      for (var i = 0; i < data.length; i++) {
+        $("#foundRandomRecipes").append(card);
+        $(".card-img-top:eq(" + i + ")").attr("src", data[i].img);
+        $(".recipeName:eq(" + i + ")").text(data[i].name);
+        $(".recipeDescription:eq(" + i + ")").text(data[i].description);
+        $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
+
+        for (var j = 0; j < data[i].ingredients.length; j++) {
+          var li = '<li class="ingr">' + data[i].ingredients[j].recipeIngredients.quantity + " ";
+          li += data[i].ingredients[j].recipeIngredients.unit + " " + data[i].ingredients[j].name + '</li>';
+          $(".recipeIngredients:eq(" + i + ")").append(li);
+        }
+      };
+    });
+};
+
+getRecipesRandom();
 
 // Add event listeners to the submit and delete buttons
 // $submitBtn.on("click", handleFormSubmit);
@@ -219,7 +258,7 @@ $submitRecipeBtn.on("click", addRecipe);
 // Listener for searching recipes by ingredients
 $ingredientsSubmitBtn.on("click", getRecipesByIngredients);
 
-$("#ingredientAddButton").on("click", function() {
+$("#ingredientAddButton").on("click", function () {
   const name = $("#ingredientInput").val();
   $.ajax({
     headers: {
@@ -227,15 +266,15 @@ $("#ingredientAddButton").on("click", function() {
     },
     type: "POST",
     url: "api/ingredients/add",
-    data: JSON.stringify({name: name})
+    data: JSON.stringify({ name: name })
   });
 });
 
 
 // ------------SHOPPING LIST--------------
 
-$(document).ready(function() {
-var $newItemInput = $("input.new-item");
+$(document).ready(function () {
+  var $newItemInput = $("input.new-item");
   var $itemContainer = $(".item-container");
   $(document).on("click", "button.delete", deleteItem);
   $(document).on("click", "button.complete", toggleComplete);
@@ -258,7 +297,7 @@ var $newItemInput = $("input.new-item");
   }
 
   function getItems() {
-    $.get("/api/items", function(data) {
+    $.get("/api/items", function (data) {
       items = data;
       initializeRows();
     });
@@ -353,25 +392,25 @@ var $newItemInput = $("input.new-item");
 
 // ----- GETS RECIPES BY INGREDIENTS -----
 
-var getRecipesByIngredients = function(event) {
-  event.preventDefault();
-  console.log($ingredientsInput.val());
-  API.getRecipesByIngredients($ingredientsInput.val())
-  .then(function(data) {
-    console.log("returned: ", data);
-    alert(JSON.stringify(data));
-    for(var i=0; i<data.length; i++){      
-      $("#recipesByIngredients").append(card);
-      $(".recipeName:eq("+i+")").text(data[i].name);
-      $(".recipeDescription:eq("+i+")").text(data[i].description);
-      $(".recipeInstructions:eq("+i+")").text(data[i].instructions);
-      for(var j=0; j<data[i].ingredients.length; j++){
-        // $(".recipeIngredients:eq("+j+")").append('<li>"+data[i].ingredients[j].name+"</li>');
-        console.log(j);
-        $(".recipeIngredients:eq("+i+")").append(data[i].ingredients[j].name + ', ');
-      }
-    };
-  });  
-};
+// var getRecipesByIngredients = function (event) {
+//   event.preventDefault();
+//   console.log($ingredientsInput.val());
+//   API.getRecipesByIngredients($ingredientsInput.val())
+//     .then(function (data) {
+//       console.log("returned: ", data);
+//       alert(JSON.stringify(data));
+//       for (var i = 0; i < data.length; i++) {
+//         $("#recipesByIngredients").append(card);
+//         $(".recipeName:eq(" + i + ")").text(data[i].name);
+//         $(".recipeDescription:eq(" + i + ")").text(data[i].description);
+//         $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
+//         for (var j = 0; j < data[i].ingredients.length; j++) {
+//           // $(".recipeIngredients:eq("+j+")").append('<li>"+data[i].ingredients[j].name+"</li>');
+//           console.log(j);
+//           $(".recipeIngredients:eq(" + i + ")").append(data[i].ingredients[j].name + ', ');
+//         }
+//       };
+//     });
+// };
 
 
