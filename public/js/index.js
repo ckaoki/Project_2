@@ -1,184 +1,10 @@
-var $foodList = $("#food-list");
-
-
-// put these code into index.js
-var $signUpName = $(".signUpName");
-var $signUpPassword = $(".signUpPassword");
-var $signUpPassword2 = $(".signUpPasswordAgain");
-var $signUpEmail = $(".signUpEmail");
-var $signUpSubmit = $(".signUpSubmit");
-
-var $signInSubmit = $(".signInSubmit");
-var $signInName = $(".signInName");
-var $signInPassword = $(".signInPassword");
-
-
-
-
-var getApi = {
-  saveUser: function (user) {
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: "api/users",
-      data: JSON.stringify(user)
-    });
-  },
-  findOneUser: function (user_name) {
-    // console.log(user_name);
-    return $.ajax({
-      url: "/api/users/" + user_name,
-      type: "GET"
-    });
-  },
-  saveFood:function(food){
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: "api/foods",
-      data: JSON.stringify(food)
-    });
-  },
-
-};
-
-var logedInUserId="";
-var submitToLogin = function (event) {
-  event.preventDefault();
-
-  var signInName = $signInName.val().trim();
-
-
-  getApi.findOneUser(signInName).then(function (data) {
-    console.log(data);
-    if(data.length<1){
-      alert("user name not exist");
-      return;
-    }
-    
-    if (data[0].password === $signInPassword.val().trim()) {
-      logedInUserId=data[0].id;
-      console.log("you are loged in, user id is: "+logedInUserId);
-      $signInName.val("");
-      $signInPassword.val("");
-    }
-    else{
-      alert("password not correct");
-    }
-  });
-
-
-
-};
-
-var submitToSave = function (event) {
-  event.preventDefault();
-
-  var user = {
-    user_name: $signUpName.val().trim(),
-    password: $signUpPassword.val().trim(),
-    email: $signUpEmail.val().trim()
-  };
-var signUpPassword2=$signUpPassword2.val().trim();
-  if (!(user.user_name && user.password && signUpPassword2)) {
-    alert("You must enter user name, password ");
-    return;
-  };
-  if(user.password!=signUpPassword2){
-    alert("The passwords don't match");
-    return;
-  };
-  if(user.password.length<6||user.password.length>12){
-    alert("The password length must be between 6 and 12");
-    return;
-  };
-  var isExist=[];
-  getApi.findOneUser(user.user_name).then(function (data) {
-    console.log(data)
-    isExist=data;
-    
-    if(isExist.length!=0){
-      alert("user name exist!");
-      return;
-    }
-    else{
-
-      getApi.saveUser(user).then(function () {
-        console.log("you are signed up, go to log in");
-$("#sign_up_label").text("you are signed up, go to log in!");
-        $signUpName.val("");
-        $signUpPassword.val("");
-        $signUpPassword2.val("");
-        $signUpEmail.val("");
-      });
-    }
-  });
-};
-
-var toSaveFood = function (event) {
-  event.preventDefault();
-
-  var food = {
-    item_name: $itemName.val().trim(),
-    quantity: $itemQuantity.val().trim(),
-    
-  };
-// var signUpPassword2=$signUpPassword2.val().trim();
-//   if (!(user.user_name && user.password && signUpPassword2)) {
-//     alert("You must enter user name, password ");
-//     return;
-//   };
-//   if(user.password!=signUpPassword2){
-//     alert("The passwords don't match");
-//     return;
-//   };
-//   if(user.password.length<6||user.password.length>12){
-//     alert("The password length must be between 6 and 12");
-//     return;
-//   };
-//   var isExist=[];
-//   getApi.findOneUser(user.user_name).then(function (data) {
-//     console.log(data)
-//     isExist=data;
-    
-//     if(isExist.length!=0){
-//       alert("user name exist!");
-//       return;
-//     }
-//     else{
-
-      getApi.savefood(food).then(function () {
-//         console.log("you are signed up, go to log in");
-// $("#sign_up_label").text("you are signed up, go to log in!");
-//         // $signUpName.val("");
-//         // $signUpPassword.val("");
-//         // $signUpPassword2.val("");
-//         // $signUpEmail.val("");
-      });
-    // }
-  // });
-};
-
-$signUpSubmit.on("click", submitToSave);
-$signInSubmit.on("click", submitToLogin);
-
-
-// add food
-var $itemName=$("#item_name");
-var $itemQuantity=$("#item_quantity");
-var $addFoodBtn=$("#addFood");
-
 
 
 // Get references to page elements
 var $recipeName = $("#recipeName");
 var $recipeDescription = $("#recipeDescription");
 var $recipeInstructions = $("#recipeInstructions");
-var $ingredientsFile = $("#ingredientsFile");
+var $ingredientsFile = $("#ingredientsFile");   
 var $submitBtn = $("#submit");
 var $submitRecipeBtn = $("#addRecipe");
 var $exampleList = $("#example-list");
@@ -252,7 +78,7 @@ function onSignIn(googleUser) {
   });
   refreshfoods();
   $("#log_area").empty();
-  // $("#add_food").css("display","unset");
+  $("#add_food_div").css("display","unset");
   $("#log_area").append($signOutBtn);
   $("#log_area").append($profileBtn.text("user id:" + logedInUserId));
 }; //onSignIn funtion end
@@ -272,7 +98,8 @@ function userSignOut() {
   $("#foodInfo").empty();
   $("#log_area").append($signUpBtn);
   $("#log_area").append($signInBtn);
-  // $("#add_food").css("display","none");
+  $("#add_food_div").css("display","none");
+  
   logedInUserId = "-1"
 };
 $signOutBtn.click(userSignOut);
@@ -366,14 +193,14 @@ var submitToLogin = function (event) {
   event.preventDefault();
 
   var signInName = $signInName.val().trim();
-if(!signInName){
-  alert("please input user name");
-  return;
-}
+  if (!signInName) {
+    alert("please input user name");
+    return;
+  }
 
   getApi.findOneUser(signInName).then(function (data) {
     // console.log(data);
-    if (data.length < 1) {
+    if (!data) {
       alert("user name not exist");
       return;
     }
@@ -384,7 +211,7 @@ if(!signInName){
       console.log("you are loged in, user id is: " + logedInUserId);
       $signInName.val("");
       $signInPassword.val("");
-      // $("#add_food").css("display","unset");
+      $("#add_food_div").css("display","unset");
       $("#log_area").empty();
       $("#log_area").append($signOutBtn);
       $("#log_area").append($profileBtn.text("profile"));
@@ -445,6 +272,7 @@ var submitToSave = function (event) {
 var submitToSaveFood = function (event) {
   event.preventDefault();
 
+
   var food = {
     UserId: logedInUserId,
     item_name: $addIngredient.val().trim(),
@@ -452,19 +280,20 @@ var submitToSaveFood = function (event) {
     unit: $ingredientUnit.val().trim(),
     expireDate: $ingredientExpireDate.val().trim(),
   };
-
-
-
+  if(!food.item_name){
+    alert("please input food name!")
+    return;
+  }
+  else if(isNaN(food.quantity))
+  {alert("quantity should be a number")}
   getApi.saveFood(food).then(function (data) {
     console.log(data)
-
     $addIngredient.val("");
     $ingredientQuantity.val("");
     $ingredientUnit.val("");
     $ingredientExpireDate.val("");
+    refreshfoods();
   });
-
-
 }; //save food end
 
 // get user's all food

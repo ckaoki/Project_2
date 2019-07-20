@@ -1,11 +1,6 @@
 {{!-- put these code into index.handlebars --}}
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_up">
-  sign up
-</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#sign_in">
-  sign in
-</button>
+
 
   <!-- sign up -->
   <div class="modal fade" id="sign_up" tabindex="-1" role="dialog" aria-labelledby="sign_up_label" aria-hidden="true">
@@ -246,7 +241,7 @@
       </div> 
       {{!-- row end --}}
       {{!-- add food --}}
-  <div  class="row">
+  <div  id="add_food_div" class="row">
     <div class="col py-3 px-lg-5 border bg-light">
       <div class="subtitles">Add food</div>
       <hr>
@@ -256,7 +251,7 @@
           <input type="text" id="add_ingredient" name="name">
         </div>
         <div class="form-group">
-          <label for="">quantity:</label>
+          <label for="" type="number">quantity:</label>
           <input type="text" id="ingredient_quantity" name="name">
         </div>
         <div class="form-group">
@@ -264,7 +259,7 @@
           <input type="text" id="ingredient_unit" name="name">
         </div>
         <div class="form-group">
-          <label for="">expire Date:</label>
+          <label for="" type="date">expire Date:</label>
           <input type="text" id="ingredient_expireDate" name="name">
         </div>
         <div class="form-group">
