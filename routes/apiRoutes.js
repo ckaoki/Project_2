@@ -1,8 +1,12 @@
 var db = require("../models");
-
-
+var Sequelize = require("sequelize");
 
 module.exports = function (app) {
+
+  // ----------------------------
+  //           USERS             
+  // ----------------------------
+
 
   // Creates a user
   app.post("/api/users", function (req, res) {
@@ -18,10 +22,11 @@ module.exports = function (app) {
       where: {
         user_name: req.params.username
       }
-    }).then(function(data){
+    }).then(function (data) {
       res.json(data)
     })
   })
+
   // Get one user
   app.get("/api/users/:username", function (req, res) {
     var username = req.params.username;
@@ -77,10 +82,18 @@ module.exports = function (app) {
     });
   });
 
+  // ----------------------------
+  //        RECIPE SEARCH             
+  // ----------------------------
 
+  // Find recipes containing the given ingredients ***************************************************
+  app.get("/api/RecipesByIngredients/:ingredients", function (req, res) {
+    // Change string of ingredients to array
+    var searchIngredients = req.params.ingredients.split(',');
+    for (var i = 0; i < searchIngredients.length; i++) {
+      searchIngredients[i] = searchIngredients[i].trim();
+    };
 
-  // Get all examples
-  app.get("/api/test", function (req, res) {
     db.Recipe.findAll({
       include: [{
         model: db.Ingredient,
@@ -88,50 +101,177 @@ module.exports = function (app) {
         attributes: ['id', 'name'],
         through: {
           model: db.recipeIngredients
+        },
+        where: {
+          name: searchIngredients
         }
-
       }]
-    }).then(function (dbPantryAssembler) {
-      res.json(dbPantryAssembler);
+    }).then(function (foundRecipes) {
+      // need to query matching recipes again because recipes returned in first query
+      // will not show ingredients not searched for.
+      var recipeNames = [];
+      foundRecipes.forEach(recipe => {
+        recipeNames.push(recipe.name);
+      });
+
+      if (recipeNames.length > 0) {
+        db.Recipe.findAll({
+          where: {
+            name: recipeNames
+          },
+          include: [{
+            model: db.Ingredient,
+            as: 'ingredients',
+            attributes: ['id', 'name'],
+            through: {
+              model: db.recipeIngredients
+            }
+          }]
+        }).then(function (recipes) {
+          res.json(recipes);
+        });
+      } else {
+        res.json([]);
+      }
     });
   });
 
-  app.get("/api/test2", function (req, res) {
-    db.Ingredient.findAll({}).then(function (dbPantryAssembler) {
-      res.json(dbPantryAssembler);
+  //Get three random recipes
+  app.get("/api/sampleRecipes", function (req, res) {
+    db.Recipe.findAll({
+      order: Sequelize.literal('rand()'),
+      limit: 3,
+      include: [{
+        model: db.Ingredient,
+        as: 'ingredients',
+        attributes: ['id', 'name'],
+        through: {
+          model: db.recipeIngredients
+        }
+      }]
+    }).then(function (recipes) {
+      res.json(recipes);
+    })
+  })
+
+
+  // ----------------------------
+  //        SHOPPING LIST           
+  // ----------------------------
+
+  app.get("/api/items", function (req, res) {
+    db.Item.findAll({}).then(function (dbItem) {
+      res.json(dbItem);
     });
   });
 
-  app.get("/api/examples", function (req, res) {
-    db.recipeIngredients.findAll({}).then(function (dbPantryAssembler) {
-      res.json(dbPantryAssembler);
+  app.post("/api/items", function (req, res) {
+    db.Item.create({
+      text: req.body.text,
+      complete: req.body.complete
+    }).then(function (dbItem) {
+      res.json(dbItem);
     });
   });
 
-  // Create a new example
-  app.post("/api/examples", function (req, res) {
-    console.log(req.body); //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
-    db.Recipe.create(req.body).then(function (dbPantryAssembler) {
-      res.json(dbPantryAssembler);
-    });
-  });
 
-  // Create a new recipe
-  app.post("/api/addRecipe", function (req, res) {
-    console.log(req.body); //TODO: delete this.  Keep seeing this in console: [Object: null prototype] 
-    db.Recipe.create(req.body).then(function (dbPantryAssembler) {
-      res.json(dbPantryAssembler);
-    });
-  });
-
-  // Delete an example by id
-  app.delete("/api/examples/:id", function (req, res) {
-    db.Recipe.destroy({
+  app.delete("/api/items/:id", function (req, res) {
+    db.Item.destroy({
       where: {
         id: req.params.id
       }
-    }).then(function (dbPantryAssembler) {
+    }).then(function (dbItem) {
+      res.json(dbItem);
+    });
+
+  });
+
+  app.put("/api/items", function (req, res) {
+    db.Item.update({
+      text: req.body.text,
+      complete: req.body.complete
+    }, {
+      where: {
+        id: req.body.id
+      }
+    }).then(function (dbItem) {
+      res.json(dbItem);
+    });
+  });
+
+
+  // ----------------------------
+  //        CREATE RECIPES            
+  // ----------------------------
+
+  app.post("/api/new", function (req, res) {
+    var addIngredients = req.params.ingredients.split(',');
+    for (var i = 0; i < addIngredients.length; i++) {
+      addIngredients[i] = addIngredients[i].trim();
+    };
+    db.Recipe.create({
+      name: req.body.name,
+      description: req.body.description,
+      instructions: req.body.instructions,
+      img: req.body.img
+    }).then(function (recipes) {
+      res.json(recipes);
+    });
+  });
+
+
+  // ----------------------------
+  //         INGREDIENTS          
+  // ----------------------------
+
+  // Add ingredient
+  app.post("/api/ingredients/add", function (req, res) {
+    console.log("Logging request");
+    console.log(req.body);
+    res.json({
+      name: "responsebodysomething"
+    });
+    db.Ingredient.create(req.body).then(function (dbPantryAssembler) {
       res.json(dbPantryAssembler);
     });
   });
+
+
+  // ----------------------------
+  //           TESTS             
+  // ----------------------------
+
+  // Get all examples
+  //   app.get("/api/test", function (req, res) {
+
+  //     db.Recipe.findAll({
+  //       include: [{
+  //         model: db.Ingredient,
+  //         as: 'ingredients',
+  //         attributes: ['id', 'name'],
+
+  //         through: {model: db.recipeIngredients}
+
+  //       }]
+  //     }).then(function (dbPantryAssembler) {
+  //       res.json(dbPantryAssembler);
+  //     });
+  //   });
+
+  //    app.get("/api/test2", function(req, res) {
+  //     db.Ingredient.findAll({
+  //       include:[{
+  //         model: db.Recipe,
+  //         as: 'recipes',
+  //         attributes: ['id', 'name'],
+  //         through: {model: db.recipeIngredients}
+  //       }]
+  //     }).then(function(dbPantryAssembler) {
+
+  //   app.get("/api/test2", function (req, res) {
+  //     db.Ingredient.findAll({}).then(function (dbPantryAssembler) {
+  //       res.json(dbPantryAssembler);
+  //     });
+  //   });
+
 };
