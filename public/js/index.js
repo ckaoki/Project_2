@@ -118,14 +118,8 @@ var creatNewPassword = function (newPassword, username) {
     alert("password changed")
   })
 };
-//user page
+//profile
 function profile() {
-  // getApi.userPage();
-  console.log("profile click")
-
-
-
-
   getApi.findOneUser(logedInUserName).then(function (data) {
     $userNameProfile.text(data[0].user_name);
     $userEmailProfile.text(data[0].email);
@@ -133,6 +127,10 @@ function profile() {
   });
   $changePasswordBtn.on("click", function () {
     var newPassword = $changePasswordProfile.val().trim();
+    if (newPassword.length < 6 || newPassword.length > 12) {
+      alert("The password length must be between 6 and 12");
+      return;
+    };
     creatNewPassword(newPassword, logedInUserName)
   });
 }
