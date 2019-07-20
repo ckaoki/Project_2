@@ -143,16 +143,19 @@ card += '  <img src="..." class="card-img-top" alt="...">';
 card += '   <div class="card-body">';
 card += '     <h5 class="recipeName card-title">Recipe name</h5>';
 card += '     <div class="cardInfo">';
+card += '       <b>Description:</b>'
 card += '       <p class="recipeDescription"></p>';
+card += '       <b>Ingredients:</b>'
 card += '       <ul class="recipeIngredients">';
 card += '       </ul>';
+card += '       <b>Instructions:</b>';
 card += '       <p class="recipeInstructions" class="card-text"></p>';
 card += '     </div>';
-card += '       <div class="d-flex justify-content-between align-items-center">';
-card += '         <div class="btn-group">';
-card += '            <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
-card += '         </div>';
+card += '     <div class="d-flex justify-content-between align-items-center">';
+card += '       <div class="btn-group">';
+card += '          <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
 card += '       </div>';
+card += '     </div>';
 card += '   </div>';
 card += '  </div>';
 card += '</div>';
@@ -408,32 +411,40 @@ var addRecipe = function (event) {
 // Search for recipes by ingredients
 var getRecipesByIngredients = function (event) {
   event.preventDefault();
-  console.log($ingredientsInput.val());
-  API.getRecipesByIngredients($ingredientsInput.val())
-    .then(function (data) {
-      $("#foundRecipesHeader").empty();
-      $("#foundRecipes").empty();
-      $("#noRecipesFound").prepend("No recipes found :(");
-      $("#foundRecipesHeader").prepend("Found Recipes");   // Add Found Recipes Heading
-      $("#foundRecipesHeader").append("<hr>");
-      $ingredientsInput.val("");
+  if($ingredientsInput.val().trim().length>0){
+    API.getRecipesByIngredients($ingredientsInput.val())
+      .then(function (data) {
+        $("#foundRecipesHeader").empty();
+        $("#foundRecipes").empty();
+        $("#foundRecipesHeader").prepend("Found Recipes");   // Add Found Recipes Heading
+        $("#foundRecipesHeader").append("<hr>");
+        $ingredientsInput.val("");
+        if(data.length>0){
+          // Add new recipe card
+          for (var i = 0; i < data.length; i++) {
+            $("#foundRecipes").append(card);
+            $(".card-img-top:eq(" + i + ")").attr("src", data[i].img);
+            $(".recipeName:eq(" + i + ")").text(data[i].name);
+            $(".recipeDescription:eq(" + i + ")").text(data[i].description);
+            $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
+            $("#noRecipesFound").empty();
 
-      // Add new recipe card
-      for (var i = 0; i < data.length; i++) {
-        $("#foundRecipes").append(card);
-        $(".card-img-top:eq(" + i + ")").attr("src", data[i].img);
-        $(".recipeName:eq(" + i + ")").text(data[i].name);
-        $(".recipeDescription:eq(" + i + ")").text(data[i].description);
-        $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
-        $("#noRecipesFound").empty();
-
-        for (var j = 0; j < data[i].ingredients.length; j++) {
-          var li = '<li class="ingr">' + data[i].ingredients[j].recipeIngredients.quantity + " ";
-          li += data[i].ingredients[j].recipeIngredients.unit + " " + data[i].ingredients[j].name + '</li>';
-          $(".recipeIngredients:eq(" + i + ")").append(li);
+            for (var j = 0; j < data[i].ingredients.length; j++) {
+              var li = '<li class="ingr">' + data[i].ingredients[j].recipeIngredients.quantity + " ";
+              li += data[i].ingredients[j].recipeIngredients.unit + " " + data[i].ingredients[j].name + '</li>';
+              $(".recipeIngredients:eq(" + i + ")").append(li);
+            }
+          };
         }
-      };
-    });
+        else{
+          $("#noRecipesFound").prepend("No recipes found :(");
+          $("#noRecipesFound").append("<hr>");
+        }
+      });
+    }
+    else{
+      console.log('No ingredients entered');
+    }
 };
 
 //SHOW RANDOM RECIPES
@@ -443,7 +454,7 @@ var getRecipesRandom = function () {
     .then(function (data) {
       console.log(data);
       $("#foundRandomRecipes").empty();
-      $("#foundRandomRecipesHeader").prepend("Our favorite");   // Add Found Recipes Heading
+      $("#foundRandomRecipesHeader").prepend("Our favorites");   // Add Found Recipes Heading
       $("#foundRandomRecipesHeader").append("<hr>");
       $ingredientsInput.val("");
 
