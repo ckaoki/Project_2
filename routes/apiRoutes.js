@@ -160,8 +160,12 @@ module.exports = function (app) {
   //        SHOPPING LIST           
   // ----------------------------
 
-  app.get("/api/items", function (req, res) {
-    db.Item.findAll({}).then(function (dbItem) {
+  app.get("/api/items/:userid", function (req, res) {
+    db.Item.findAll({
+      where: {
+        userId:req.params.userid
+      }
+    }).then(function (dbItem) {
       res.json(dbItem);
     });
   });
@@ -169,7 +173,8 @@ module.exports = function (app) {
   app.post("/api/items", function (req, res) {
     db.Item.create({
       text: req.body.text,
-      complete: req.body.complete
+      complete: req.body.complete,
+      userId: req.body.userId,
     }).then(function (dbItem) {
       res.json(dbItem);
     });
