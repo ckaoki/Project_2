@@ -1,10 +1,8 @@
-
-
 // Get references to page elements
 var $recipeName = $("#recipeName");
 var $recipeDescription = $("#recipeDescription");
 var $recipeInstructions = $("#recipeInstructions");
-var $ingredientsFile = $("#ingredientsFile");   
+var $ingredientsFile = $("#ingredientsFile");
 var $submitBtn = $("#submit");
 var $submitRecipeBtn = $("#addRecipe");
 var $exampleList = $("#example-list");
@@ -40,7 +38,7 @@ $("#log_area").append($signInBtn);
 $("#log_area").append($signUpBtn);
 
 var logedInUserId = "-1";
-var logedInUserName = "no one"
+var logedInUserName = ""
 
 
 function generatePassword() {
@@ -80,10 +78,17 @@ function onSignIn(googleUser) {
   });
   refreshfoods();
   $("#log_area").empty();
-  $("#add_food_div").css("display","unset");
+  $("#add_food_div").css("display", "unset");
   $("#log_area").append($signOutBtn);
   $("#log_area").append($profileBtn.text("PROFILE"));
+  getItems();
   $(".login_close_btn").click();
+
+  localStorage.setItem("pantryUserId", logedInUserId);
+      localStorage.setItem("pantryUserName", logedInUserName);
+      var tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      localStorage.setItem("pantryExpireTime", tomorrow);
   // $("#log_area").append($profileBtn.text("user id:" + logedInUserId));
 }; //onSignIn funtion end
 
@@ -99,9 +104,13 @@ function signOut() {
   $("#foodInfo").empty();
   $("#log_area").append($signInBtn);
   $("#log_area").append($signUpBtn);
-  $("#add_food_div").css("display","none");
-  
+  $("#add_food_div").css("display", "none");
   logedInUserId = "-1"
+  
+  logedInUserName = ""
+  localStorage.setItem("pantryUserId", -1);
+      localStorage.setItem("pantryUserName", "");
+
 }
 
 
@@ -220,24 +229,29 @@ var submitToLogin = function (event) {
   }
 
   getApi.findOneUser(signInName).then(function (data) {
-    console.log(data);
-    if (data.length===0) {
+    // console.log(data);
+    if (data.length === 0) {
       alert("user name not exist");
       return;
-    }
-
-    else if (data[0].password === $signInPassword.val().trim()) {
+    } else if (data[0].password === $signInPassword.val().trim()) {
       logedInUserId = data[0].id;
       logedInUserName = data[0].user_name;
       console.log("you are loged in, user id is: " + logedInUserId);
       $signInName.val("");
       $signInPassword.val("");
-      $("#add_food_div").css("display","unset");
+      $("#add_food_div").css("display", "unset");
       $("#log_area").empty();
       $("#log_area").append($signOutBtn);
       $("#log_area").append($profileBtn.text("PROFILE"));
       refreshfoods();
+      getItems();
       $(".login_close_btn").click();
+
+      localStorage.setItem("pantryUserId", logedInUserId);
+      localStorage.setItem("pantryUserName", logedInUserName);
+      var tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      localStorage.setItem("pantryExpireTime", tomorrow);
 
     } else {
       alert("password not correct");
@@ -245,6 +259,35 @@ var submitToLogin = function (event) {
   });
 }; //submitToLogin end
 
+//when load/refresh page, check if user log in
+function checkToken(){
+var userId=parseInt( localStorage.getItem("pantryUserId"))
+var expireTime = localStorage.getItem("pantryExpireTime")
+expireTime = new Date(expireTime)
+// console.log(expireTime+"  "+new Date()+"  "+(expireTime>new Date()))
+if(!userId){
+  return
+}
+else if(userId<0)
+{
+  return
+}
+else if(expireTime>new Date()){
+  $("#add_food_div").css("display", "unset");
+  $("#log_area").empty();
+  $("#log_area").append($signOutBtn);
+  $("#log_area").append($profileBtn.text("PROFILE"));
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  localStorage.setItem("pantryExpireTime", tomorrow);
+  logedInUserId=userId;
+  logedInUserName=localStorage.getItem("pantryUserName");
+  refreshfoods();
+  getItems();
+}
+} 
+
+//checkToken end
 
 //save user
 var submitToSave = function (event) {
@@ -301,12 +344,12 @@ var submitToSaveFood = function (event) {
     unit: $ingredientUnit.val().trim(),
     expireDate: $ingredientExpireDate.val().trim(),
   };
-  if(!food.item_name){
+  if (!food.item_name) {
     alert("please input food name!")
     return;
+  } else if (isNaN(food.quantity)) {
+    alert("quantity should be a number")
   }
-  else if(isNaN(food.quantity))
-  {alert("quantity should be a number")}
   getApi.saveFood(food).then(function (data) {
     console.log(data)
     $addIngredient.val("");
@@ -412,15 +455,15 @@ var addRecipe = function (event) {
 // Search for recipes by ingredients
 var getRecipesByIngredients = function (event) {
   event.preventDefault();
-  if($ingredientsInput.val().trim().length>0){
+  if ($ingredientsInput.val().trim().length > 0) {
     API.getRecipesByIngredients($ingredientsInput.val())
       .then(function (data) {
         $("#foundRecipesHeader").empty();
         $("#foundRecipes").empty();
-        $("#foundRecipesHeader").prepend("Found Recipes");   // Add Found Recipes Heading
+        $("#foundRecipesHeader").prepend("Found Recipes"); // Add Found Recipes Heading
         $("#foundRecipesHeader").append("<hr>");
         $ingredientsInput.val("");
-        if(data.length>0){
+        if (data.length > 0) {
           // Add new recipe card
           for (var i = 0; i < data.length; i++) {
             $("#foundRecipes").append(card);
@@ -436,16 +479,14 @@ var getRecipesByIngredients = function (event) {
               $(".recipeIngredients:eq(" + i + ")").append(li);
             }
           };
-        }
-        else{
+        } else {
           $("#noRecipesFound").prepend("No recipes found :(");
           $("#noRecipesFound").append("<hr>");
         }
       });
-    }
-    else{
-      console.log('No ingredients entered');
-    }
+  } else {
+    console.log('No ingredients entered');
+  }
 };
 
 //SHOW RANDOM RECIPES
@@ -455,7 +496,7 @@ var getRecipesRandom = function () {
     .then(function (data) {
       console.log(data);
       $("#foundRandomRecipes").empty();
-      $("#foundRandomRecipesHeader").prepend("Our favorites");   // Add Found Recipes Heading
+      $("#foundRandomRecipesHeader").prepend("Our favorites"); // Add Found Recipes Heading
       $("#foundRandomRecipesHeader").append("<hr>");
       $ingredientsInput.val("");
 
@@ -494,131 +535,134 @@ $("#ingredientAddButton").on("click", function () {
     },
     type: "POST",
     url: "api/ingredients/add",
-    data: JSON.stringify({ name: name })
+    data: JSON.stringify({
+      name: name
+    })
   });
 });
 
 
 // ------------SHOPPING LIST--------------
 
-$(document).ready(function () {
-  var $newItemInput = $("input.new-item");
-  var $itemContainer = $(".item-container");
-  $(document).on("click", "button.delete", deleteItem);
-  $(document).on("click", "button.complete", toggleComplete);
-  $(document).on("click", ".item-item", editItem);
-  $(document).on("keyup", ".item-item", finishEdit);
-  $(document).on("blur", ".item-item", cancelEdit);
-  $(document).on("submit", "#item-form", insertItem);
+// $(document).ready(function () {
+var $newItemInput = $("input.new-item");
+var $itemContainer = $(".item-container");
+$(document).on("click", "button.delete", deleteItem);
+$(document).on("click", "button.complete", toggleComplete);
+$(document).on("click", ".item-item", editItem);
+$(document).on("keyup", ".item-item", finishEdit);
+$(document).on("blur", ".item-item", cancelEdit);
+$(document).on("submit", "#item-form", insertItem);
 
-  var items = [];
+var items = [];
 
-  getItems();
 
-  function initializeRows() {
-    $itemContainer.empty();
-    var rowsToAdd = [];
-    for (var i = 0; i < items.length; i++) {
-      rowsToAdd.push(createNewRow(items[i]));
-    }
-    $itemContainer.prepend(rowsToAdd);
+
+function initializeRows() {
+  $itemContainer.empty();
+  var rowsToAdd = [];
+  for (var i = 0; i < items.length; i++) {
+    rowsToAdd.push(createNewRow(items[i]));
   }
+  $itemContainer.prepend(rowsToAdd);
+}
 
-  function getItems() {
-    $.get("/api/items/" + logedInUserId, function (data) {
-      items = data;
-      initializeRows();
-    });
+function getItems() {
+  $.get("/api/items/" + logedInUserId, function (data) {
+    items = data;
+    initializeRows();
+  });
+}
+
+function deleteItem(event) {
+  event.stopPropagation();
+  var id = $(this).data("id");
+  $.ajax({
+    method: "DELETE",
+    url: "/api/items/" + id
+  }).then(getItems);
+}
+
+function editItem() {
+  var currentItem = $(this).data("item");
+  $(this).children().hide();
+  $(this).children("input.edit").val(currentItem.text);
+  $(this).children("input.edit").show();
+  $(this).children("input.edit").focus();
+}
+
+function toggleComplete(event) {
+  event.stopPropagation();
+  var item = $(this).parent().data("item");
+  item.complete = !item.complete;
+  updateItem(item);
+}
+
+function finishEdit(event) {
+  var updatedItem = $(this).data("item");
+  if (event.which === 13) {
+    updatedItem.text = $(this).children("input").val().trim();
+    $(this).blur();
+    updateItem(updatedItem);
   }
+}
 
-  function deleteItem(event) {
-    event.stopPropagation();
-    var id = $(this).data("id");
-    $.ajax({
-      method: "DELETE",
-      url: "/api/items/" + id
-    }).then(getItems);
-  }
+function updateItem(item) {
+  $.ajax({
+    method: "PUT",
+    url: "/api/items",
+    data: item
+  }).then(getItems);
+}
 
-  function editItem() {
-    var currentItem = $(this).data("item");
+function cancelEdit() {
+  var currentItem = $(this).data("item");
+  if (currentItem) {
     $(this).children().hide();
     $(this).children("input.edit").val(currentItem.text);
-    $(this).children("input.edit").show();
-    $(this).children("input.edit").focus();
+    $(this).children("span").show();
+    $(this).children("button").show();
   }
+}
 
-  function toggleComplete(event) {
-    event.stopPropagation();
-    var item = $(this).parent().data("item");
-    item.complete = !item.complete;
-    updateItem(item);
+function createNewRow(item) {
+  var $newInputRow = $(
+    [
+      "<li class='list-group-item item-item'>",
+      "<span>",
+      item.text,
+      "</span>",
+      "<input type='text' class='edit' style='display: none;'>",
+      "<button class='delete btn btn-danger'>x</button>",
+      "<button class='complete btn btn-primary'>✓</button>",
+      "</li>"
+    ].join("")
+  );
+
+  $newInputRow.find("button.delete").data("id", item.id);
+  $newInputRow.find("input.edit").css("display", "none");
+  $newInputRow.data("item", item);
+  if (item.complete) {
+    $newInputRow.find("span").css("text-decoration", "line-through");
   }
+  return $newInputRow;
+}
 
-  function finishEdit(event) {
-    var updatedItem = $(this).data("item");
-    if (event.which === 13) {
-      updatedItem.text = $(this).children("input").val().trim();
-      $(this).blur();
-      updateItem(updatedItem);
-    }
-  }
+function insertItem(event) {
+  event.preventDefault();
+  var item = {
+    text: $newItemInput.val().trim(),
+    complete: false,
+    userId: logedInUserId
+  };
 
-  function updateItem(item) {
-    $.ajax({
-      method: "PUT",
-      url: "/api/items",
-      data: item
-    }).then(getItems);
-  }
-
-  function cancelEdit() {
-    var currentItem = $(this).data("item");
-    if (currentItem) {
-      $(this).children().hide();
-      $(this).children("input.edit").val(currentItem.text);
-      $(this).children("span").show();
-      $(this).children("button").show();
-    }
-  }
-
-  function createNewRow(item) {
-    var $newInputRow = $(
-      [
-        "<li class='list-group-item item-item'>",
-        "<span>",
-        item.text,
-        "</span>",
-        "<input type='text' class='edit' style='display: none;'>",
-        "<button class='delete btn btn-danger'>x</button>",
-        "<button class='complete btn btn-primary'>✓</button>",
-        "</li>"
-      ].join("")
-    );
-
-    $newInputRow.find("button.delete").data("id", item.id);
-    $newInputRow.find("input.edit").css("display", "none");
-    $newInputRow.data("item", item);
-    if (item.complete) {
-      $newInputRow.find("span").css("text-decoration", "line-through");
-    }
-    return $newInputRow;
-  }
-
-  function insertItem(event) {
-    event.preventDefault();
-    var item = {
-      text: $newItemInput.val().trim(),
-      complete: false,
-      userId: logedInUserId
-    };
-
-    $.post("/api/items", item, getItems);
-    $newItemInput.val("");
-  }
-});
+  $.post("/api/items", item, getItems);
+  $newItemInput.val("");
+}
+// });
 
 
+checkToken();
 // ----- GETS RECIPES BY INGREDIENTS -----
 
 // var getRecipesByIngredients = function (event) {
@@ -641,5 +685,3 @@ $(document).ready(function () {
 //       };
 //     });
 // };
-
-
