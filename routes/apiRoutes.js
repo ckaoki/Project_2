@@ -258,18 +258,19 @@ module.exports = function (app) {
   app.get("/api/topSecret/clear", function (req, res) {
     res.send('<h1>Clearing database tables!</h1>');
     console.log("Clearing database tables!");
-    // db.recipeIngredients.truncate();
-    db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', null)
+    db.recipeIngredients.truncate()
     .then(function(){
-      db.Recipe.truncate()
-      .then(function(){
-        db.Ingredient.truncate()
+      db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', null)
         .then(function(){
-          db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1', null)
-        })
+           db.Recipe.truncate()
+            .then(function(){
+              db.Ingredient.truncate()
+                .then(function(){
+                   db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1', null)
+                })
+            })
+        })        
       })
-    })
-  });
-
+    })  
 };
 
