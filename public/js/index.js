@@ -30,14 +30,14 @@ var $ingredientUnit = $("#ingredient_unit");
 var $ingredientExpireDate = $("#ingredient_expireDate");
 var $addFoodBtn = $("#add_food");
 
-var $signUpBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_up">').text("sign up")
-var $signInBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_in">').text("sign in")
+var $signInBtn = $('<button type="button" style="margin-right: 6px" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_in">').text("SIGN IN")
+var $signUpBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" data-toggle="modal" data-target="#sign_up">').text("SIGN UP")
 
-var $signOutBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" onclick="signOut();" >').text("sign out")
 var $profileBtn = $('<button type="button" class="loginbtn btn btn-danger btn-sm" onclick="profile();" data-toggle="modal" data-target="#profile">')
+var $signOutBtn = $('<button type="button" style="margin-right: 6px" class="loginbtn btn btn-danger btn-sm" onclick="signOut();" >').text("SIGN OUT")
 
-$("#log_area").append($signUpBtn);
 $("#log_area").append($signInBtn);
+$("#log_area").append($signUpBtn);
 
 var logedInUserId = "-1";
 var logedInUserName = "no one"
@@ -81,7 +81,8 @@ function onSignIn(googleUser) {
   $("#log_area").empty();
   $("#add_food_div").css("display","unset");
   $("#log_area").append($signOutBtn);
-  $("#log_area").append($profileBtn.text("user id:" + logedInUserId));
+  $("#log_area").append($profileBtn.text("PROFILE"));
+  // $("#log_area").append($profileBtn.text("user id:" + logedInUserId));
 }; //onSignIn funtion end
 
 //google sign out
@@ -153,7 +154,7 @@ card += '       <p class="recipeInstructions" class="card-text"></p>';
 card += '     </div>';
 card += '     <div class="d-flex justify-content-between align-items-center">';
 card += '       <div class="btn-group">';
-card += '          <button type="button" class="btn btn-danger btn-sm">Save recipe</button>';
+card += '          <button type="button" class="btn btn-danger btn-sm" style="margin-top: 5px">Save recipe</button>';
 card += '       </div>';
 card += '     </div>';
 card += '   </div>';
@@ -235,7 +236,7 @@ var submitToLogin = function (event) {
       $("#add_food_div").css("display","unset");
       $("#log_area").empty();
       $("#log_area").append($signOutBtn);
-      $("#log_area").append($profileBtn.text("profile"));
+      $("#log_area").append($profileBtn.text("PROFILE"));
       refreshfoods();
 
     } else {
@@ -327,10 +328,10 @@ var refreshfoods = function () {
     var newTr = $("<tr>");
     newTr.append(
       $('<th scope="col">').text("#"),
-      $('<th scope="col">').text("food name"),
-      $('<th scope="col">').text("quantity"),
-      $('<th scope="col">').text("unit"),
-      $('<th scope="col">').text("expire date"),
+      $('<th scope="col" class="subtitles">').text("Name"),
+      $('<th scope="col" class="subtitles">').text("Quantity"),
+      $('<th scope="col" class="subtitles">').text("Unit"),
+      $('<th scope="col" class="subtitles">').text("Expiration date"),
     );
     $("#food-thead").empty();
 
@@ -524,7 +525,7 @@ $(document).ready(function () {
   }
 
   function getItems() {
-    $.get("/api/items", function (data) {
+    $.get("/api/items/" + logedInUserId, function (data) {
       items = data;
       initializeRows();
     });
@@ -608,7 +609,8 @@ $(document).ready(function () {
     event.preventDefault();
     var item = {
       text: $newItemInput.val().trim(),
-      complete: false
+      complete: false,
+      userId: logedInUserId
     };
 
     $.post("/api/items", item, getItems);
