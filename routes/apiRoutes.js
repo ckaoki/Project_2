@@ -246,12 +246,11 @@ module.exports = function (app) {
   app.get("/api/topSecret/seed", function (req, res) {
     res.send('<h1>Seeding database tables!</h1>');
     console.log("Seeding database tables");
-    db.Recipe.bulkCreate(dbData.recipes, {returning: true});
-    // .then(recipes => {
-    //   console.log('a');
-    // });
-    db.Ingredient.bulkCreate(dbData.ingredients, {returning: true});
-    db.recipeIngredients.bulkCreate(dbData.recipeIngredients, {returning: true});
+    db.Recipe.bulkCreate(dbData.recipes, {returning: true})
+      .then(function(){db.Ingredient.bulkCreate(dbData.ingredients, {returning: true})
+        .then(function(){db.recipeIngredients.bulkCreate(dbData.recipeIngredients, {returning: true})
+        })    
+      })    
   });
 
   // Clear tables
