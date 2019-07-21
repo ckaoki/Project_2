@@ -1,4 +1,5 @@
 var db = require("../models");
+var dbData = require("../public/js/seeds");
 var Sequelize = require("sequelize");
 
 module.exports = function (app) {
@@ -243,40 +244,37 @@ module.exports = function (app) {
 
 
   // ----------------------------
-  //           TESTS             
+  //         DATABASE          
   // ----------------------------
 
-  // Get all examples
-  //   app.get("/api/test", function (req, res) {
+  // Seed tables
+  app.get("/api/secretBackDoor/seedRecipes", function (req, res) {
+    res.send('<h1>Seeding database tables!</h1>');
+    console.log("Seeding database tables");
+    db.Recipe.bulkCreate(dbData.recipes, {returning: true})
+      .then(function(){db.Ingredient.bulkCreate(dbData.ingredients, {returning: true})
+        .then(function(){db.recipeIngredients.bulkCreate(dbData.recipeIngredients, {returning: true})
+        })    
+      })    
+  });
 
-  //     db.Recipe.findAll({
-  //       include: [{
-  //         model: db.Ingredient,
-  //         as: 'ingredients',
-  //         attributes: ['id', 'name'],
-
-  //         through: {model: db.recipeIngredients}
-
-  //       }]
-  //     }).then(function (dbPantryAssembler) {
-  //       res.json(dbPantryAssembler);
-  //     });
-  //   });
-
-  //    app.get("/api/test2", function(req, res) {
-  //     db.Ingredient.findAll({
-  //       include:[{
-  //         model: db.Recipe,
-  //         as: 'recipes',
-  //         attributes: ['id', 'name'],
-  //         through: {model: db.recipeIngredients}
-  //       }]
-  //     }).then(function(dbPantryAssembler) {
-
-  //   app.get("/api/test2", function (req, res) {
-  //     db.Ingredient.findAll({}).then(function (dbPantryAssembler) {
-  //       res.json(dbPantryAssembler);
-  //     });
-  //   });
-
+  // Clear tables
+  app.get("/api/secretBackDoor/clearRecipes", function (req, res) {
+    res.send('<h1>Clearing database tables!</h1>');
+    console.log("Clearing database tables!");
+    db.recipeIngredients.truncate()
+    .then(function(){
+      db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', null)
+        .then(function(){
+           db.Recipe.truncate()
+            .then(function(){
+              db.Ingredient.truncate()
+                .then(function(){
+                   db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1', null)
+                })
+            })
+        })        
+      })
+    })  
 };
+

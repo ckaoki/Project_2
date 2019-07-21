@@ -442,9 +442,10 @@ var addRecipe = function (event) {
     return;
   }
 
-  API.saveRecipe(recipe).then(function () {
-    refreshExamples();
-  });
+  // TODO: removing ability to write to database because not able to write to all fields yet.
+  // API.saveRecipe(recipe).then(function () {
+  //   refreshExamples();
+  // });
 
   $recipeName.val("");
   $recipeDescription.val("");
@@ -462,8 +463,10 @@ var getRecipesByIngredients = function (event) {
         $("#foundRecipes").empty();
         $("#foundRecipesHeader").prepend("Found Recipes"); // Add Found Recipes Heading
         $("#foundRecipesHeader").append("<hr>");
+        $("#noRecipesFound").empty();
         $ingredientsInput.val("");
-        if (data.length > 0) {
+
+        if(data.length>0){
           // Add new recipe card
           for (var i = 0; i < data.length; i++) {
             $("#foundRecipes").append(card);
@@ -471,7 +474,6 @@ var getRecipesByIngredients = function (event) {
             $(".recipeName:eq(" + i + ")").text(data[i].name);
             $(".recipeDescription:eq(" + i + ")").text(data[i].description);
             $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
-            $("#noRecipesFound").empty();
 
             for (var j = 0; j < data[i].ingredients.length; j++) {
               var li = '<li class="ingr">' + data[i].ingredients[j].recipeIngredients.quantity + " ";
@@ -479,7 +481,9 @@ var getRecipesByIngredients = function (event) {
               $(".recipeIngredients:eq(" + i + ")").append(li);
             }
           };
-        } else {
+          $("#foundRecipes").append("<hr>");
+        }
+        else{
           $("#noRecipesFound").prepend("No recipes found :(");
           $("#noRecipesFound").append("<hr>");
         }
@@ -663,25 +667,3 @@ function insertItem(event) {
 
 
 checkToken();
-// ----- GETS RECIPES BY INGREDIENTS -----
-
-// var getRecipesByIngredients = function (event) {
-//   event.preventDefault();
-//   console.log($ingredientsInput.val());
-//   API.getRecipesByIngredients($ingredientsInput.val())
-//     .then(function (data) {
-//       console.log("returned: ", data);
-//       alert(JSON.stringify(data));
-//       for (var i = 0; i < data.length; i++) {
-//         $("#recipesByIngredients").append(card);
-//         $(".recipeName:eq(" + i + ")").text(data[i].name);
-//         $(".recipeDescription:eq(" + i + ")").text(data[i].description);
-//         $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
-//         for (var j = 0; j < data[i].ingredients.length; j++) {
-//           // $(".recipeIngredients:eq("+j+")").append('<li>"+data[i].ingredients[j].name+"</li>');
-//           console.log(j);
-//           $(".recipeIngredients:eq(" + i + ")").append(data[i].ingredients[j].name + ', ');
-//         }
-//       };
-//     });
-// };
