@@ -63,9 +63,9 @@ function onSignIn(googleUser) {
   var user = {
     user_name: profile.getEmail(),
     password: generatePassword(),
-    email: getEmail(),
+    email: profile.getEmail(),
   }
-  getApi.findOneUser(userName).then(function (data) {
+  getApi.findOneUser(user.user_Name).then(function (data) {
     if (data.length != 0) {
       console.log("welcome come back")
       logedInUserId = data[0].id;
