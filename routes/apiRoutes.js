@@ -1,4 +1,5 @@
 var db = require("../models");
+var dbData = require("../public/js/seeds");
 var Sequelize = require("sequelize");
 
 module.exports = function (app) {
@@ -238,40 +239,21 @@ module.exports = function (app) {
 
 
   // ----------------------------
-  //           TESTS             
+  //         DATABASE          
   // ----------------------------
 
-  // Get all examples
-  //   app.get("/api/test", function (req, res) {
+  // Seed tables
+  app.get("/api/topSecret/seed", function (req, res) {
+    res.send('<h1>Seeding Database Tables</h1>');
+  });
 
-  //     db.Recipe.findAll({
-  //       include: [{
-  //         model: db.Ingredient,
-  //         as: 'ingredients',
-  //         attributes: ['id', 'name'],
-
-  //         through: {model: db.recipeIngredients}
-
-  //       }]
-  //     }).then(function (dbPantryAssembler) {
-  //       res.json(dbPantryAssembler);
-  //     });
-  //   });
-
-  //    app.get("/api/test2", function(req, res) {
-  //     db.Ingredient.findAll({
-  //       include:[{
-  //         model: db.Recipe,
-  //         as: 'recipes',
-  //         attributes: ['id', 'name'],
-  //         through: {model: db.recipeIngredients}
-  //       }]
-  //     }).then(function(dbPantryAssembler) {
-
-  //   app.get("/api/test2", function (req, res) {
-  //     db.Ingredient.findAll({}).then(function (dbPantryAssembler) {
-  //       res.json(dbPantryAssembler);
-  //     });
-  //   });
+  // Clear tables
+  app.get("/api/topSecret/clear", function (req, res) {
+    res.send('<h1>Clearing Database Tables</h1>');
+    var rec = dbData.recipes[0].name;
+    var ing = dbData.ingredients;
+    data = rec + ing;
+    console.log(data);
+  });
 
 };
