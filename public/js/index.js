@@ -435,6 +435,7 @@ var getRecipesByIngredients = function (event) {
               $(".recipeIngredients:eq(" + i + ")").append(li);
             }
           };
+          $("#foundRecipes").append("+++++++++++++++++++++++++++++++++++++++++++++");
           $("#foundRecipes").append("<hr>");
         }
         else{

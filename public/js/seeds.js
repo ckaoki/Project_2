@@ -19,7 +19,7 @@ var recipes = [
     },
     {
         name:'Parmesan Crusted Pork Chops',
-        description:'Pork chops with a Italian and Cajun flare',
+        description:'Pork chops with an Italian and Cajun flare',
         instructions:'Preheat over to 350 degrees. Whisk egg in a shallow bowl. Mix 1/4 cup grated Parmesan cheese and 1 teaspoon Cajun seasoning together on plate. Dip each pork chop into egg. Press until coated on both sides. Baked in preheated overn until golden for 35 to 40 minutes.',
         img:'https://images.media-allrecipes.com/userphotos/560x315/3875421.jpg'
     },
@@ -31,7 +31,7 @@ var recipes = [
     },
     {
         name:'Kale and Quinoa Salad',
-        description:'Delicious and health salad',
+        description:'Delicious and health Kale salad',
         instructions:'Stir 1 cup quinoa into boiling water reduce heat to medium-low, place cover on saucepan, and cook until water absorbs into the quinoa, about 12 minutes. Remove saucepan from heat and let cool. Put kale in  mixing bowl. Whisk olive oil, lemon juice, Dijon mustard, garlic, pepper, and salt together in a bowl until oil emulsifies and drizzle over mixture. Add quinoa and feta.',
         img:'https://blog.katescarlata.com/wp-content/uploads/2017/02/Quinoa-kale-spoon.jpg'
     },
