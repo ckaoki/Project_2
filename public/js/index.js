@@ -418,7 +418,9 @@ var getRecipesByIngredients = function (event) {
         $("#foundRecipes").empty();
         $("#foundRecipesHeader").prepend("Found Recipes");   // Add Found Recipes Heading
         $("#foundRecipesHeader").append("<hr>");
+        $("#noRecipesFound").empty();
         $ingredientsInput.val("");
+
         if(data.length>0){
           // Add new recipe card
           for (var i = 0; i < data.length; i++) {
@@ -427,7 +429,6 @@ var getRecipesByIngredients = function (event) {
             $(".recipeName:eq(" + i + ")").text(data[i].name);
             $(".recipeDescription:eq(" + i + ")").text(data[i].description);
             $(".recipeInstructions:eq(" + i + ")").text(data[i].instructions);
-            $("#noRecipesFound").empty();
 
             for (var j = 0; j < data[i].ingredients.length; j++) {
               var li = '<li class="ingr">' + data[i].ingredients[j].recipeIngredients.quantity + " ";
@@ -435,7 +436,6 @@ var getRecipesByIngredients = function (event) {
               $(".recipeIngredients:eq(" + i + ")").append(li);
             }
           };
-          $("#foundRecipes").append("+++++++++++++++++++++++++++++++++++++++++++++");
           $("#foundRecipes").append("<hr>");
         }
         else{
