@@ -82,6 +82,7 @@ function onSignIn(googleUser) {
   $("#add_food_div").css("display","unset");
   $("#log_area").append($signOutBtn);
   $("#log_area").append($profileBtn.text("PROFILE"));
+  $(".login_close_btn").click();
   // $("#log_area").append($profileBtn.text("user id:" + logedInUserId));
 }; //onSignIn funtion end
 
@@ -92,19 +93,16 @@ function signOut() {
     console.log('User signed out.');
 
   });
-}
-//user sign out
-function userSignOut() {
   $("#log_area").empty();
   $("#food-thead").empty();
   $("#foodInfo").empty();
-  $("#log_area").append($signUpBtn);
   $("#log_area").append($signInBtn);
+  $("#log_area").append($signUpBtn);
   $("#add_food_div").css("display","none");
   
   logedInUserId = "-1"
-};
-$signOutBtn.click(userSignOut);
+}
+
 
 
 var $userNameProfile = $("#user_name_profile");
@@ -221,13 +219,13 @@ var submitToLogin = function (event) {
   }
 
   getApi.findOneUser(signInName).then(function (data) {
-    // console.log(data);
-    if (!data) {
+    console.log(data);
+    if (data.length===0) {
       alert("user name not exist");
       return;
     }
 
-    if (data[0].password === $signInPassword.val().trim()) {
+    else if (data[0].password === $signInPassword.val().trim()) {
       logedInUserId = data[0].id;
       logedInUserName = data[0].user_name;
       console.log("you are loged in, user id is: " + logedInUserId);
@@ -238,6 +236,7 @@ var submitToLogin = function (event) {
       $("#log_area").append($signOutBtn);
       $("#log_area").append($profileBtn.text("PROFILE"));
       refreshfoods();
+      $(".login_close_btn").click();
 
     } else {
       alert("password not correct");
