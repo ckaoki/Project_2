@@ -10,7 +10,7 @@ module.exports = function (sequelize, DataTypes) {
         len: [1]
       },
       references: {
-        model: 'users',
+        model: 'Users',
         key: 'id'
       },
     },
