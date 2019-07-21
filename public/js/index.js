@@ -65,12 +65,13 @@ function onSignIn(googleUser) {
     password: generatePassword(),
     email: profile.getEmail(),
   }
-  getApi.findOneUser(user.user_Name).then(function (data) {
+  getApi.findOneUser(user.user_name).then(function (data) {
     if (data.length != 0) {
       console.log("welcome come back")
       logedInUserId = data[0].id;
       logedInUserName = data[0].user_name;
     } else {
+      console.log("you are a new user, welcome")
       getApi.saveUser(user).then(function (data) {
         logedInUserId = data[0].id;
         logedInUserName = data[0].user_name;
