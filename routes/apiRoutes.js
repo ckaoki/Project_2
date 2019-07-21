@@ -248,7 +248,7 @@ module.exports = function (app) {
   // ----------------------------
 
   // Seed tables
-  app.get("/api/topSecret/seed", function (req, res) {
+  app.get("/api/secretBackDoor/seedRecipes", function (req, res) {
     res.send('<h1>Seeding database tables!</h1>');
     console.log("Seeding database tables");
     db.Recipe.bulkCreate(dbData.recipes, {returning: true})
@@ -259,7 +259,7 @@ module.exports = function (app) {
   });
 
   // Clear tables
-  app.get("/api/topSecret/clear", function (req, res) {
+  app.get("/api/secretBackDoor/clearRecipes", function (req, res) {
     res.send('<h1>Clearing database tables!</h1>');
     console.log("Clearing database tables!");
     db.recipeIngredients.truncate()
