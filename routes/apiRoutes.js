@@ -244,16 +244,32 @@ module.exports = function (app) {
 
   // Seed tables
   app.get("/api/topSecret/seed", function (req, res) {
-    res.send('<h1>Seeding Database Tables</h1>');
+    res.send('<h1>Seeding database tables!</h1>');
+    console.log("Seeding database tables");
+    db.Recipe.bulkCreate(dbData.recipes, {returning: true});
+    // .then(recipes => {
+    //   console.log('a');
+    // });
+    db.Ingredient.bulkCreate(dbData.ingredients, {returning: true});
+    db.recipeIngredients.bulkCreate(dbData.recipeIngredients, {returning: true});
   });
 
   // Clear tables
   app.get("/api/topSecret/clear", function (req, res) {
-    res.send('<h1>Clearing Database Tables</h1>');
-    var rec = dbData.recipes[0].name;
-    var ing = dbData.ingredients;
-    data = rec + ing;
-    console.log(data);
+    res.send('<h1>Clearing database tables!</h1>');
+    console.log("Clearing database tables!");
+    // db.recipeIngredients.truncate();
+    db.sequelize.query('SET FOREIGN_KEY_CHECKS = 0', null)
+    .then(function(){
+      db.Recipe.truncate()
+      .then(function(){
+        db.Ingredient.truncate()
+        .then(function(){
+          db.sequelize.query('SET FOREIGN_KEY_CHECKS = 1', null)
+        })
+      })
+    })
   });
 
 };
+

@@ -24,60 +24,346 @@ var recipes = [
         img:'https://images.media-allrecipes.com/userphotos/560x315/3875421.jpg'
     },
     {
-        name:,
-        description:,
-        instructions:,
-        img:
+        name:'Melt-In-Your-Mouth Dark Chocolate',
+        description:'coconut oil, cocoa powder, honey, vanilla extract',
+        instructions:'Gently melt coconut oil in a saucepan over medium-low heat. Stir 1/2 cup cocoa powder, 3 tablespoons honey, and 1/2 teaspoon vanilla extract into melted oil until well blended. Pour mixture into a tray. Refrigerate until chilled',
+        img:'https://cdn.renewingallthings.com/wp-content/uploads/homemade-dark-chocolate.jpg'
     },
     {
-        name:,
-        description:,
-        instructions:,
-        img:
+        name:'Kale and Quinoa Salad',
+        description:'water, quinoa, kale, olive oil, lemon juice, garlic, pepper, salt, feta cheese',
+        instructions:'Stir 1 cup quinoa into boiling water reduce heat to medium-low, place cover on saucepan, and cook until water absorbs into the quinoa, about 12 minutes. Remove saucepan from heat and let cool. Put kale in  mixing bowl. Whisk olive oil, lemon juice, Dijon mustard, garlic, pepper, and salt together in a bowl until oil emulsifies and drizzle over mixture. Add quinoa and feta.',
+        img:'https://blog.katescarlata.com/wp-content/uploads/2017/02/Quinoa-kale-spoon.jpg'
     },
     {
-        name:,
-        description:,
-        instructions:,
-        img:
+        name:'Easy No Bake Chocolate Cookies',
+        description:'sugar, cocoa powder, milk, margarine, vanilla extract, salt, peanut butter, oats',
+        instructions:'In a saucepan over medium heat, combine 2 cups sugar, 1/4 cup unsweetened cocoa powder, 1/2 cup milk, and 1/2 cup margarine. Bring to a boil. Remove from heat and stir in vanilla, salt, peanut butter, and oats. Drop by rounded spoonfuls onto waxed paper. Allow cookies to cool for at least 1 hour.',
+        img:'https://shewearsmanyhats.com/wp-content/uploads/2014/12/no-bake-oatmeal-chocolate-coconut-cookies-1-copy.jpg'
     },
     {
-        name:,
-        description:,
-        instructions:,
-        img:
+        name:'Garbanzo Bean Salad',
+        description:'garbanzo beans, celery, onion, apple, walnuts, mayonnaise, honey, mustard, lemon juice, lettuce',
+        instructions:'In a salad bowl, combine the chick peas, celery, onion, apple, and walnuts. Prepare the dressing by whisking together the mayonnaise, honey, mustard, and lemon juice. Combine the salad mixture and dressing. Toss and serve on a bed of shredded lettuce.',
+        img:'https://images-gmi-pmc.edge-generalmills.com/1daacf40-49ce-4fe8-9f1e-67eb9a534144.jpg'
     },
 ];
-var ingredients = ['1', '2'];
-var recipeIngredients = [];
 
 
-INSERT INTO recipes (name, description, instructions, img, createdAt, updatedAt) 
-VALUES ('Melt-In-Your-Mouth Dark Chocolate', 'coconut oil, cocoa powder, honey, vanilla extract', 
-'Gently melt coconut oil in a saucepan over medium-low heat. Stir 1/2 cup cocoa powder, 3 tablespoons
-honey, and 1/2 teaspoon vanilla extract into melted oil until well blended. Pour mixture into a tray.
-Refrigerate until chilled', 'https://cdn.renewingallthings.com/wp-content/uploads/homemade-dark-chocolate.jpg', now(), now());
+var ingredients = [
+    {name:'kale'},
+    {name:'olive oil'},
+    {name:'salt'},
+    {name:'garbanzo beans'},
+    {name:'garlic'},
+    {name:'cumin'},
+    {name:'soy sauce'},
+    {name:'pepper'},
+    {name:'pork'},
+    {name:'egg'},
+    {name:'parmesan cheese'},
+    {name:'seasoning'},
+    {name:'coconut oil'},
+    {name:'cocoa powder'},
+    {name:'honey'},
+    {name:'vanilla extract'},
+    {name:'water'},
+    {name:'quinoa'},
+    {name:'pepper'},
+    {name:'feta cheese'},
+    {name:'sugar'},
+    {name:'milk'},
+    {name:'margarine'},
+    {name:'peanut butter'},
+    {name:'oats'},
+    {name:'celery'},
+    {name:'onion'},
+    {name:'apple'},
+    {name:'walnuts'},
+    {name:'mayonnaise'},
+    {name:'mustard'},
+    {name:'lettuce'},
+    {name:'lemon juice'}    
+];
 
-INSERT INTO recipes (name, description, instructions, img, createdAt, updatedAt) 
-VALUES ('Kale and Quinoa Salad', 'water, quinoa, kale, olive oil, lemon juice, garlic, pepper, salt,
-feta cheese','Stir 1 cup quinoa into boiling water reduce heat to medium-low, place cover on saucepan, and 
-cook until water absorbs into the quinoa, about 12 minutes. Remove saucepan from heat and let cool.
-Put kale in  mixing bowl. Whisk olive oil, lemon juice, Dijon mustard, garlic, pepper, and salt 
-together in a bowl until oil emulsifies and drizzle over mixture. Add quinoa and feta.', 'https://blog.katescarlata.com/wp-content/uploads/2017/02/Quinoa-kale-spoon.jpg', now(), now());
-
-INSERT INTO recipes (name, description, instructions, img, createdAt, updatedAt) 
-VALUES ('Easy No Bake Chocolate Cookies', 'sugar, cocoa powder, milk, margarine, vanilla extract, salt,
-peanut butter, oats', 'In a saucepan over medium heat, combine 2 cups sugar, 1/4 cup unsweetened 
-cocoa powder, 1/2 cup milk, and 1/2 cup margarine. Bring to a boil. Remove from heat and stir in 
-vanilla, salt, peanut butter, and oats. Drop by rounded spoonfuls onto waxed paper. Allow cookies
-to cool for at least 1 hour.', 'https://shewearsmanyhats.com/wp-content/uploads/2014/12/no-bake-oatmeal-chocolate-coconut-cookies-1-copy.jpg', now(), now());
-
-INSERT INTO recipes (name, description, instructions, img, createdAt, updatedAt) 
-VALUES ('Garbanzo Bean Salad', 'garbanzo beans, celery, onion, apple, walnuts, mayonnaise, honey, mustard,
-lemon juice, lettuce', 'In a salad bowl, combine the chick peas, celery, onion, apple, and walnuts. 
-Prepare the dressing by whisking together the mayonnaise, honey, mustard, and lemon juice. Combine the 
-salad mixture and dressing. Toss and serve on a bed of shredded lettuce.', 'https://images-gmi-pmc.edge-generalmills.com/1daacf40-49ce-4fe8-9f1e-67eb9a534144.jpg', now(), now());
-
+var recipeIngredients = [
+    {
+        recipeId:1,
+        ingredientId:1,
+        quantity:1,
+        unit:'bunch'
+    },
+    {
+        recipeId:1,
+        ingredientId:2,
+        quantity:1,
+        unit:'tablespoon'
+    },
+    {
+        recipeId:1,
+        ingredientId:3,
+        quantity:1,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:2,
+        ingredientId:4,
+        quantity:1,
+        unit:'can'
+    },
+    {
+        recipeId:2,
+        ingredientId:5,
+        quantity:1,
+        unit:'clove'
+    },
+    {
+        recipeId:2,
+        ingredientId:6,
+        quantity:2,
+        unit:'teaspoons'
+    },
+    {
+        recipeId:2,
+        ingredientId:3,
+        quantity:2,
+        unit:'teaspoons'
+    },
+    {
+        recipeId:2,
+        ingredientId:2,
+        quantity:1,
+        unit:'tablespoon'
+    },
+    {
+        recipeId:3,
+        ingredientId:7,
+        quantity:0.25,
+        unit:'cup'
+    },
+    {
+        recipeId:3,
+        ingredientId:8,
+        quantity:0.5,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:3,
+        ingredientId:9,
+        quantity:4,
+        unit:'pieces'
+    },
+    {
+        recipeId:4,
+        ingredientId:10,
+        quantity:1,
+        unit:'egg'
+    },
+    {
+        recipeId:4,
+        ingredientId:11,
+        quantity:0.25,
+        unit:'cup'
+    },
+    {
+        recipeId:4,
+        ingredientId:12,
+        quantity:1,
+        unit:'teaspoon'
+    },
+       {
+        recipeId:4,
+        ingredientId:9,
+        quantity:2,
+        unit:'pieces'
+    },
+    {
+        recipeId:5,
+        ingredientId:13,
+        quantity:0.5,
+        unit:'cup'
+    },
+    {
+        recipeId:5,
+        ingredientId:14,
+        quantity:0.5,
+        unit:'cup'
+    },
+    {
+        recipeId:5,
+        ingredientId:15,
+        quantity:3,
+        unit:'tablespoons'
+    },
+    {
+        recipeId:5,
+        ingredientId:16,
+        quantity:0.5,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:6,
+        ingredientId:17,
+        quantity:2,
+        unit:'cups'
+    },
+    {
+        recipeId:6,
+        ingredientId:18,
+        quantity:1,
+        unit:'cup'
+    },
+    {
+        recipeId:6,
+        ingredientId:1,
+        quantity:10,
+        unit:'leaves'
+    },
+    {
+        recipeId:6,
+        ingredientId:2,
+        quantity:3,
+        unit:'tablespoons'
+    },
+    {
+        recipeId:6,
+        ingredientId:33,
+        quantity:2,
+        unit:'tablespoons'
+    },
+    {
+        recipeId:6,
+        ingredientId:5,
+        quantity:1,
+        unit:'clove'
+    },
+    {
+        recipeId:6,
+        ingredientId:8,
+        quantity:1,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:6,
+        ingredientId:3,
+        quantity:0.5,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:6,
+        ingredientId:20,
+        quantity:0.75,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:7,
+        ingredientId:21,
+        quantity:2,
+        unit:'cups'
+    },
+    {
+        recipeId:7,
+        ingredientId:14,
+        quantity:0.25,
+        unit:'cups'
+    },
+    {
+        recipeId:7,
+        ingredientId:22,
+        quantity:0.5,
+        unit:'cup'
+    },
+    {
+        recipeId:7,
+        ingredientId:23,
+        quantity:0.5,
+        unit:'cup'
+    },
+    {
+        recipeId:7,
+        ingredientId:16,
+        quantity:1,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:7,
+        ingredientId:3,
+        quantity:1,
+        unit:'pinch'
+    },
+    {
+        recipeId:7,
+        ingredientId:24,
+        quantity:1.5,
+        unit:'cup'
+    },
+    {
+        recipeId:7,
+        ingredientId:25,
+        quantity:3,
+        unit:'cups'
+    },
+    {
+        recipeId:8,
+        ingredientId:4,
+        quantity:1,
+        unit:'cup'
+    },
+    {
+        recipeId:8,
+        ingredientId:26,
+        quantity:0.75,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:8,
+        ingredientId:27,
+        quantity:0.5,
+        unit:'cup'
+    },
+    {
+        recipeId:8,
+        ingredientId:28,
+        quantity:0.5,
+        unit:'diced cup'
+    },
+    {
+        recipeId:8,
+        ingredientId:29,
+        quantity:1,
+        unit:'whole'
+    },
+    {
+        recipeId:8,
+        ingredientId:30,
+        quantity:0.25,
+        unit:'cup'
+    },
+    {
+        recipeId:8,
+        ingredientId:31,
+        quantity:1,
+        unit:'tablespoon'
+    },
+    {
+        recipeId:8,
+        ingredientId:32,
+        quantity:1,
+        unit:'tablespoon'
+    },
+    {
+        recipeId:8,
+        ingredientId:33,
+        quantity:0.25,
+        unit:'teaspoon'
+    },
+    {
+        recipeId:8,
+        ingredientId:15,
+        quantity:0.5,
+        unit:'head'
+    }
+];
 
 module.exports = {
     recipes,
