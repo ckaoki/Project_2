@@ -4,13 +4,14 @@ var $recipeDescription = $("#recipeDescription");
 var $recipeInstructions = $("#recipeInstructions");
 var $ingredientsFile = $("#ingredientsFile");
 var $submitBtn = $("#submit");
-var $submitRecipeBtn = $("#addRecipe");
+var $submitRecipeBtn = $("#addRecipeBtn");
 var $exampleList = $("#example-list");
 var $customFile = $("#customFile");
 var $ingredientsInput = $("#ingredientsInput");
 var $ingredientsSubmitBtn = $("#ingredientsSubmitBtn");
-
 var $recipesByIngredient = $("#recipesByIngredient");
+var $recipeIngredients = $("#recipeIngredients");
+var $imgInput = $("#imgInput");
 
 var $signUpName = $(".signUpName");
 var $signUpPassword = $(".signUpPassword");
@@ -160,11 +161,11 @@ card += '       </ul>';
 card += '       <b>Instructions:</b>';
 card += '       <p class="recipeInstructions" class="card-text"></p>';
 card += '     </div>';
-card += '     <div class="d-flex justify-content-between align-items-center">';
-card += '       <div class="btn-group">';
-card += '          <button type="button" class="btn btn-danger btn-sm" style="margin-top: 5px">Save recipe</button>';
-card += '       </div>';
-card += '     </div>';
+// card += '     <div class="d-flex justify-content-between align-items-center">';
+// card += '       <div class="btn-group">';
+// card += '          <button type="button" class="btn btn-danger btn-sm" style="margin-top: 5px">Save recipe</button>';
+// card += '       </div>';
+// card += '     </div>';
 card += '   </div>';
 card += '  </div>';
 card += '</div>';
@@ -434,9 +435,13 @@ var addRecipe = function (event) {
   var recipe = {
     name: $recipeName.val().trim(),
     description: $recipeDescription.val().trim(),
-    instructions: $recipeInstructions.val().trim()
+    instructions: $recipeInstructions.val().trim(),
+    img: $imgInput.val().trim()
   };
-
+  
+  var ingredients =  $recipeIngredients.val().trim();
+  console.log(csvJSON(ingredients));
+  
   if (!(recipe.name && recipe.description)) {
     alert("You must enter a recipe name and description!");
     return;
@@ -450,8 +455,26 @@ var addRecipe = function (event) {
   $recipeName.val("");
   $recipeDescription.val("");
   $recipeInstructions.val("");
+  $recipeIngredients.val("");
+  $imgInput.val("");
   //TODO: may need to clear the ingredients and instructions text inputs after they are inserted into the Ingredients database table.
 };
+
+function IngredientsCsvJSON(csv){
+  var lines=csv.split("\n");  
+  var result = [];  
+  var headers= ["quantity","unit","name"];  
+  for(var i=0;i<lines.length;i++){  
+    var obj = {};
+    var currentline=lines[i].split(",");  
+      obj[headers[0]] = currentline[0];
+      obj[headers[1]] = parseFloat(currentline[1]);
+      obj[headers[2]] = currentline[2];
+    result.push(obj);  
+  }    
+  //return result; //JavaScript object
+  return JSON.stringify(result); //JSON
+}
 
 // Search for recipes by ingredients
 var getRecipesByIngredients = function (event) {
