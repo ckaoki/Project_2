@@ -1,5 +1,5 @@
 # Pantry Assembler
-![Test Image 2](/public/assets/img/PantryAssemblerImage-338x414.png)
+![Test Image 2](PantryAssemblerImage.png)
 ## Description
 --------------
 ### An web applicataion that allows a user to access recipes to meals or treats that they can make based on what ingredients they have available to them.
